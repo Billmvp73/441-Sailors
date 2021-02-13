@@ -5,7 +5,7 @@
 |[<img src="https://eecs441.eecs.umich.edu/img/admin/grades3.png">][grade_sheet]|[<img src="https://eecs441.eecs.umich.edu/img/admin/team.png">][team_contract]|[<img src="https://eecs441.eecs.umich.edu/img/admin/video.png">][demo_page]|[<img src="https://eecs441.eecs.umich.edu/img/admin/wiki.png">][wiki_page]|[<img src="https://eecs441.eecs.umich.edu/img/admin/trello.png">][process_page]|
 
 
-![Elevator Pitch](/assets/elevator.JPG)
+![Elevator Pitch](/assets/elevator.png)
 ![Team](/assets/team.png)
 
 [grade_sheet]: https://docs.google.com/spreadsheets/d/1wEVv2B1XIFV6k4lRGj8lcMUZvFnBvc6UrOOhReq6u80/edit?usp=sharing
