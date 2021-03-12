@@ -343,7 +343,7 @@ venv3/
 ENV/
 env.bak/
 venv.bak/
-
+Treasure/backend/env/
 # Spyder project settings
 .spyderproject
 .spyproject
