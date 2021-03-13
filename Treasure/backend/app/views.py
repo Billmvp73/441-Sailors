@@ -22,8 +22,8 @@ def postgames(request):
     json_data = json.loads(request.body)
     cursor = connection.cursor()
     # assign a new gid
-    cursor.execute('SELECT COUNT(*) FROM games;')
-    gid = str(2)
+    # cursor.execute('SELECT COUNT(*) FROM games;')
+    gid = '3'
     username = json_data['username']
     gamename = json_data['gamename']
     description = json_data['description']
