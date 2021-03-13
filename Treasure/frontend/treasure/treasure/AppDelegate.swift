@@ -1,11 +1,12 @@
 //
 //  AppDelegate.swift
-//  treasure
+//  swiftChatter
 //
 //  Created by pyhuang on 3/12/21.
 //
 
 import UIKit
+import GoogleMaps
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -14,6 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        GMSServices.provideAPIKey("AIzaSyAlo7v3ou3AMciyQPxhwMlrGhKtSOwtAzU")
         return true
     }
 

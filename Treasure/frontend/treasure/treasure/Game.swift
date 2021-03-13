@@ -6,11 +6,12 @@
 //
 
 import Foundation
-struct Games {
+struct Game {
     var username: String?
     var message: String?
     var timestamp: String?
-    var location: GeoData?
     var tag: String?
-    static len nFields = 5
+    var location: GeoData?
+    static let nFields = 5
 }
+
