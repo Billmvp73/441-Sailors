@@ -70,7 +70,7 @@ class MainVC: UITableViewController {
         
         cell.usernameLabel.text = game.username
         cell.usernameLabel.sizeToFit()
-        cell.messageLabel.text = game.message
+        cell.messageLabel.text = game.description
         cell.messageLabel.sizeToFit()
         cell.timestampLabel.text = game.timestamp
         cell.timestampLabel.sizeToFit()

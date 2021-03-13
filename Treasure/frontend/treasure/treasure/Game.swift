@@ -7,8 +7,10 @@
 
 import Foundation
 struct Game {
+    var gid: String?
     var username: String?
-    var message: String?
+    var gamename: String?
+    var description: String?
     var timestamp: String?
     var tag: String?
     var location: GeoData?
@@ -16,16 +18,15 @@ struct Game {
 }
 
 struct Puzzle {
-    var geodata: String?
+    var location: GeoData?
     var name: String?
 }
 
 struct GamePost {
     var userid: String?
     var name: String?
-    var disc: String?
-    var timestamp: String?
+    var description: String?
     var tag: String?
+    var location: GeoData?
     var puzzles: Array<Puzzle> = Array()
-    static let nFields = 6
 }

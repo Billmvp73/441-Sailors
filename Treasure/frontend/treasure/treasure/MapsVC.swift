@@ -86,7 +86,7 @@ class MapsVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate {
            view.addSubview(username)
            
            let message = UILabel(frame: CGRect.init(x: username.frame.origin.x, y: username.frame.origin.y + username.frame.size.height + 10, width: view.frame.size.width - 16, height: 15))
-           message.text = game.message
+           message.text = game.description
            message.textColor = .darkGray
            view.addSubview(message)
 

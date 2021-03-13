@@ -11,14 +11,17 @@ struct GamesStore {
     //private let serverUrl = "https://mobapp.eecs.umich.edu/"
     private let serverUrl = "https://174.138.33.66/"
     
-    func postGames(_ game: Game) {
+    func postGames(_ game: GamePost) {
+        
         var geoObj: Data?
         if let geodata = game.location {
             geoObj = try? JSONSerialization.data(withJSONObject: [geodata.lat, geodata.lon, geodata.loc, geodata.facing, geodata.speed])
         }
-        let jsonObj = ["username": game.username,
-                       "message": game.message,
+        let jsonObj = ["userid": game.userid,
+                       "name": game.name,
                        "location": (geoObj == nil) ? nil : String(data: geoObj!, encoding: .utf8),
+                       "description": game.description,
+                       //"puzzles": game.puzzles, //TODO: may need to encode like geodata
                        "tag": game.tag]
         guard let jsonData = try? JSONSerialization.data(withJSONObject: jsonObj) else {
             print("postGames: jsonData serialization error")
@@ -76,12 +79,14 @@ struct GamesStore {
             let gamesReceived = jsonObj["games"] as? [[String?]] ?? []
             for gameEntry in gamesReceived {
                 if (gameEntry.count == Game.nFields) {
+                    // TODO: change to json type, do not use gameEntry[xxxx]
                     let geoObj = gameEntry[3]?.data(using: .utf8)
                     let geoArr = (geoObj == nil) ? nil : try? JSONSerialization.jsonObject(with: geoObj!) as? [Any]
                     games += [Game(username: gameEntry[0],
-                                     message: gameEntry[1],
-                                     timestamp: gameEntry[4],
-                                     tag: gameEntry[2],
+                                     gamename: gameEntry[0],
+                                     description: gameEntry[0],
+                                     timestamp: gameEntry[0],
+                                     tag: gameEntry[0],
                                      location: (geoArr == nil) ? nil :
                                         GeoData(lat: geoArr![0] as! Double,
                                                 lon: geoArr![1] as! Double,

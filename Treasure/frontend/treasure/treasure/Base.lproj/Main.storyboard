@@ -87,7 +87,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="addPuzzlesButton" destination="ayY-xf-gIf" id="qC0-FW-fFn"/>
-                        <outlet property="discTextView" destination="xme-nf-RvI" id="aks-tz-daY"/>
+                        <outlet property="descriptionTextView" destination="xme-nf-RvI" id="Tph-Zu-Fon"/>
                         <outlet property="nameTextField" destination="trL-8M-K6S" id="za0-PF-mSW"/>
                         <outlet property="tagTextView" destination="4yL-n6-asx" id="765-yc-UhH"/>
                     </connections>
