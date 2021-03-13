@@ -15,3 +15,17 @@ struct Game {
     static let nFields = 5
 }
 
+struct Puzzle {
+    var geodata: String?
+    var name: String?
+}
+
+struct GamePost {
+    var userid: String?
+    var name: String?
+    var disc: String?
+    var timestamp: String?
+    var tag: String?
+    var puzzles: Array<Puzzle> = Array()
+    static let nFields = 6
+}

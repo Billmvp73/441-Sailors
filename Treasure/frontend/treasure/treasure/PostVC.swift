@@ -7,24 +7,47 @@
 
 import UIKit
 
-class PostVC: UIViewController {
+class PostVC: UIViewController, UITextViewDelegate {
     private let geodata = GeoData()
     
-    @IBOutlet weak var messageTextView: UITextView!
-    @IBOutlet weak var usernameLabel: UILabel!
-    @IBOutlet weak var tagTextView: UITextView!
+    @IBOutlet weak var addPuzzlesButton: UIButton!
+    @IBOutlet weak var discTextView: UITextView!
+    
+    @IBOutlet weak var nameTextField: UITextField!
+    
+    @IBOutlet weak var tagTextView: UITextField!
     @IBAction func submitGames(_ sender: Any) {
-        let game = Game(username: self.usernameLabel.text,
-                        message: self.messageTextView.text, tag: self.tagTextView.text, location: geodata)
-        let store = GamesStore()
-        store.postGames(game)
+        let game = GamePost(userid: "change to apple user id -- TODO",
+                        name: self.nameTextField.text, disc: self.discTextView.text, tag: self.tagTextView.text, puzzles: Array())
+//        let store = GamesStore()
+//        store.postGames(game)
         dismiss(animated: true, completion: nil)
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        discTextView.delegate = self
+        discTextView.textColor = UIColor.lightGray
+        discTextView.layer.borderWidth = 0.5
+        discTextView.layer.borderColor = UIColor.lightGray.cgColor
+        discTextView.clipsToBounds = true
+        discTextView.layer.cornerRadius = 6.0
+        addPuzzlesButton.clipsToBounds = true
+        addPuzzlesButton.layer.cornerRadius = 6.0
         // Do any additional setup after loading the view.
     }
-
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.textColor == UIColor.lightGray {
+            textView.text = nil
+            textView.textColor = UIColor.black
+        }
+    }
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text.isEmpty {
+            textView.text = "discription"
+            textView.textColor = UIColor.lightGray
+        }
+    }
 
 }
 
