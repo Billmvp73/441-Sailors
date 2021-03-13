@@ -82,11 +82,11 @@ struct GamesStore {
                     // TODO: change to json type, do not use gameEntry[xxxx]
                     let geoObj = gameEntry[3]?.data(using: .utf8)
                     let geoArr = (geoObj == nil) ? nil : try? JSONSerialization.jsonObject(with: geoObj!) as? [Any]
-                    games += [Game(username: gameEntry[0],
-                                     gamename: gameEntry[0],
-                                     description: gameEntry[0],
-                                     timestamp: gameEntry[0],
-                                     tag: gameEntry[0],
+                    games += [Game(username: gameEntry[1],
+                                     gamename: gameEntry[2],
+                                     description: gameEntry[3],
+                                     timestamp: gameEntry[4],
+                                     tag: gameEntry[5],
                                      location: (geoArr == nil) ? nil :
                                         GeoData(lat: geoArr![0] as! Double,
                                                 lon: geoArr![1] as! Double,
