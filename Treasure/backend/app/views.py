@@ -24,7 +24,6 @@ def postgames(request):
     # assign a new gid
     cursor.execute('SELECT MAX(gid) FROM games;')
     gid = str(int(cursor.fetchone()) + 1)
-    gid = json_data['gid']
     username = json_data['username']
     gamename = json_data['gamename']
     description = json_data['description']
