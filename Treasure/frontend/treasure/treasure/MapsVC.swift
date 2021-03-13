@@ -84,17 +84,23 @@ class MapsVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate {
            username.font = UIFont.systemFont(ofSize: 16, weight: .bold)
            username.textColor = .black
            view.addSubview(username)
+        
+           let gamename = UILabel(frame: CGRect.init(x: timestamp.frame.origin.x, y: timestamp.frame.origin.y + timestamp.frame.size.height + 5, width: view.frame.size.width - 16, height: 15))
+            gamename.text = game.gamename
+            username.font = UIFont.systemFont(ofSize: 16, weight: .bold)
+            username.textColor = .black
+            view.addSubview(username)
            
-           let message = UILabel(frame: CGRect.init(x: username.frame.origin.x, y: username.frame.origin.y + username.frame.size.height + 10, width: view.frame.size.width - 16, height: 15))
-           message.text = game.description
-           message.textColor = .darkGray
-           view.addSubview(message)
+           let description = UILabel(frame: CGRect.init(x: username.frame.origin.x, y: username.frame.origin.y + username.frame.size.height + 10, width: view.frame.size.width - 16, height: 15))
+           description.text = game.description
+           description.textColor = .darkGray
+           view.addSubview(description)
 
            guard let geodata = game.location else {
                return view
            }
 
-           let infoLabel = UILabel(frame: CGRect.init(x: message.frame.origin.x, y: message.frame.origin.y + message.frame.size.height + 30, width: view.frame.size.width - 16, height: 40))
+           let infoLabel = UILabel(frame: CGRect.init(x: description.frame.origin.x, y: description.frame.origin.y + description.frame.size.height + 30, width: view.frame.size.width - 16, height: 40))
            infoLabel.text = "Posted from " + geodata.loc + ", while facing " + geodata.facing + " moving at " + geodata.speed + " speed."
            infoLabel.font = UIFont.systemFont(ofSize: 16)
            
