@@ -20,11 +20,16 @@ def postgames(request):
     if request.method != 'POST':
         return HttpResponse(status=404)
     json_data = json.loads(request.body)
+    cursor = connection.cursor()
+    # assign a new gid
+    cursor.execute('SELECT MAX(gid) FROM games;')
+    gid = str(int(cursor.fetchone()) + 1)
+    gid = json_data['gid']
     username = json_data['username']
-    message = json_data['message']
+    gamename = json_data['gamename']
+    description = json_data['description']
     tag = json_data['tag']
     location = json_data['location']
-    cursor = connection.cursor()
-    cursor.execute('INSERT INTO games (username, message, tag, location) VALUES '
-                   '(%s, %s,%s, %s);', (username, message, tag, location))
+    cursor.execute('INSERT INTO games (gid, username, gamename, description, tag, location) VALUES '
+                   '(%s, %s, %s, %s,%s, %s);', (gid, username, gamename, description, tag, location))
     return JsonResponse({})
