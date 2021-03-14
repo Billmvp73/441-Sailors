@@ -4,7 +4,7 @@ from django.views.decorators.csrf import csrf_exempt
 import json
 import math
 from django.shortcuts import render
-def getgames(request):
+def getgames(request, city_info):
     if request.method != 'GET':
         return HttpResponse(status=404)
     # city = city_info.split('+')[0]
@@ -31,9 +31,17 @@ def getgames(request):
     # final_rows = []
     # for w in sorted(distance, key=distance.get):
     #     final_rows.append(new_rows[w])
+
+    new_rows = []
+    for row in rows:
+        location = row[4].split(',')[2].split('"')[1]
+        if location == city_info:
+            new_rows.append(row)
+        if len(new_rows) == 25:
+            break
     response = {}
     # response['games'] = final_rows       # <<<<< NOTE: REPLACE dummy response WITH chatts <<<
-    response['games'] = rows
+    response['games'] = new_rows
     return JsonResponse(response)
 
 @csrf_exempt

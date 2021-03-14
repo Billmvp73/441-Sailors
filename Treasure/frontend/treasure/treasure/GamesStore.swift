@@ -10,7 +10,7 @@ import Foundation
 struct GamesStore {
     //private let serverUrl = "https://mobapp.eecs.umich.edu/"
     private let serverUrl = "https://174.138.33.66/"
-//    var geodata: GeoData? = nil
+    private var cur_geodata: GeoData? = nil
 //
 //    init(geodata: GeoData?) {
 //        self.geodata = geodata
@@ -90,10 +90,25 @@ struct GamesStore {
         task.resume()
     }
     
+    mutating func getLocation(_ geodata: GeoData) {
+        self.cur_geodata = geodata
+    }
+    
     func getGames(refresh: @escaping ([GamePost]) -> (),
                        completion: @escaping () -> ()) {
 //        let strURL = serverUrl + geodata!.loc + "/"
-        guard let apiUrl = URL(string: serverUrl+"getgames/") else {
+        var strURL = serverUrl + "getgames/"
+        print("in the getGames")
+        print(self.cur_geodata?.loc)
+        if let location = self.cur_geodata?.loc {
+            strURL += location + "/"
+        }
+        print(strURL)
+//        guard let apiUrl = URL(string: serverUrl+"getgames/") else {
+//            print("getGames: Bad URL")
+//            return
+//        }
+        guard let apiUrl = URL(string: strURL) else {
             print("getGames: Bad URL")
             return
         }

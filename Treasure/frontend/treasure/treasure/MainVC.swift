@@ -23,6 +23,7 @@ extension UILabel {
 
 class MainVC: UITableViewController {
     private var games = [GamePost]()  // array of Chatt
+    private let geodata = GeoData()
 //    private let geodata = GeoData()
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -83,7 +84,6 @@ class MainVC: UITableViewController {
         if let geodata = game.location {
             cell.mapButton.isHidden = false
             cell.locationLabel.text = "Posted from " + geodata.loc
-                + ", while facing " + geodata.facing + " moving at " + geodata.speed + " speed."
             cell.locationLabel.sizeToFit()
             cell.locationLabel.highlight(searchedText: geodata.loc, geodata.facing, geodata.speed)
             cell.renderGames = {
@@ -102,7 +102,11 @@ class MainVC: UITableViewController {
     }
     
     private func refreshTimeline() {
-        let store = GamesStore()
+        var store = GamesStore()
+        let geodata = self.geodata
+        print("in the rfresher.")
+        print(geodata.loc)
+        store.getLocation(geodata)
         store.getGames(refresh: { games in
             self.games = games
             DispatchQueue.main.async {
