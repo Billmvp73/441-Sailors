@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		7B6768FD184653727FAD4D77 /* Pods_treasure.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29F752C734AD77F9443A7F0C /* Pods_treasure.framework */; };
+		81BF783E25FD9EA6004F965F /* PuzzlesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BF783D25FD9EA6004F965F /* PuzzlesVC.swift */; };
 		81C51A8C25FBAF9800ACF933 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C51A8B25FBAF9800ACF933 /* AppDelegate.swift */; };
 		81C51A8E25FBAF9800ACF933 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C51A8D25FBAF9800ACF933 /* SceneDelegate.swift */; };
 		81C51A9025FBAF9800ACF933 /* PostVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C51A8F25FBAF9800ACF933 /* PostVC.swift */; };
@@ -25,6 +26,7 @@
 /* Begin PBXFileReference section */
 		23106864D09497CFF3746B19 /* Pods-treasure.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-treasure.release.xcconfig"; path = "Target Support Files/Pods-treasure/Pods-treasure.release.xcconfig"; sourceTree = "<group>"; };
 		29F752C734AD77F9443A7F0C /* Pods_treasure.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_treasure.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		81BF783D25FD9EA6004F965F /* PuzzlesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PuzzlesVC.swift; sourceTree = "<group>"; };
 		81C51A8825FBAF9800ACF933 /* treasure.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = treasure.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		81C51A8B25FBAF9800ACF933 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		81C51A8D25FBAF9800ACF933 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -88,6 +90,7 @@
 				81C51AB225FC6F8F00ACF933 /* MainVC.swift */,
 				81C51AB525FC72CF00ACF933 /* GameTableCell.swift */,
 				81C51ABB25FC8CE000ACF933 /* MapsVC.swift */,
+				81BF783D25FD9EA6004F965F /* PuzzlesVC.swift */,
 			);
 			path = treasure;
 			sourceTree = "<group>";
@@ -243,6 +246,7 @@
 			files = (
 				81C51AB625FC72CF00ACF933 /* GameTableCell.swift in Sources */,
 				81C51A9025FBAF9800ACF933 /* PostVC.swift in Sources */,
+				81BF783E25FD9EA6004F965F /* PuzzlesVC.swift in Sources */,
 				81C51AAA25FC691700ACF933 /* GeoData.swift in Sources */,
 				81C51AA625FC652D00ACF933 /* GamesStore.swift in Sources */,
 				81C51A8C25FBAF9800ACF933 /* AppDelegate.swift in Sources */,

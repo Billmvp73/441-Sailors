@@ -16,12 +16,27 @@ class PostVC: UIViewController, UITextViewDelegate {
     @IBOutlet weak var nameTextField: UITextField!
     
     @IBOutlet weak var tagTextView: UITextField!
+    
     @IBAction func submitGames(_ sender: Any) {
         let game = GamePost(username: "change to google user id -- TODO",
-                            gamename: self.nameTextField.text, description: self.descriptionTextView.text, tag: self.tagTextView.text, location: self.geodata, puzzles: Array())
-        let store = GamesStore()
-        store.postGames(game)
-        dismiss(animated: true, completion: nil)
+                                    gamename: self.nameTextField.text, description: self.descriptionTextView.text, tag: self.tagTextView.text, location: self.geodata, puzzles: Array())
+                let store = GamesStore()
+                store.postGames(game)
+                dismiss(animated: true, completion: nil)
+    }
+    
+    var renderGames:(()->Void)?
+    @IBAction func addPuzzles(_ sender: Any) {
+        self.renderGames = {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            if let puzzlesVC = storyboard.instantiateViewController(withIdentifier: "PuzzlesVC") as? PuzzlesVC{
+                self.present(puzzlesVC, animated: true, completion: nil)
+                var puzzle: Puzzle? = nil
+                puzzle = puzzlesVC.puzzle
+                print(puzzle?.description)
+            }
+        }
+        self.renderGames?()
     }
     override func viewDidLoad() {
         super.viewDidLoad()

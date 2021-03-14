@@ -71,7 +71,7 @@
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <segue destination="hd6-Za-30g" kind="show" id="VtE-AF-lfL"/>
+                                    <action selector="addPuzzles:" destination="BYZ-38-t0r" eventType="touchUpInside" id="wXW-xS-aWx"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -81,7 +81,7 @@
                     <navigationItem key="navigationItem" title="Post Game" id="W7r-e7-qMJ">
                         <barButtonItem key="rightBarButtonItem" title="Submit" id="NiE-Ph-A7e">
                             <connections>
-                                <action selector="submitGames:" destination="BYZ-38-t0r" id="cZD-Ec-uz8"/>
+                                <action selector="submitGames:" destination="BYZ-38-t0r" id="bvZ-IH-BQG"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -96,21 +96,48 @@
             </objects>
             <point key="canvasLocation" x="3618.840579710145" y="61.607142857142854"/>
         </scene>
-        <!--Map-->
+        <!--PuzzlesVC-->
         <scene sceneID="4c6-bP-Rm1">
             <objects>
-                <viewController id="hd6-Za-30g" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PuzzlesVC" title="Puzzles" id="hd6-Za-30g" userLabel="PuzzlesVC" customClass="PuzzlesVC" customModule="treasure" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="DHP-AL-m35">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aLS-2j-Suw" userLabel="Map View" customClass="GMSMapView">
+                                <rect key="frame" x="51" y="125" width="314" height="185"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemGrayColor"/>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vnY-Kr-Roc">
+                                <rect key="frame" x="51" y="351" width="88" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="(Enter your desciprtion for this puzzle)" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="wE1-D6-DfY">
+                                <rect key="frame" x="51" y="384" width="240" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="textColor" systemColor="labelColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="kQI-ZO-90D"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Map" id="76F-w2-pRb"/>
+                    <navigationItem key="navigationItem" title="Create Puzzle" id="76F-w2-pRb"/>
+                    <connections>
+                        <outlet property="descriptionLabel" destination="vnY-Kr-Roc" id="Dnj-Rx-OKU"/>
+                        <outlet property="descriptionText" destination="wE1-D6-DfY" id="wV7-yi-ZRl"/>
+                        <outlet property="mMap" destination="aLS-2j-Suw" id="gnw-i4-wlB"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="E8v-3K-9zu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4400" y="62"/>
+            <point key="canvasLocation" x="4398.5507246376819" y="61.607142857142854"/>
         </scene>
         <!--Game Store-->
         <scene sceneID="3t4-xK-FsB">
@@ -244,7 +271,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <connections>
-                        <outlet property="mMap" destination="u9q-oh-0Z4" id="Lps-bw-OFi"/>
+                        <outlet property="mMap" destination="u9q-oh-0Z4" id="g2T-ox-1S0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QFE-ic-eD4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -272,8 +299,14 @@
     </scenes>
     <resources>
         <image name="mappin.and.ellipse" catalog="system" width="118" height="128"/>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGrayColor">
+            <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

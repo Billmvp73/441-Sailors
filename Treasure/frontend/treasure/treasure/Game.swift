@@ -20,6 +20,8 @@ struct Game {
 struct Puzzle {
     var location: GeoData?
     var name: String?
+    var type: String?
+    var description: String?
 }
 
 struct GamePost {
