@@ -17,8 +17,8 @@ class PostVC: UIViewController, UITextViewDelegate {
     
     @IBOutlet weak var tagTextView: UITextField!
     @IBAction func submitGames(_ sender: Any) {
-        let game = GamePost(userid: "change to google user id -- TODO",
-                        name: self.nameTextField.text, description: self.descriptionTextView.text, tag: self.tagTextView.text, puzzles: Array())
+        let game = GamePost(username: "change to google user id -- TODO",
+                        gamename: self.nameTextField.text, description: self.descriptionTextView.text, tag: self.tagTextView.text, puzzles: Array())
 //        let store = GamesStore()
 //        store.postGames(game)
         dismiss(animated: true, completion: nil)

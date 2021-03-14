@@ -17,8 +17,8 @@ struct GamesStore {
         if let geodata = game.location {
             geoObj = try? JSONSerialization.data(withJSONObject: [geodata.lat, geodata.lon, geodata.loc, geodata.facing, geodata.speed])
         }
-        let jsonObj = ["userid": game.userid,
-                       "name": game.name,
+        let jsonObj = ["username": game.username,
+                       "gamename": game.gamename,
                        "location": (geoObj == nil) ? nil : String(data: geoObj!, encoding: .utf8),
                        "description": game.description,
                        //"puzzles": game.puzzles, //TODO: may need to encode like geodata
@@ -80,13 +80,12 @@ struct GamesStore {
             for gameEntry in gamesReceived {
                 if (gameEntry.count == Game.nFields) {
                     // TODO: change to json type, do not use gameEntry[xxxx]
-                    let geoObj = gameEntry[3]?.data(using: .utf8)
+                    let geoObj = gameEntry[4]?.data(using: .utf8)
                     let geoArr = (geoObj == nil) ? nil : try? JSONSerialization.jsonObject(with: geoObj!) as? [Any]
-                    games += [Game(username: gameEntry[1],
-                                     gamename: gameEntry[2],
-                                     description: gameEntry[3],
-                                     timestamp: gameEntry[4],
-                                     tag: gameEntry[5],
+                    games += [Game(username: gameEntry[0],
+                                     gamename: gameEntry[1],
+                                     description: gameEntry[2],
+                                     tag: gameEntry[3],
                                      location: (geoArr == nil) ? nil :
                                         GeoData(lat: geoArr![0] as! Double,
                                                 lon: geoArr![1] as! Double,

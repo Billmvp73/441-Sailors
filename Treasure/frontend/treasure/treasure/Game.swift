@@ -23,8 +23,8 @@ struct Puzzle {
 }
 
 struct GamePost {
-    var userid: String?
-    var name: String?
+    var username: String?
+    var gamename: String?
     var description: String?
     var tag: String?
     var location: GeoData?
