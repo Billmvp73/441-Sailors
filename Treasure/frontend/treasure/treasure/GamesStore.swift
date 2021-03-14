@@ -98,16 +98,19 @@ struct GamesStore {
                        completion: @escaping () -> ()) {
 //        let strURL = serverUrl + geodata!.loc + "/"
         var strURL = serverUrl + "getgames/"
-        print("in the getGames")
-        print(self.cur_geodata?.loc)
+        var city_name = ""
         if let location = self.cur_geodata?.loc {
-            strURL += location + "/"
+            city_name = location
         }
-        print(strURL)
-//        guard let apiUrl = URL(string: serverUrl+"getgames/") else {
-//            print("getGames: Bad URL")
-//            return
-//        }
+        city_name = city_name.replacingOccurrences(of: " ", with: "%20", options: .literal, range: nil)
+        if (city_name != "") {
+            strURL += city_name+"/"
+            print(strURL)
+        }
+        else {
+            strURL += "null/"
+        }
+
         guard let apiUrl = URL(string: strURL) else {
             print("getGames: Bad URL")
             return

@@ -32,6 +32,10 @@ def getgames(request, city_info):
     # for w in sorted(distance, key=distance.get):
     #     final_rows.append(new_rows[w])
 
+    if city_info == "null":
+        response = {}
+        response['games'] = []
+        return JsonResponse(response)
     new_rows = []
     for row in rows:
         location = row[4].split(',')[2].split('"')[1]

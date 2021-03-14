@@ -104,8 +104,6 @@ class MainVC: UITableViewController {
     private func refreshTimeline() {
         var store = GamesStore()
         let geodata = self.geodata
-        print("in the rfresher.")
-        print(geodata.loc)
         store.getLocation(geodata)
         store.getGames(refresh: { games in
             self.games = games
