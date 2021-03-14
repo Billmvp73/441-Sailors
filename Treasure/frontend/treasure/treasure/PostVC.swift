@@ -7,8 +7,9 @@
 
 import UIKit
 
-class PostVC: UIViewController, UITextViewDelegate {
+class PostVC: UIViewController, UITextViewDelegate, ReturnDelegate {
     private let geodata = GeoData()
+    var puzzles = [Puzzle]()
     
     @IBOutlet weak var addPuzzlesButton: UIButton!
     @IBOutlet weak var descriptionTextView: UITextView!
@@ -19,25 +20,29 @@ class PostVC: UIViewController, UITextViewDelegate {
     
     @IBAction func submitGames(_ sender: Any) {
         let game = GamePost(username: "change to google user id -- TODO",
-                                    gamename: self.nameTextField.text, description: self.descriptionTextView.text, tag: self.tagTextView.text, location: self.geodata, puzzles: Array())
-                let store = GamesStore()
-                store.postGames(game)
-                dismiss(animated: true, completion: nil)
+                            gamename: self.nameTextField.text, description: self.descriptionTextView.text, tag: self.tagTextView.text, location: self.geodata, puzzles: self.puzzles)
+        
+        let store = GamesStore()
+        store.postGames(game)
+        dismiss(animated: true, completion: nil)
     }
     
-    var renderGames:(()->Void)?
-    @IBAction func addPuzzles(_ sender: Any) {
-        self.renderGames = {
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            if let puzzlesVC = storyboard.instantiateViewController(withIdentifier: "PuzzlesVC") as? PuzzlesVC{
-                self.present(puzzlesVC, animated: true, completion: nil)
-                var puzzle: Puzzle? = nil
-                puzzle = puzzlesVC.puzzle
-                print(puzzle?.description)
-            }
-        }
-        self.renderGames?()
+//    var renderGames:(()->Void)?
+//    @IBAction func addPuzzles(_ sender: Any) {
+//        self.renderGames = {
+//            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//            if let puzzlesVC = storyboard.instantiateViewController(withIdentifier: "PuzzlesVC") as? PuzzlesVC{
+//                if self.puzzlestr == nil{
+//                    self.present(puzzlesVC, animated: true, completion: nil)
+//                }
+//            }
+//        }
+//        self.renderGames?()
+//    }
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         descriptionTextView.delegate = self
@@ -49,6 +54,16 @@ class PostVC: UIViewController, UITextViewDelegate {
         addPuzzlesButton.clipsToBounds = true
         addPuzzlesButton.layer.cornerRadius = 6.0
         // Do any additional setup after loading the view.
+    }
+    
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//       audioButton.setImage(audioIcon, for: .normal)
+       let puzzlesVC = segue.destination as? PuzzlesVC
+       puzzlesVC?.returnDelegate = self
+    }
+    
+    func onReturn(_ result: Puzzle) {
+        puzzles += [result]
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {

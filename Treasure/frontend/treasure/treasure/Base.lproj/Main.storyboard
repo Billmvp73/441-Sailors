@@ -71,7 +71,7 @@
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <action selector="addPuzzles:" destination="BYZ-38-t0r" eventType="touchUpInside" id="wXW-xS-aWx"/>
+                                    <segue destination="hd6-Za-30g" kind="presentation" id="F4j-QD-6sa"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -101,7 +101,7 @@
             <objects>
                 <viewController storyboardIdentifier="PuzzlesVC" title="Puzzles" id="hd6-Za-30g" userLabel="PuzzlesVC" customClass="PuzzlesVC" customModule="treasure" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="DHP-AL-m35">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aLS-2j-Suw" userLabel="Map View" customClass="GMSMapView">
@@ -124,11 +124,21 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tMk-af-ppQ">
+                                <rect key="frame" x="254" y="347" width="37" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Done"/>
+                                <connections>
+                                    <action selector="stopPuzzles:" destination="hd6-Za-30g" eventType="touchUpInside" id="C7T-OD-k3v"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="kQI-ZO-90D"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
+                    <toolbarItems/>
                     <navigationItem key="navigationItem" title="Create Puzzle" id="76F-w2-pRb"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="descriptionLabel" destination="vnY-Kr-Roc" id="Dnj-Rx-OKU"/>
                         <outlet property="descriptionText" destination="wE1-D6-DfY" id="wV7-yi-ZRl"/>

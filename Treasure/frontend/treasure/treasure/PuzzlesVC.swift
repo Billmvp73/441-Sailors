@@ -9,27 +9,27 @@ import UIKit
 import GoogleMaps
 
 protocol ReturnDelegate: UIViewController {
-    func onReturn(_ result: String?)
+    func onReturn(_ result: Puzzle)
 }
 class PuzzlesVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate {
     weak var returnDelegate: ReturnDelegate?
     @IBOutlet weak var mMap: GMSMapView!
-    
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var descriptionText: UITextView!
     var game: GamePost? = nil
     var games: [GamePost]? = nil
     private let geodata = GeoData()
     var puzzle: Puzzle? = nil
-//    struct Puzzle {
-//        var location: GeoData?
-//        var name: String?
-//    }
-//    var puzzle: Puzzle? = nil
-//    var geodata: GeoData?
-//    self.puzzle.name = "Set up a new puzzle."
+
     private lazy var locmanager = CLLocationManager() // Create a location manager to interface with iOS's location manager.
 
+    @IBAction func stopPuzzles(_ sender: Any) {
+        puzzle = Puzzle(location: geodata, name: "setup a new game", type: "Empty", description: descriptionText.text)
+        returnDelegate?.onReturn(puzzle!)
+        dismiss(animated: true, completion: nil)
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // set self as the delegate for GMSMapView's infoWindow events
@@ -57,6 +57,7 @@ class PuzzlesVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate
         chattMarker.map = mMap
         puzzle = Puzzle(location: geodata, name: "setup a new game", type: "Empty", description: nil)
         chattMarker.userData = puzzle
+        mMap.camera = GMSCameraPosition.camera(withTarget: coordinate, zoom: 12.0)
         locmanager.delegate = self
         locmanager.desiredAccuracy = kCLLocationAccuracyBest
 
