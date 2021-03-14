@@ -29,4 +29,6 @@ struct GamePost {
     var tag: String?
     var location: GeoData?
     var puzzles: Array<Puzzle> = Array()
+    var timestamp: String?
+    static let nFields = 7
 }

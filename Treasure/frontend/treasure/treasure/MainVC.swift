@@ -22,7 +22,7 @@ extension UILabel {
 }
 
 class MainVC: UITableViewController {
-    private var games = [Game]()  // array of Chatt
+    private var games = [GamePost]()  // array of Chatt
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,7 +70,7 @@ class MainVC: UITableViewController {
         
         cell.usernameLabel.text = game.username
         cell.usernameLabel.sizeToFit()
-        cell.gamenameLabel.text = game.description
+        cell.gamenameLabel.text = game.gamename
         cell.gamenameLabel.sizeToFit()
         cell.descriptionLabel.text = game.description
         cell.descriptionLabel.sizeToFit()

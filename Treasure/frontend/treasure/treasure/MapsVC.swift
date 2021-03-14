@@ -10,8 +10,8 @@ import GoogleMaps
 
 class MapsVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate {
     @IBOutlet weak var mMap: GMSMapView!
-    var game: Game? = nil
-    var games: [Game]? = nil
+    var game: GamePost? = nil
+    var games: [GamePost]? = nil
     private lazy var locmanager = CLLocationManager() // Create a location manager to interface with iOS's location manager.
 
     override func viewDidLoad() {
@@ -65,7 +65,7 @@ class MapsVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate {
     }
 
     func mapView(_ mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
-           guard let game = marker.userData as? Game else {
+           guard let game = marker.userData as? GamePost else {
                return nil
            }
 

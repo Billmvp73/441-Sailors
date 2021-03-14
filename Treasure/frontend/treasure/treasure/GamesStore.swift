@@ -50,7 +50,7 @@ struct GamesStore {
         task.resume()
     }
     
-    func getGames(refresh: @escaping ([Game]) -> (),
+    func getGames(refresh: @escaping ([GamePost]) -> (),
                        completion: @escaping () -> ()) {
         guard let apiUrl = URL(string: serverUrl+"getgames/") else {
             print("getGames: Bad URL")
@@ -75,14 +75,14 @@ struct GamesStore {
                 print("getGames: failed JSON deserialization")
                 return
             }
-            var games = [Game]()
+            var games = [GamePost]()
             let gamesReceived = jsonObj["games"] as? [[String?]] ?? []
             for gameEntry in gamesReceived {
                 if (gameEntry.count == Game.nFields) {
                     // TODO: change to json type, do not use gameEntry[xxxx]
                     let geoObj = gameEntry[4]?.data(using: .utf8)
                     let geoArr = (geoObj == nil) ? nil : try? JSONSerialization.jsonObject(with: geoObj!) as? [Any]
-                    games += [Game(username: gameEntry[0],
+                    games += [GamePost(username: gameEntry[0],
                                      gamename: gameEntry[1],
                                      description: gameEntry[2],
                                      tag: gameEntry[3],
@@ -92,7 +92,7 @@ struct GamesStore {
                                                 loc: geoArr![2] as! String,
                                                 facing: geoArr![3] as! String,
                                                 speed: geoArr![4] as! String)
-                    )]
+                                     , timestamp: gameEntry[6])]
                 } else {
                     print("getGames: Received unexpected number of fields: \(gameEntry.count) instead of \(Game.nFields).")
                 }
