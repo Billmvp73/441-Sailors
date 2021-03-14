@@ -18,6 +18,7 @@ from django.urls import path
 from app import views
 urlpatterns = [
     path('admin/', admin.site.urls),
+    # path('getgames/<str:city_info>/', views.getgames, name='getgames'),
     path('getgames/', views.getgames, name='getgames'),
     path('postgames/', views.postgames, name='postgames'),
 ]
