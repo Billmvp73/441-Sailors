@@ -15,6 +15,7 @@ class GameTableCell: UITableViewCell {
     @IBOutlet weak var tagLabel: UILabel!
     @IBOutlet weak var mapButton: UIButton!
     @IBOutlet weak var locationLabel: UILabel!
+    @IBOutlet weak var numPuzzle: UILabel!
     var renderGames:(()->Void)?
     @IBAction func mapTapped(_ sender: Any) {
         self.renderGames?()

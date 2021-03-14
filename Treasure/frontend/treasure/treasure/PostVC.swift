@@ -60,6 +60,7 @@ class PostVC: UIViewController, UITextViewDelegate, ReturnDelegate {
      override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 //       audioButton.setImage(audioIcon, for: .normal)
        let puzzlesVC = segue.destination as? PuzzlesVC
+        puzzlesVC?.geodata = self.geodata
        puzzlesVC?.returnDelegate = self
     }
     

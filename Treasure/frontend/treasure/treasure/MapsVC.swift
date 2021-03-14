@@ -11,6 +11,9 @@ import GoogleMaps
 class MapsVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate {
     @IBOutlet weak var mMap: GMSMapView!
     var game: GamePost? = nil
+    @IBAction func stopMapView(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
     var games: [GamePost]? = nil
     private lazy var locmanager = CLLocationManager() // Create a location manager to interface with iOS's location manager.
 
@@ -32,7 +35,7 @@ class MapsVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate {
             chattMarker.userData = game
 
             // move camera to chatt's location
-            mMap.camera = GMSCameraPosition.camera(withTarget: coordinate, zoom: 6.0)
+            mMap.camera = GMSCameraPosition.camera(withTarget: coordinate, zoom: 15.0)
         } else {
             // set self as the delegate for CLLocationManager's events
             // and set up the location manager.

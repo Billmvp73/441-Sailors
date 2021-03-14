@@ -78,6 +78,8 @@ class MainVC: UITableViewController {
         cell.timestampLabel.sizeToFit()
         cell.tagLabel.text = game.tag
         cell.tagLabel.sizeToFit()
+        cell.numPuzzle.text = "#Puzzles " + String(game.puzzles.count)
+        cell.numPuzzle.sizeToFit()
         if let geodata = game.location {
             cell.mapButton.isHidden = false
             cell.locationLabel.text = "Posted from " + geodata.loc

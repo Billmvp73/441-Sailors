@@ -105,19 +105,12 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aLS-2j-Suw" userLabel="Map View" customClass="GMSMapView">
-                                <rect key="frame" x="51" y="125" width="314" height="185"/>
+                                <rect key="frame" x="36" y="48" width="340" height="262"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemGrayColor"/>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vnY-Kr-Roc">
-                                <rect key="frame" x="51" y="351" width="88" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="(Enter your desciprtion for this puzzle)" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="wE1-D6-DfY">
-                                <rect key="frame" x="51" y="384" width="240" height="128"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="your description of this puzzle." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="wE1-D6-DfY">
+                                <rect key="frame" x="51" y="472" width="240" height="128"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <color key="textColor" systemColor="labelColor"/>
@@ -132,6 +125,26 @@
                                     <action selector="stopPuzzles:" destination="hd6-Za-30g" eventType="touchUpInside" id="C7T-OD-k3v"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eAK-da-Bnr">
+                                <rect key="frame" x="51" y="352" width="43" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="name" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Oxc-Tu-YoI">
+                                <rect key="frame" x="51" y="381" width="97" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vnY-Kr-Roc">
+                                <rect key="frame" x="51" y="431" width="88" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="kQI-ZO-90D"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -143,6 +156,7 @@
                         <outlet property="descriptionLabel" destination="vnY-Kr-Roc" id="Dnj-Rx-OKU"/>
                         <outlet property="descriptionText" destination="wE1-D6-DfY" id="wV7-yi-ZRl"/>
                         <outlet property="mMap" destination="aLS-2j-Suw" id="gnw-i4-wlB"/>
+                        <outlet property="nameText" destination="Oxc-Tu-YoI" id="0JL-3X-NFG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="E8v-3K-9zu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -213,6 +227,13 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="#puzzle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jks-Ig-ckO">
+                                            <rect key="frame" x="313" y="65" width="81" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="adp-K0-mRm" firstAttribute="leading" secondItem="mmX-82-Psm" secondAttribute="leadingMargin" constant="5" id="4Jl-G6-E62"/>
@@ -236,6 +257,7 @@
                                     <outlet property="gamenameLabel" destination="Xui-my-Sqy" id="luB-e2-jsf"/>
                                     <outlet property="locationLabel" destination="b0o-dN-pz8" id="8i7-mB-Srp"/>
                                     <outlet property="mapButton" destination="Yu5-jN-pVC" id="BQD-2d-vRQ"/>
+                                    <outlet property="numPuzzle" destination="Jks-Ig-ckO" id="vkZ-WT-svO"/>
                                     <outlet property="tagLabel" destination="adp-K0-mRm" id="l2s-Rf-Siv"/>
                                     <outlet property="timestampLabel" destination="jtS-Se-lds" id="LL9-x7-GMe"/>
                                     <outlet property="usernameLabel" destination="zoy-dZ-7K3" id="csQ-m0-uvD"/>
@@ -261,7 +283,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oTg-d3-OSU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2683" y="74"/>
+            <point key="canvasLocation" x="2682.608695652174" y="73.660714285714278"/>
         </scene>
         <!--MapsVC-->
         <scene sceneID="vAt-Km-3ju">
@@ -272,10 +294,19 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="u9q-oh-0Z4" userLabel="Map View" customClass="GMSMapView">
-                                <rect key="frame" x="0.0" y="44" width="414" height="852"/>
+                                <rect key="frame" x="0.0" y="77" width="414" height="819"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="abF-TX-jb7">
+                                <rect key="frame" x="20" y="35" width="43" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <state key="normal" title="Done"/>
+                                <connections>
+                                    <action selector="stopMapView:" destination="Sro-nN-iz3" eventType="touchUpInside" id="U8g-JM-eo8"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Rxr-vu-YLF"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>

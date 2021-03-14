@@ -17,18 +17,21 @@ class PuzzlesVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var descriptionText: UITextView!
     var game: GamePost? = nil
+    @IBOutlet weak var nameText: UITextField!
     var games: [GamePost]? = nil
-    private let geodata = GeoData()
+    var geodata: GeoData? = nil
     var puzzle: Puzzle? = nil
 
     private lazy var locmanager = CLLocationManager() // Create a location manager to interface with iOS's location manager.
 
     @IBAction func stopPuzzles(_ sender: Any) {
-        puzzle = Puzzle(location: geodata, name: "setup a new game", type: "Empty", description: descriptionText.text)
+        puzzle = Puzzle(location: geodata, name: nameText.text, type: "Empty", description: descriptionText.text)
         returnDelegate?.onReturn(puzzle!)
         dismiss(animated: true, completion: nil)
     }
-    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,12 +55,14 @@ class PuzzlesVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate
 //        } else {
         // set self as the delegate for CLLocationManager's events
         // and set up the location manager.
-        let coordinate = CLLocationCoordinate2D(latitude: geodata.lat, longitude: geodata.lon)
-        chattMarker = GMSMarker(position: coordinate)
-        chattMarker.map = mMap
-        puzzle = Puzzle(location: geodata, name: "setup a new game", type: "Empty", description: nil)
-        chattMarker.userData = puzzle
-        mMap.camera = GMSCameraPosition.camera(withTarget: coordinate, zoom: 12.0)
+        if let geoLoc = geodata{
+            let coordinate = CLLocationCoordinate2D(latitude: geoLoc.lat, longitude: geoLoc.lon)
+            chattMarker = GMSMarker(position: coordinate)
+            chattMarker.map = mMap
+            puzzle = Puzzle(location: geoLoc, name: "setup a new game", type: "Empty", description: nil)
+            chattMarker.userData = puzzle
+            mMap.camera = GMSCameraPosition.camera(withTarget: coordinate, zoom: 15.0)
+        }
         locmanager.delegate = self
         locmanager.desiredAccuracy = kCLLocationAccuracyBest
 
@@ -91,7 +96,7 @@ class PuzzlesVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate
                return nil
            }
 
-           let view = UIView(frame: CGRect.init(x: 0, y: 0, width: 300, height: 150))
+           let view = UIView(frame: CGRect.init(x: 0, y: 0, width: 150, height: 100))
            view.backgroundColor = UIColor.white
            view.layer.cornerRadius = 6
         

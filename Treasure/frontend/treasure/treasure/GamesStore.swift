@@ -117,12 +117,12 @@ struct GamesStore {
                 return
             }
             var games = [GamePost]()
-            var puzzles = [Puzzle]()
             var jsonPuzzle: [Dictionary<String, String?>]?
             let gamesReceived = jsonObj["games"] as? [[String?]] ?? []
             for gameEntry in gamesReceived {
                 if (gameEntry.count == Game.nFields) {
                     // TODO: change to json type, do not use gameEntry[xxxx]
+                    var puzzles = [Puzzle]()
                     if let PuzzleObj = gameEntry[7]?.data(using: .utf8){
                         jsonPuzzle = try? JSONSerialization.jsonObject(with: PuzzleObj, options: .allowFragments) as?[Dictionary<String, String>]
                         if jsonPuzzle != nil{
