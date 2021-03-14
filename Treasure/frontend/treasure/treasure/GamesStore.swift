@@ -35,7 +35,7 @@ struct GamesStore {
             geoObj = try? JSONSerialization.data(withJSONObject: [geodata.lat, geodata.lon, geodata.loc, geodata.facing, geodata.speed])
         }
         let puzzles = game.puzzles
-        var puzzleStrs = [Dictionary<string, Any>]()
+        var puzzleStrs = [Dictionary<String, String?>]()
         for puzzle in puzzles{
             var puzzleLoc: Data?
             if let geodata = puzzle.location{
@@ -117,26 +117,40 @@ struct GamesStore {
                 return
             }
             var games = [GamePost]()
+            var puzzles = [Puzzle]()
+            var jsonPuzzle: [Dictionary<String, String?>]?
             let gamesReceived = jsonObj["games"] as? [[String?]] ?? []
             for gameEntry in gamesReceived {
                 if (gameEntry.count == Game.nFields) {
                     // TODO: change to json type, do not use gameEntry[xxxx]
-                    let geoObj = gameEntry[4]?.data(using: .utf8)
-                    let geoArr = (geoObj == nil) ? nil : try? JSONSerialization.jsonObject(with: geoObj!) as? [Any]
                     if let PuzzleObj = gameEntry[7]?.data(using: .utf8){
-                        let jsonPuzzle = try? JSONSerialization.jsonObject(with: PuzzleObj, options: .allowFragments) as?[[Dictionary<String, Any>]]
-                        print(jsonPuzzle)
+                        jsonPuzzle = try? JSONSerialization.jsonObject(with: PuzzleObj, options: .allowFragments) as?[Dictionary<String, String>]
+                        if jsonPuzzle != nil{
+                            for puzzleObj in jsonPuzzle!{
+                                let puzzleArr = puzzleObj as Dictionary<String, String?>
+//                                let puzzleArrs = try? JSONSerialization.jsonObject(with: puzzleArr!) as? [Any]
+//                                let puzzle = Puzzle(location: puzzleArrs![0]as!String, name: puzzleArrs![1]as!String, type: puzzleArrs![2]as!String, description: puzzleArrs![3]as!String)
+                                let geoObj = puzzleArr[
+                                    "location"]!?.data(using: .utf8)
+                                let geoArr = (geoObj == nil) ? nil : try? JSONSerialization.jsonObject(with: geoObj!) as? [Any]
+                                let puzzle = Puzzle(location: (geoArr == nil) ? nil :
+                                                        GeoData(lat: geoArr![0] as! Double,
+                                                                lon: geoArr![1] as! Double,
+                                                                loc: geoArr![2] as! String,
+                                                                facing: geoArr![3] as! String,
+                                                                speed: geoArr![4] as! String),
+                                                    name: puzzleArr["name"]!!,
+                                                    type: puzzleArr["type"]!!,
+                                                    description: puzzleArr["description"]!!)
+                                puzzles += [puzzle]
+                            }
+                        }
+//                        print(jsonPuzzle)
                     } else{
                         print("puzzle: nil.")
                     }
-//                    do{
-//                        if let jsonPuzzle = {
-//                            print(jsonPuzzle)
-//                        }
-//                    } catch let error as NSError{
-//                        print(error)
-//                    }
-//
+                    let geoObj = gameEntry[4]?.data(using: .utf8)
+                    let geoArr = (geoObj == nil) ? nil : try? JSONSerialization.jsonObject(with: geoObj!) as? [Any]
                     games += [GamePost(username: gameEntry[0],
                                      gamename: gameEntry[1],
                                      description: gameEntry[2],
@@ -148,7 +162,7 @@ struct GamesStore {
                                                 loc: geoArr![2] as! String,
                                                 facing: geoArr![3] as! String,
                                                 speed: geoArr![4] as! String)
-                                     , timestamp: gameEntry[6])]
+                                     , puzzles: puzzles, timestamp: gameEntry[6])]
                 } else {
                     print("getGames: Received unexpected number of fields: \(gameEntry.count) instead of \(Game.nFields).")
                 }
