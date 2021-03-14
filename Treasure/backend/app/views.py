@@ -3,12 +3,12 @@ from django.db import connection
 from django.views.decorators.csrf import csrf_exempt
 import json
 from django.shortcuts import render
-def getgames(request):
+def getgames(request,city):
     if request.method != 'GET':
         return HttpResponse(status=404)
 
     cursor = connection.cursor()
-    cursor.execute('SELECT * FROM games ORDER BY time DESC;')
+    cursor.execute('SELECT * FROM games WHERE CITY = {} ORDER BY time DESC;'.format(city))
     rows = cursor.fetchall()
 
     response = {}
