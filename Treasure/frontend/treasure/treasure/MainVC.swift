@@ -23,7 +23,7 @@ extension UILabel {
 
 class MainVC: UITableViewController {
     private var games = [GamePost]()  // array of Chatt
-
+//    private let geodata = GeoData()
     override func viewDidLoad() {
         super.viewDidLoad()
         

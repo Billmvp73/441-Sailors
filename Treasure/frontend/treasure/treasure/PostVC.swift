@@ -24,6 +24,7 @@ class PostVC: UIViewController, UITextViewDelegate, ReturnDelegate {
         
         let store = GamesStore()
         store.postGames(game)
+        puzzles = [Puzzle]()
         dismiss(animated: true, completion: nil)
     }
     

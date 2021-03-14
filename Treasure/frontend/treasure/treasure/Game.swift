@@ -7,14 +7,15 @@
 
 import Foundation
 struct Game {
-    var gid: String?
     var username: String?
     var gamename: String?
     var description: String?
-    var timestamp: String?
     var tag: String?
+    var gid: String?
     var location: GeoData?
-    static let nFields = 7
+    var puzzles: Array<Puzzle> = Array()
+    var timestamp: String?
+    static let nFields = 8
 }
 
 struct Puzzle {
@@ -29,8 +30,9 @@ struct GamePost {
     var gamename: String?
     var description: String?
     var tag: String?
+    var gid: String?
     var location: GeoData?
     var puzzles: Array<Puzzle> = Array()
     var timestamp: String?
-    static let nFields = 7
+    static let nFields = 8
 }
