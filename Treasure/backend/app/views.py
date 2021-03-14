@@ -8,11 +8,20 @@ def getgames(request,city):
         return HttpResponse(status=404)
 
     cursor = connection.cursor()
-    cursor.execute('SELECT * FROM games WHERE CITY = {} ORDER BY time DESC;'.format(city))
+    cursor.execute('SELECT * FROM games ORDER BY time DESC;')
     rows = cursor.fetchall()
+    new_rows = []
+    for row in rows:
+        location = row[4].split(',')[2].split('"')[1]
+        if location == city:
+            new_rows.append(row)
+        if len(new_rows) == 25:
+            break
+        
+
 
     response = {}
-    response['games'] = rows       # <<<<< NOTE: REPLACE dummy response WITH chatts <<<
+    response['games'] = new_rows       # <<<<< NOTE: REPLACE dummy response WITH chatts <<<
     return JsonResponse(response)
 
 @csrf_exempt
