@@ -14,7 +14,7 @@ struct Game {
     var timestamp: String?
     var tag: String?
     var location: GeoData?
-    static let nFields = 5
+    static let nFields = 7
 }
 
 struct Puzzle {
