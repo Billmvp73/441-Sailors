@@ -14,25 +14,27 @@ class GeoData: NSObject, CLLocationManagerDelegate {
     var loc: String = ""
     var facing: String = "unknown"
     var speed: String = "unknown"
+    var currLoc: Bool = true
     
     init(lat: Double = 0.0,  lon: Double = 0.0, loc: String = "", facing: String = "unknown", speed: String = "unknown") {
         self.lat = lat; self.lon = lon; self.loc = loc; self.facing = facing; self.speed = speed
     }
     
+    private lazy var locmanager = CLLocationManager()
+    
     init(lat: Double = 0.0, lon: Double = 0.0){
-//        super.init()
+        super.init()
         self.lat = lat
         self.lon = lon
-//        locmanager.delegate = self
-//        locmanager.desiredAccuracy = kCLLocationAccuracyBest
-//        locmanager.requestWhenInUseAuthorization()
-//
-//        // and start getting user's current location and heading
-//        locmanager.startUpdatingLocation()
-//        locmanager.startUpdatingHeading()
+        self.currLoc = false
+        locmanager.delegate = self
+        locmanager.desiredAccuracy = kCLLocationAccuracyBest
+        locmanager.requestWhenInUseAuthorization()
+
+        // and start getting user's current location and heading
+        locmanager.startUpdatingLocation()
+        locmanager.startUpdatingHeading()
     }
-    
-    private lazy var locmanager = CLLocationManager()
 
     override init() {
         super.init()
@@ -49,20 +51,38 @@ class GeoData: NSObject, CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.first {
             // Get user's location
-            lat = location.coordinate.latitude
-            lon = location.coordinate.longitude
+            if self.currLoc == true{
+                lat = location.coordinate.latitude
+                lon = location.coordinate.longitude
+                // Reverse geocode to get user's city name
+                GMSGeocoder().reverseGeocodeCoordinate(location.coordinate) { response , _ in
+                    if let address = response?.firstResult(), let lines = address.lines {
+                        // get city name from the first address returned
+                        self.loc = lines[0].components(separatedBy: ", ")[1]
+                    }
+                }
+            } else {
+                let newCoordinate = CLLocationCoordinate2D(latitude: self.lat, longitude: self.lon)
+                GMSGeocoder().reverseGeocodeCoordinate(newCoordinate) { response , _ in
+                    if let address = response?.firstResult(), let lines = address.lines {
+                        // get city name from the first address returned
+                        self.loc = lines[0].components(separatedBy: ", ")[1]
+                    }
+                }
+            }
+            
 //            if lat == 0 && lon == 0{
 //                lat = location.coordinate.latitude
 //                lon = location.coordinate.longitude
 //            }
             
             // Reverse geocode to get user's city name
-            GMSGeocoder().reverseGeocodeCoordinate(location.coordinate) { response , _ in
-                if let address = response?.firstResult(), let lines = address.lines {
-                    // get city name from the first address returned
-                    self.loc = lines[0].components(separatedBy: ", ")[1]
-                }
-            }
+//            GMSGeocoder().reverseGeocodeCoordinate(location.coordinate) { response , _ in
+//                if let address = response?.firstResult(), let lines = address.lines {
+//                    // get city name from the first address returned
+//                    self.loc = lines[0].components(separatedBy: ", ")[1]
+//                }
+//            }
             
             // Get user's speed of movement
             if (location.speed < 0.0) {
