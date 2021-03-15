@@ -11,6 +11,18 @@ import GoogleMaps
 protocol ReturnDelegate: UIViewController {
     func onReturn(_ result: Puzzle)
 }
+
+//extension PuzzlesVC: GMSMapViewDelegate {
+//    func mapView(_ mapView: GMSMapView, didLongPressAt coordinate: CLLocationCoordinate2D) {
+//         // Custom logic here
+//         let marker = GMSMarker()
+//         marker.position = coordinate
+//         marker.title = "I added this with a long tap"
+//         marker.snippet = ""
+//         marker.map = mapView
+//    }
+//}
+
 class PuzzlesVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate {
     weak var returnDelegate: ReturnDelegate?
     @IBOutlet weak var mMap: GMSMapView!
@@ -21,6 +33,8 @@ class PuzzlesVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate
     var games: [GamePost]? = nil
     var geodata: GeoData? = nil
     var puzzle: Puzzle? = nil
+    var markerPress: [GMSMarker]? = nil
+//    var puzzles: [Puzzle]? = nil
 
     private lazy var locmanager = CLLocationManager() // Create a location manager to interface with iOS's location manager.
 
@@ -42,27 +56,17 @@ class PuzzlesVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate
         // enable the location bull's eye button
         mMap.settings.myLocationButton = true
         var chattMarker: GMSMarker!
-//        puzzle.name = "Setup a new puzzle."
-//        if let game = game, let geodata = game.location {
-//
-//            let coordinate = CLLocationCoordinate2D(latitude: geodata.lat, longitude: geodata.lon)
-//            chattMarker = GMSMarker(position: coordinate)
-//            chattMarker.map = mMap
-//            chattMarker.userData = game
-//
-//            // move camera to chatt's location
-//            mMap.camera = GMSCameraPosition.camera(withTarget: coordinate, zoom: 6.0)
-//        } else {
-        // set self as the delegate for CLLocationManager's events
-        // and set up the location manager.
-        if let geoLoc = geodata{
-            let coordinate = CLLocationCoordinate2D(latitude: geoLoc.lat, longitude: geoLoc.lon)
-            chattMarker = GMSMarker(position: coordinate)
-            chattMarker.map = mMap
-            puzzle = Puzzle(location: geoLoc, name: "setup a new game", type: "Empty", description: nil)
-            chattMarker.userData = puzzle
-            mMap.camera = GMSCameraPosition.camera(withTarget: coordinate, zoom: 15.0)
-        }
+            
+            if let geoLoc = geodata{
+                let coordinate = CLLocationCoordinate2D(latitude: geoLoc.lat, longitude: geoLoc.lon)
+                chattMarker = GMSMarker(position: coordinate)
+                chattMarker.map = mMap
+                puzzle = Puzzle(location: geoLoc, name: "setup a new game", type: "Empty", description: nil)
+                chattMarker.userData = puzzle
+                mMap.camera = GMSCameraPosition.camera(withTarget: coordinate, zoom: 15.0)
+            }
+//        }
+        
         locmanager.delegate = self
         locmanager.desiredAccuracy = kCLLocationAccuracyBest
 
@@ -70,15 +74,6 @@ class PuzzlesVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate
         // zoom the map to the current location
         locmanager.startUpdatingLocation()
         
-        // Add a marker on the MapView for each chatt
-//        games?.forEach {
-//            if let geodata = $0.location {
-//                chattMarker = GMSMarker(position: CLLocationCoordinate2D(latitude: geodata.lat, longitude: geodata.lon))
-//                chattMarker.map = mMap
-//                chattMarker.userData = $0
-//            }
-//        }
-//    }
     }
 
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -91,6 +86,32 @@ class PuzzlesVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate
         mMap.camera = GMSCameraPosition.camera(withTarget: location.coordinate, zoom: 6.0)
     }
 
+    func mapView(_ mapView: GMSMapView, didLongPressAt coordinate: CLLocationCoordinate2D) {
+         // Custom logic here
+         let marker = GMSMarker()
+         marker.position = coordinate
+         marker.title = "Add Puzzle"
+         marker.snippet = ""
+         marker.map = mapView
+    }
+    
+//    var counterMarker: Int = 0
+
+
+//    func mapView(mapView: GMSMapView, didTapAtCoordinate coordinate: CLLocationCoordinate2D) {
+//
+//            if counterMarker < 2
+//            {
+//                counterMarker += 1
+//                let marker = GMSMarker(position: coordinate)
+//                marker.appearAnimation = kGMSMarkerAnimationPop
+//
+//                marker.map = mapView
+//
+//
+//            }
+//        }
+//
     func mapView(_ mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
            guard let puzzle = marker.userData as? Puzzle else {
                return nil
