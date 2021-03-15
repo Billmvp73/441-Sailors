@@ -34,13 +34,23 @@ class PuzzlesVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate
     var geodata: GeoData? = nil
     var puzzle: Puzzle? = nil
     var markerPress: [GMSMarker]? = nil
+    var puzzleMarker: GMSMarker?
 //    var puzzles: [Puzzle]? = nil
 
     private lazy var locmanager = CLLocationManager() // Create a location manager to interface with iOS's location manager.
 
     @IBAction func stopPuzzles(_ sender: Any) {
-        puzzle = Puzzle(location: geodata, name: nameText.text, type: "Empty", description: descriptionText.text)
-        returnDelegate?.onReturn(puzzle!)
+        if let coordinate = self.puzzleMarker?.position{
+            let geoPuzzle = GeoData(lat: coordinate.latitude, lon: coordinate.longitude)
+//            GMSGeocoder().reverseGeocodeCoordinate(coordinate) { response , _ in
+//                if let address = response?.firstResult(), let lines = address.lines {
+//                    // get city name from the first address returned
+//                    geoPuzzle.loc = lines[0].components(separatedBy: ", ")[1]
+//                }
+//            }
+            puzzle = Puzzle(location: geoPuzzle, name: nameText.text, type: "Empty", description: descriptionText.text)
+            returnDelegate?.onReturn(puzzle!)
+        }
         dismiss(animated: true, completion: nil)
     }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -86,32 +96,61 @@ class PuzzlesVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate
         mMap.camera = GMSCameraPosition.camera(withTarget: location.coordinate, zoom: 6.0)
     }
 
-    func mapView(_ mapView: GMSMapView, didLongPressAt coordinate: CLLocationCoordinate2D) {
-         // Custom logic here
-         let marker = GMSMarker()
-         marker.position = coordinate
-         marker.title = "Add Puzzle"
-         marker.snippet = ""
-         marker.map = mapView
-    }
+//    func mapView(_ mapView: GMSMapView, didLongPressAt coordinate: CLLocationCoordinate2D) {
+//         // Custom logic here
+//         let marker = GMSMarker()
+//         marker.position = coordinate
+//         marker.title = "Add Puzzle"
+//         marker.snippet = ""
+//         marker.map = mapView
+//    }
     
-//    var counterMarker: Int = 0
-
-
-//    func mapView(mapView: GMSMapView, didTapAtCoordinate coordinate: CLLocationCoordinate2D) {
+    var counterMarker: Int = 0
+//    func mapView(_ mapView: GMSMapView, didLongPressAt coordinate: CLLocationCoordinate2D) {
 //
-//            if counterMarker < 2
-//            {
+//                 // Custom logic here
+//            if counterMarker < 1{
+//                let marker = GMSMarker()
 //                counterMarker += 1
-//                let marker = GMSMarker(position: coordinate)
-//                marker.appearAnimation = kGMSMarkerAnimationPop
-//
+//                marker.position = coordinate
+//                marker.title = "I added this with a long tap"
+//                marker.snippet = ""
 //                marker.map = mapView
-//
+//                self.prev_marker = marker
+//            }
+//            else {
+//                self.prev_marker.map = nil
+//                let marker = GMSMarker()
+//                marker.position = coordinate
+//                marker.title = "I added this with a long tap"
+//                marker.snippet = ""
+//                marker.map = mapView
+//                self.prev_marker = marker
+//            }
 //
 //            }
-//        }
-//
+
+    func mapView(_ mapView: GMSMapView, didLongPressAt coordinate: CLLocationCoordinate2D) {
+
+        if self.counterMarker < 1
+            {
+                self.counterMarker += 1
+                let marker = GMSMarker(position: coordinate)
+                marker.appearAnimation = GMSMarkerAnimation.pop
+                marker.position = coordinate
+                marker.title = "Add Puzzle"
+                marker.snippet = ""
+                marker.map = mapView
+//                marker.map = mapView
+               self.puzzleMarker = marker
+        } else {
+                self.counterMarker = 0
+                self.puzzleMarker?.map = nil
+//                self.puzzleMarker?.position = nil
+//                print(counterMarker)
+        }
+    }
+
     func mapView(_ mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
            guard let puzzle = marker.userData as? Puzzle else {
                return nil

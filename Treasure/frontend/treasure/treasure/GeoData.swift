@@ -19,6 +19,19 @@ class GeoData: NSObject, CLLocationManagerDelegate {
         self.lat = lat; self.lon = lon; self.loc = loc; self.facing = facing; self.speed = speed
     }
     
+    init(lat: Double = 0.0, lon: Double = 0.0){
+//        super.init()
+        self.lat = lat
+        self.lon = lon
+//        locmanager.delegate = self
+//        locmanager.desiredAccuracy = kCLLocationAccuracyBest
+//        locmanager.requestWhenInUseAuthorization()
+//
+//        // and start getting user's current location and heading
+//        locmanager.startUpdatingLocation()
+//        locmanager.startUpdatingHeading()
+    }
+    
     private lazy var locmanager = CLLocationManager()
 
     override init() {
@@ -38,7 +51,11 @@ class GeoData: NSObject, CLLocationManagerDelegate {
             // Get user's location
             lat = location.coordinate.latitude
             lon = location.coordinate.longitude
-
+//            if lat == 0 && lon == 0{
+//                lat = location.coordinate.latitude
+//                lon = location.coordinate.longitude
+//            }
+            
             // Reverse geocode to get user's city name
             GMSGeocoder().reverseGeocodeCoordinate(location.coordinate) { response , _ in
                 if let address = response?.firstResult(), let lines = address.lines {
