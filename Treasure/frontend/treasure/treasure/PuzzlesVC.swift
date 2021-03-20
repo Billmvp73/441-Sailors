@@ -23,14 +23,15 @@ protocol ReturnDelegate: UIViewController {
 //    }
 //}
 
-class PuzzlesVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate {
+class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate, GMSMapViewDelegate, UITextFieldDelegate {
+//    @IBOutlet weak var scrollView: UIScrollView!
     weak var returnDelegate: ReturnDelegate?
     @IBOutlet weak var mMap: GMSMapView!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var descriptionText: UITextView!
     @IBOutlet weak var nameText: UITextField!
     var prevPuzzles: [Puzzle]? = nil
-    var geodata: GeoData? = nil
+//    var geodata: GeoData? = nil
     var puzzle: Puzzle? = nil
     var markerPress: [GMSMarker]? = nil
     var puzzleMarker: GMSMarker?
@@ -52,29 +53,32 @@ class PuzzlesVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate
         }
         dismiss(animated: true, completion: nil)
     }
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+//        scrollView.delegate = self
+        nameText.delegate = self
+        descriptionText.delegate = self
+        descriptionText.textColor = UIColor.lightGray
+//        nameTextField.textColor = UIColor.lightGray
+//        tagTextView.textColor = UIColor.lightGray
+        descriptionText.layer.borderWidth = 0.5
+        descriptionText.layer.borderColor = UIColor.lightGray.cgColor
+        descriptionText.clipsToBounds = true
+        descriptionText.layer.cornerRadius = 6.0
         // set self as the delegate for GMSMapView's infoWindow events
         mMap.delegate = self
         // put mylocation marker down; Google automatically asks for location permission
         mMap.isMyLocationEnabled = true
         // enable the location bull's eye button
         mMap.settings.myLocationButton = true
-//        var chattMarker: GMSMarker!
-//            
-//            if let geoLoc = geodata{
-//                let coordinate = CLLocationCoordinate2D(latitude: geoLoc.lat, longitude: geoLoc.lon)
-//                chattMarker = GMSMarker(position: coordinate)
-//                chattMarker.map = mMap
-//                puzzle = Puzzle(location: geoLoc, name: "New Puzzle?", type: "Empty", description: nil)
-//                chattMarker.userData = puzzle
-//                mMap.camera = GMSCameraPosition.camera(withTarget: coordinate, zoom: 15.0)
-//            }
-//        }
+
+        var chattMarker: GMSMarker!
+
         
         locmanager.delegate = self
         locmanager.desiredAccuracy = kCLLocationAccuracyBest
@@ -82,9 +86,57 @@ class PuzzlesVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate
         // obtain user's current location so that we can
         // zoom the map to the current location
         locmanager.startUpdatingLocation()
+        prevPuzzles?.forEach {
+            if let geodata = $0.location {
+                chattMarker = GMSMarker(position: CLLocationCoordinate2D(latitude: geodata.lat, longitude: geodata.lon))
+                chattMarker.map = mMap
+                chattMarker.userData = $0
+            }
+        }
         
+        let geodata = GeoData()
+        let coordinate = CLLocationCoordinate2D(latitude: geodata.lat, longitude: geodata.lon)
+        // move camera to chatt's location
+        mMap.camera = GMSCameraPosition.camera(withTarget: coordinate, zoom: 15.0)
+        
+        NotificationCenter.default.addObserver(self,
+               selector: #selector(self.keyboardWillShow(notification:)),
+               name: UIResponder.keyboardWillShowNotification,
+               object: nil)
+        NotificationCenter.default.addObserver(self,
+               selector: #selector(self.keyboardWillHide(notification:)),
+               name: UIResponder.keyboardWillHideNotification,
+               object: nil)
+    }
+    
+    @objc func keyboardWillShow(notification: NSNotification) {
+         self.view.frame.origin.y = -150 // Move view 150 points upward
     }
 
+    @objc func keyboardWillHide(notification: NSNotification) {
+         self.view.frame.origin.y = 0 // Move view to original position
+    }
+//    @objc func keyboardWillShow(notification: NSNotification) {
+//        guard let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
+//        else {
+//          // if keyboard size is not available for some reason, dont do anything
+//          return
+//        }
+//
+//        let contentInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: keyboardSize.height , right: 0.0)
+//        scrollView.contentInset = contentInsets
+//        scrollView.scrollIndicatorInsets = contentInsets
+//      }
+//
+//      @objc func keyboardWillHide(notification: NSNotification) {
+//        let contentInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: 0.0, right: 0.0)
+//
+//
+//        // reset back the content inset to zero after keyboard is gone
+//        scrollView.contentInset = contentInsets
+//        scrollView.scrollIndicatorInsets = contentInsets
+//      }
+    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = mMap.myLocation else {
             return
@@ -92,42 +144,11 @@ class PuzzlesVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate
         locmanager.stopUpdatingLocation()
         
         // Zoom in to the user's current location
-        mMap.camera = GMSCameraPosition.camera(withTarget: location.coordinate, zoom: 6.0)
+        mMap.camera = GMSCameraPosition.camera(withTarget: location.coordinate, zoom: 15.0)
     }
-
-//    func mapView(_ mapView: GMSMapView, didLongPressAt coordinate: CLLocationCoordinate2D) {
-//         // Custom logic here
-//         let marker = GMSMarker()
-//         marker.position = coordinate
-//         marker.title = "Add Puzzle"
-//         marker.snippet = ""
-//         marker.map = mapView
-//    }
     
     var counterMarker: Int = 0
-//    func mapView(_ mapView: GMSMapView, didLongPressAt coordinate: CLLocationCoordinate2D) {
-//
-//                 // Custom logic here
-//            if counterMarker < 1{
-//                let marker = GMSMarker()
-//                counterMarker += 1
-//                marker.position = coordinate
-//                marker.title = "I added this with a long tap"
-//                marker.snippet = ""
-//                marker.map = mapView
-//                self.prev_marker = marker
-//            }
-//            else {
-//                self.prev_marker.map = nil
-//                let marker = GMSMarker()
-//                marker.position = coordinate
-//                marker.title = "I added this with a long tap"
-//                marker.snippet = ""
-//                marker.map = mapView
-//                self.prev_marker = marker
-//            }
-//
-//            }
+
 
     func mapView(_ mapView: GMSMapView, didLongPressAt coordinate: CLLocationCoordinate2D) {
 
@@ -137,8 +158,8 @@ class PuzzlesVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate
                 let marker = GMSMarker(position: coordinate)
                 marker.appearAnimation = GMSMarkerAnimation.pop
                 marker.position = coordinate
-                marker.title = "Add Puzzle"
-                marker.snippet = ""
+                marker.title = self.nameText.text
+//                marker.snippet = ""
                 marker.map = mapView
 //                marker.map = mapView
                self.puzzleMarker = marker
@@ -169,23 +190,6 @@ class PuzzlesVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate
             description.text = puzzle.description
             description.textColor = .darkGray
             view.addSubview(description)
-        
-
-           guard let geodata = puzzle.location else {
-               return view
-           }
-
-           let infoLabel = UILabel(frame: CGRect.init(x: description.frame.origin.x, y: description.frame.origin.y + description.frame.size.height + 30, width: view.frame.size.width - 16, height: 40))
-           infoLabel.text = "Posted from " + geodata.loc + "."
-           infoLabel.font = UIFont.systemFont(ofSize: 16)
-
-           infoLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
-           infoLabel.numberOfLines = 2
-
-           infoLabel.textColor = .black
-           infoLabel.highlight(searchedText: geodata.loc, geodata.facing, geodata.speed)
-           view.addSubview(infoLabel)
-           
            return view
        }
 }

@@ -28,7 +28,7 @@ struct GamesStore {
         return nil
     }
     
-    func postGames(_ game: GamePost) {
+    func postGames(_ game: GamePost)->Bool? {
         
         var geoObj: Data?
         if let geodata = game.location {
@@ -65,12 +65,12 @@ struct GamesStore {
                        "tag": game.tag, "puzzles": (puzzleStrAll == nil) ? nil : String(data: puzzleStrAll!, encoding: .utf8)]
         guard let jsonData = try? JSONSerialization.data(withJSONObject: jsonObj) else {
             print("postGames: jsonData serialization error")
-            return
+            return false
         }
                 
         guard let apiUrl = URL(string: serverUrl+"postgames/") else {
             print("postGames: Bad URL")
-            return
+            return false
         }
         
         var request = URLRequest(url: apiUrl)
@@ -88,6 +88,7 @@ struct GamesStore {
             }
         }
         task.resume()
+        return true
     }
     
     mutating func getLocation(_ geodata: GeoData) {

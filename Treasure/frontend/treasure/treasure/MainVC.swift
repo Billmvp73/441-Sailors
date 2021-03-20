@@ -90,6 +90,8 @@ class MainVC: UITableViewController {
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
                 if let mapsVC = storyboard.instantiateViewController(withIdentifier: "MapsVC") as? MapsVC{
                     mapsVC.game = game
+                    mapsVC.games = self.games
+                    mapsVC.isGames = true
                     self.present(mapsVC, animated: true, completion: nil)
                 }
             }
