@@ -38,6 +38,7 @@ class MainVC: UITableViewController {
         refreshControl?.addTarget(self, action: #selector(MainVC.handleRefresh(_:)), for: UIControl.Event.valueChanged)
         
         self.refreshTimeline()
+
     }
     @objc func startMap(_ sender: UISwipeGestureRecognizer) {
         let storyBoard = UIStoryboard(name: "Main", bundle:nil)
