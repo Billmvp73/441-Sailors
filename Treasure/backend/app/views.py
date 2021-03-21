@@ -43,7 +43,7 @@ def postgames(request):
     cursor = connection.cursor()
 
     token = json_data['token']
-    cursor.execute('SELECT username, expiration FROM chatters WHERE token = %s;', (token,))
+    cursor.execute('SELECT username, expiration FROM users WHERE token = %s;', (token,))
 
     row = cursor.fetchone()
     now = time.time()
@@ -58,8 +58,8 @@ def postgames(request):
     gamename = json_data['gamename']
     description = json_data['description']
     tag = json_data['tag']
-    tag.replace(" ", "")
-    tag.replace(",", ", ")
+    tag = tag.replace(" ", "")
+    tag = tag.replace(",", ", ")
     location = json_data['location']
     puzzles = json_data['puzzles']
     cursor.execute('INSERT INTO games (gid, username, gamename, description, tag, location, puzzles) VALUES '
@@ -108,7 +108,7 @@ def adduser(request):
     # Lifetime of token is min of time to idToken expiration
     # (int()+1 is just ceil()) and target lifetime, which should
     # be less than idToken lifetime (~1 hour).
-    lifetime = min(int(idinfo['exp']-now)+1, 60) # secs, up to idToken's lifetime
+    lifetime = min(int(idinfo['exp']-now)+1, 3500) # secs, up to idToken's lifetime
 
     cursor = connection.cursor()
 
