@@ -41,17 +41,29 @@ def postgames(request):
         return HttpResponse(status=404)
     json_data = json.loads(request.body)
     cursor = connection.cursor()
+
+    token = json_data['token']
+    cursor.execute('SELECT username, expiration FROM chatters WHERE token = %s;', (token,))
+
+    row = cursor.fetchone()
+    now = time.time()
+    if row is None or now > row[1]:
+        # return an error if there is no chatter with that ID
+        return HttpResponse(status=401) # 401 Unauthorized
+
+
     # assign a new gid
     cursor.execute('SELECT COUNT(*) FROM games;')
     gid = str(int(cursor.fetchone()[0])+1)
-    token = json_data['token']
     gamename = json_data['gamename']
     description = json_data['description']
     tag = json_data['tag']
+    tag.replace(" ", "")
+    tag.replace(",", ", ")
     location = json_data['location']
     puzzles = json_data['puzzles']
     cursor.execute('INSERT INTO games (gid, username, gamename, description, tag, location, puzzles) VALUES '
-                   '(%s, %s, %s, %s,%s, %s, %s);', (gid, username, gamename, description, tag, location, puzzles))
+                   '(%s, %s, %s, %s,%s, %s, %s);', (gid, row[0], gamename, description, tag, location, puzzles))
     return JsonResponse({})
 
 

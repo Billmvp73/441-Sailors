@@ -7,7 +7,8 @@
 
 import UIKit
 
-class PostVC: UIViewController, UITextViewDelegate, ReturnDelegate, RoutesReturnDelegate {
+class PostVC: UIViewController, UITextViewDelegate, sReturnDelegate, ReturnDelegate, RoutesReturnDelegate {
+    func onReturn(_ result: String?){ }
     private let geodata = GeoData()
     var puzzles = [Puzzle]()
     @IBOutlet var popupView: UIView!
@@ -26,8 +27,7 @@ class PostVC: UIViewController, UITextViewDelegate, ReturnDelegate, RoutesReturn
     @IBOutlet weak var continueButton: UIButton!
     @IBOutlet weak var retryButton: UIButton!
     @IBAction func submitGames(_ sender: Any) {
-        let game = GamePost(username: "change to google user id -- TODO",
-                            gamename: self.nameTextField.text, description: self.descriptionTextView.text, tag: self.tagTextView.text, location: self.geodata, puzzles: self.puzzles)
+        let game = GamePost(gamename: self.nameTextField.text, description: self.descriptionTextView.text, tag: self.tagTextView.text, location: self.geodata, puzzles: self.puzzles)
         
         let store = GamesStore()
         var postResponse : Bool?=nil
@@ -51,6 +51,7 @@ class PostVC: UIViewController, UITextViewDelegate, ReturnDelegate, RoutesReturn
             self.viewDim.alpha = 0.8
         }, completion: nil)
 //        puzzles = [Puzzle]()
+        navigationController?.popViewController(animated: true)
         dismiss(animated: true, completion: nil)
     }
     
@@ -85,10 +86,18 @@ class PostVC: UIViewController, UITextViewDelegate, ReturnDelegate, RoutesReturn
         self.viewDim.backgroundColor = UIColor.black
         self.viewDim.alpha = 0
         popupView.isHidden = true
-        descriptionTextView.text = ""
+        descriptionTextView.text = "description"
         nameTextField.text = ""
         tagTextView.text = ""
         // Do any additional setup after loading the view.
+        guard let _ = UserID.shared.token else {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            if let signinVC = storyboard.instantiateViewController(withIdentifier: "SigninVC") as? SigninVC {
+                signinVC.returnDelegate = self
+                self.navigationController!.pushViewController(signinVC, animated: true)
+            }
+            return
+        }
     }
 
 
@@ -124,7 +133,7 @@ class PostVC: UIViewController, UITextViewDelegate, ReturnDelegate, RoutesReturn
     }
     func textViewDidEndEditing(_ textView: UITextView) {
         if textView.text.isEmpty {
-            textView.text = "descriptionription"
+            textView.text = "description"
             textView.textColor = UIColor.lightGray
         }
     }

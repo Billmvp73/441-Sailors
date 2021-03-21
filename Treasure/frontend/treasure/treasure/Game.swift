@@ -26,13 +26,10 @@ struct Puzzle {
 }
 
 struct GamePost {
-    var username: String?
     var gamename: String?
     var description: String?
     var tag: String?
-    var gid: String?
     var location: GeoData?
     var puzzles: Array<Puzzle> = Array()
-    var timestamp: String?
-    static let nFields = 8
+    static let nFields = 5
 }

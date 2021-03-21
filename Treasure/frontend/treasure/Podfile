@@ -9,4 +9,5 @@ target 'treasure' do
   pod 'SDWebImage', '~> 5.0'
   pod 'Alamofire', '~> 5.2'
   pod 'GoogleMaps'
+  pod 'GoogleSignIn'
 end

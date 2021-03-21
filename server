@@ -1,0 +1,26 @@
+ssh pyhuang@174.138.33.66
+8A$BTxh2eGV!aMU
+
+sudo -u postgres psql
+\connect treasuredb
+
+CREATE TABLE chatts (username varchar(255), message varchar(255), time timestamp DEFAULT CURRENT_TIMESTAMP);
+
+
+INSERT INTO chatts  VALUES ('testuser1', 'Hello world');
+SELECT * from games;
+
+TRUNCATE TABLE chatts; 
+
+ALTER TABLE chatts ADD COLUMN audio TEXT;
+ALTER TABLE chatts DROP COLUMN voice;
+
+games:
+username|gamename|description|tag|location|gid|time|puzzles
+
+users:
+uid|token|username|expiration
+
+
+
+~/441-Sailors/Treasure/backend/app

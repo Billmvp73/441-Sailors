@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2F92ADCF2607D19000A0514B /* credentials.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2F92ADCE2607D19000A0514B /* credentials.plist */; };
+		2F92ADD22607D4F100A0514B /* UserID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F92ADD12607D4F100A0514B /* UserID.swift */; };
+		2F92ADD62607D56C00A0514B /* SigninVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F92ADD52607D56C00A0514B /* SigninVC.swift */; };
 		7B6768FD184653727FAD4D77 /* Pods_treasure.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29F752C734AD77F9443A7F0C /* Pods_treasure.framework */; };
 		81BF783E25FD9EA6004F965F /* PuzzlesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BF783D25FD9EA6004F965F /* PuzzlesVC.swift */; };
 		81C51A8C25FBAF9800ACF933 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C51A8B25FBAF9800ACF933 /* AppDelegate.swift */; };
@@ -28,6 +31,9 @@
 /* Begin PBXFileReference section */
 		23106864D09497CFF3746B19 /* Pods-treasure.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-treasure.release.xcconfig"; path = "Target Support Files/Pods-treasure/Pods-treasure.release.xcconfig"; sourceTree = "<group>"; };
 		29F752C734AD77F9443A7F0C /* Pods_treasure.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_treasure.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2F92ADCE2607D19000A0514B /* credentials.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = credentials.plist; sourceTree = "<group>"; };
+		2F92ADD12607D4F100A0514B /* UserID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserID.swift; sourceTree = "<group>"; };
+		2F92ADD52607D56C00A0514B /* SigninVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SigninVC.swift; sourceTree = "<group>"; };
 		81BF783D25FD9EA6004F965F /* PuzzlesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PuzzlesVC.swift; sourceTree = "<group>"; };
 		81C51A8825FBAF9800ACF933 /* treasure.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = treasure.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		81C51A8B25FBAF9800ACF933 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -63,6 +69,7 @@
 		81C51A7F25FBAF9700ACF933 = {
 			isa = PBXGroup;
 			children = (
+				2F92ADCE2607D19000A0514B /* credentials.plist */,
 				81C51A8A25FBAF9800ACF933 /* treasure */,
 				81C51A8925FBAF9800ACF933 /* Products */,
 				FB41B9167A794E8E2BCA1C34 /* Pods */,
@@ -93,10 +100,12 @@
 				81C51A9925FBAF9900ACF933 /* Info.plist */,
 				81C51AA525FC652D00ACF933 /* GamesStore.swift */,
 				81C51AA925FC691700ACF933 /* GeoData.swift */,
+				2F92ADD52607D56C00A0514B /* SigninVC.swift */,
 				81C51AB225FC6F8F00ACF933 /* MainVC.swift */,
 				81C51AB525FC72CF00ACF933 /* GameTableCell.swift */,
 				81C51ABB25FC8CE000ACF933 /* MapsVC.swift */,
 				81BF783D25FD9EA6004F965F /* PuzzlesVC.swift */,
+				2F92ADD12607D4F100A0514B /* UserID.swift */,
 			);
 			path = treasure;
 			sourceTree = "<group>";
@@ -179,6 +188,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				81E4E9652605AF970091F0F2 /* icons8-arrow-50.png in Resources */,
+				2F92ADCF2607D19000A0514B /* credentials.plist in Resources */,
 				81E4E9622605AE340091F0F2 /* arrow_icon.png in Resources */,
 				81C51A9825FBAF9900ACF933 /* LaunchScreen.storyboard in Resources */,
 				81C51A9525FBAF9900ACF933 /* Assets.xcassets in Resources */,
@@ -260,7 +270,9 @@
 				81C51A8C25FBAF9800ACF933 /* AppDelegate.swift in Sources */,
 				81C51ABC25FC8CE000ACF933 /* MapsVC.swift in Sources */,
 				81C51A8E25FBAF9800ACF933 /* SceneDelegate.swift in Sources */,
+				2F92ADD22607D4F100A0514B /* UserID.swift in Sources */,
 				81C51AA325FC650B00ACF933 /* Game.swift in Sources */,
+				2F92ADD62607D56C00A0514B /* SigninVC.swift in Sources */,
 				81C51AB325FC6F8F00ACF933 /* MainVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -410,13 +422,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 94DRVA8V7D;
+				DEVELOPMENT_TEAM = K32R8DKM23;
 				INFOPLIST_FILE = treasure/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = edu.umich.pyhuang.treasure;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.umich.duyung.treasure;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;

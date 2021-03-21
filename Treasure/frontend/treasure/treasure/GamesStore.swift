@@ -28,6 +28,56 @@ struct GamesStore {
         return nil
     }
     
+    func addUser(_ idToken: String?, completion: @escaping (String) -> Void) {
+        guard let idToken = idToken else {
+            completion("FAILED")
+            return
+        }
+        
+        let jsonObj = ["clientID": "447127907008-jaolt3qpes97ubd24d3te0plvcufo01r.apps.googleusercontent.com",
+                    "idToken" : idToken]
+        guard let jsonData = try? JSONSerialization.data(withJSONObject: jsonObj) else {
+            print("addUser: jsonData serialization error")
+            completion("FAILED")
+            return
+        }
+
+        guard let apiUrl = URL(string: serverUrl+"adduser/") else {
+            print("addUser: Bad URL")
+            completion("FAILED")
+            return
+        }
+        
+        var request = URLRequest(url: apiUrl)
+        request.httpMethod = "POST"
+        request.httpBody = jsonData
+        
+        let task =  URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data, error == nil else {
+                print("addUser: NETWORKING ERROR")
+                completion("FAILED")
+                return
+            }
+            
+            if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {
+                print("addUser: HTTP STATUS: \(httpStatus.statusCode)")
+                completion("FAILED")
+            }
+            
+            guard let jsonObj = try? JSONSerialization.jsonObject(with: data) as? [String:Any] else {
+                print("addUser: failed JSON deserialization")
+                completion("FAILED")
+                return
+            }
+
+            UserID.shared.token = jsonObj["token"] as? String
+            UserID.shared.expiration = Date()+(jsonObj["lifetime"] as! TimeInterval)
+            completion("OK")
+        }
+        task.resume()
+    }
+    
+    
     func postGames(_ game: GamePost)->Bool? {
         
         var geoObj: Data?
@@ -45,23 +95,15 @@ struct GamesStore {
                               "description": puzzle.description,
                               "type": puzzle.type,
                               "location": (puzzleLoc == nil) ? nil:String(data: puzzleLoc!, encoding: .utf8)]
-//            let puzzleObj = try? JSONSerialization.data(withJSONObject: jsonPuzzle)
-//            let strPuzzle = (puzzleObj == nil) ? nil : String(data: puzzleObj!, encoding:  .utf8)
-//            puzzleStrs += [strPuzzle]
             puzzleStrs += [jsonPuzzle]
         }
         
-//        var puzzleStrAll: String
-//        puzzleStrAll = ""
-//        for puzzleStr in puzzleStrs{
-//            puzzleStrAll += puzzleStr!
-//        }
+
         let puzzleStrAll = try?JSONSerialization.data(withJSONObject: puzzleStrs)
-        let jsonObj = ["username": game.username,
+        let jsonObj = ["token": UserID.shared.token,
                        "gamename": game.gamename,
                        "location": (geoObj == nil) ? nil : String(data: geoObj!, encoding: .utf8),
                        "description": game.description,
-                       //"puzzles": game.puzzles, //TODO: may need to encode like geodata
                        "tag": game.tag, "puzzles": (puzzleStrAll == nil) ? nil : String(data: puzzleStrAll!, encoding: .utf8)]
         guard let jsonData = try? JSONSerialization.data(withJSONObject: jsonObj) else {
             print("postGames: jsonData serialization error")
@@ -95,7 +137,7 @@ struct GamesStore {
         self.cur_geodata = geodata
     }
     
-    func getGames(refresh: @escaping ([GamePost]) -> (),
+    func getGames(refresh: @escaping ([Game]) -> (),
                        completion: @escaping () -> ()) {
 //        let strURL = serverUrl + geodata!.loc + "/"
         var strURL = serverUrl + "getgames/"
@@ -135,7 +177,7 @@ struct GamesStore {
                 print("getGames: failed JSON deserialization")
                 return
             }
-            var games = [GamePost]()
+            var games = [Game]()
             var jsonPuzzle: [Dictionary<String, String?>]?
             let gamesReceived = jsonObj["games"] as? [[String?]] ?? []
             for gameEntry in gamesReceived {
@@ -170,7 +212,7 @@ struct GamesStore {
                     }
                     let geoObj = gameEntry[4]?.data(using: .utf8)
                     let geoArr = (geoObj == nil) ? nil : try? JSONSerialization.jsonObject(with: geoObj!) as? [Any]
-                    games += [GamePost(username: gameEntry[0],
+                    games += [Game(username: gameEntry[0],
                                      gamename: gameEntry[1],
                                      description: gameEntry[2],
                                      tag: gameEntry[3],

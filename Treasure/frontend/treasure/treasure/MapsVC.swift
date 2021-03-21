@@ -22,7 +22,7 @@ extension Array {
 
 class MapsVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate{
     @IBOutlet weak var mMap: GMSMapView!
-    var game: GamePost? = nil
+    var game: Game? = nil
     var puzzles: [Puzzle]? = nil
     var isGames: Bool? = nil
     var pins = [CLLocationCoordinate2D]()
@@ -30,7 +30,7 @@ class MapsVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate{
     @IBAction func stopMapView(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
-    var games: [GamePost]? = nil
+    var games: [Game]? = nil
     private lazy var locmanager = CLLocationManager() // Create a location manager to interface with iOS's location manager.
 
     override func viewDidLoad() {
@@ -163,7 +163,7 @@ class MapsVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate{
     }
 
     func mapView(_ mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
-        if let game = marker.userData as? GamePost{
+        if let game = marker.userData as? Game{
             let view = UIView(frame: CGRect.init(x: 0, y: 0, width: 300, height: 150))
             view.backgroundColor = UIColor.white
             view.layer.cornerRadius = 6

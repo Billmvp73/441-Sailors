@@ -209,6 +209,21 @@
             </objects>
             <point key="canvasLocation" x="4350.7246376811599" y="73.660714285714278"/>
         </scene>
+        <!--SigninVC-->
+        <scene sceneID="BiA-RK-tIZ">
+            <objects>
+                <viewController storyboardIdentifier="SigninVC" id="1h5-ZD-DoW" customClass="SigninVC" customModule="treasure" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="6mx-z5-wGF">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="yeG-h1-6fu"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rk4-j8-0Df" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2689" y="-574"/>
+        </scene>
         <!--Game Store-->
         <scene sceneID="3t4-xK-FsB">
             <objects>
@@ -363,7 +378,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QFE-ic-eD4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="955.07246376811599" y="73.660714285714278"/>
+            <point key="canvasLocation" x="1823" y="790"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="IPi-NU-Yn3">
