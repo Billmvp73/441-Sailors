@@ -30,12 +30,14 @@ class MainVC: UITableViewController {
         
         // setup refreshControl here later
                 
-        refreshTimeline()
+
         // add swipe (left) gesture recorgnizer
         let swipeRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(startMap(_:)))
         swipeRecognizer.direction = .left
         self.view.addGestureRecognizer(swipeRecognizer)
         refreshControl?.addTarget(self, action: #selector(MainVC.handleRefresh(_:)), for: UIControl.Event.valueChanged)
+        
+        self.refreshTimeline()
     }
     @objc func startMap(_ sender: UISwipeGestureRecognizer) {
         let storyBoard = UIStoryboard(name: "Main", bundle:nil)
@@ -75,7 +77,9 @@ class MainVC: UITableViewController {
         cell.gamenameLabel.sizeToFit()
         cell.descriptionLabel.text = game.description
         cell.descriptionLabel.sizeToFit()
-        cell.timestampLabel.text = game.timestamp
+        cell.descriptionLabel.numberOfLines = 0
+        cell.descriptionLabel.lineBreakMode = .byWordWrapping
+        cell.timestampLabel.text = String(game.timestamp?.prefix(10) ?? "")
         cell.timestampLabel.sizeToFit()
         cell.tagLabel.text = game.tag
         cell.tagLabel.sizeToFit()

@@ -70,6 +70,7 @@ class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate
         descriptionText.layer.borderColor = UIColor.lightGray.cgColor
         descriptionText.clipsToBounds = true
         descriptionText.layer.cornerRadius = 6.0
+        descriptionText.text = "description"
         // set self as the delegate for GMSMapView's infoWindow events
         mMap.delegate = self
         // put mylocation marker down; Google automatically asks for location permission
@@ -172,24 +173,36 @@ class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate
     }
 
     func mapView(_ mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
-           guard let puzzle = marker.userData as? Puzzle else {
-               return nil
-           }
-
-           let view = UIView(frame: CGRect.init(x: 0, y: 0, width: 150, height: 100))
-           view.backgroundColor = UIColor.white
-           view.layer.cornerRadius = 6
-        
-            let puzzlename = UILabel(frame: CGRect.init(x: 10, y: 10, width: view.frame.size.width - 16, height: 15))
-            puzzlename.text = puzzle.name
-            puzzlename.font = UIFont.systemFont(ofSize: 16, weight: .bold)
-            puzzlename.textColor = .black
-            view.addSubview(puzzlename)
-        
-            let description = UILabel(frame: CGRect.init(x: puzzlename.frame.origin.x, y: puzzlename.frame.origin.y + puzzlename.frame.size.height + 10, width: view.frame.size.width - 16, height: 15))
-            description.text = puzzle.description
-            description.textColor = .darkGray
-            view.addSubview(description)
-           return view
+       guard let puzzle = marker.userData as? Puzzle else {
+           return nil
        }
+
+       let view = UIView(frame: CGRect.init(x: 0, y: 0, width: 150, height: 100))
+       view.backgroundColor = UIColor.white
+       view.layer.cornerRadius = 6
+    
+        let puzzlename = UILabel(frame: CGRect.init(x: 10, y: 10, width: view.frame.size.width - 16, height: 15))
+        puzzlename.text = puzzle.name
+        puzzlename.font = UIFont.systemFont(ofSize: 16, weight: .bold)
+        puzzlename.textColor = .black
+        view.addSubview(puzzlename)
+    
+        let description = UILabel(frame: CGRect.init(x: puzzlename.frame.origin.x, y: puzzlename.frame.origin.y + puzzlename.frame.size.height + 10, width: view.frame.size.width - 16, height: 15))
+        description.text = puzzle.description
+        description.textColor = .darkGray
+        view.addSubview(description)
+       return view
+    }
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.textColor == UIColor.lightGray {
+            textView.text = nil
+            textView.textColor = UIColor.black
+        }
+    }
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text.isEmpty {
+            textView.text = "description"
+            textView.textColor = UIColor.lightGray
+        }
+    }
 }
