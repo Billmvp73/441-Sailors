@@ -36,8 +36,8 @@ class SigninVC: UIViewController, GIDSignInDelegate {
             // Automatically sign in the user if not previously signed in,
             // which triggers the sign(_:didSignInFor:withError:) delegate/handler
             signin.restorePreviousSignIn()
-            navigationController?.popViewController(animated: true)
-            dismiss(animated: true, completion: nil)
+//            navigationController?.popViewController(animated: true)
+//            dismiss(animated: true, completion: nil)
         }
     }
     
