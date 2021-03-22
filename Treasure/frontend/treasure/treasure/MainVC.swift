@@ -27,19 +27,18 @@ class MainVC: UITableViewController {
 //    private let geodata = GeoData()
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // setup refreshControl here later
-                
-
-        // add swipe (left) gesture recorgnizer
         let swipeRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(startMap(_:)))
         swipeRecognizer.direction = .left
         self.view.addGestureRecognizer(swipeRecognizer)
         refreshControl?.addTarget(self, action: #selector(MainVC.handleRefresh(_:)), for: UIControl.Event.valueChanged)
-        
-        self.refreshTimeline()
-
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.refreshTimeline()
+    }
+
+    
     @objc func startMap(_ sender: UISwipeGestureRecognizer) {
         let storyBoard = UIStoryboard(name: "Main", bundle:nil)
         if let mapsVC = storyBoard.instantiateViewController(withIdentifier: "MapsVC") as? MapsVC {
