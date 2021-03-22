@@ -11,9 +11,6 @@ class PostVC: UIViewController, UITextViewDelegate, sReturnDelegate, ReturnDeleg
     @IBOutlet weak var tableView: UITableView!
     
     func onReturn(_ result: String?){
-        DispatchQueue.main.async {
-            self.setLoginIndecator()
-        }
     }
     private let geodata = GeoData()
     var puzzles = [Puzzle]()
@@ -26,6 +23,7 @@ class PostVC: UIViewController, UITextViewDelegate, sReturnDelegate, ReturnDeleg
         self.viewDidLoad()
     }
     
+    @IBOutlet weak var submitButton: UIBarButtonItem!
     @IBOutlet weak var nameTextField: UITextField!
     
     @IBOutlet weak var tagTextView: UITextField!
@@ -99,11 +97,14 @@ class PostVC: UIViewController, UITextViewDelegate, sReturnDelegate, ReturnDeleg
             }
             return
         }
-        self.setLoginIndecator()
+        
         
     }
 
-
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        self.setLoginIndecator()
+    }
     
      override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 //       audioButton.setImage(audioIcon, for: .normal)
@@ -223,8 +224,10 @@ class PostVC: UIViewController, UITextViewDelegate, sReturnDelegate, ReturnDeleg
     func setLoginIndecator() {
         if ((UserID.shared.token) != nil) {
             signinIndicator.text = "Logged in as " + UserID.shared.username!
+            submitButton.isEnabled = true
         } else {
             signinIndicator.text = "Not logged in"
+            submitButton.isEnabled = false
         }
     }
 }

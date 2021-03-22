@@ -159,6 +159,7 @@
                         <outlet property="responseLabel" destination="oBz-sf-Ops" id="8kB-pY-gEe"/>
                         <outlet property="retryButton" destination="h6R-if-Zrw" id="kH2-4i-DRe"/>
                         <outlet property="signinIndicator" destination="bog-MP-34A" id="q8X-kg-6KT"/>
+                        <outlet property="submitButton" destination="NiE-Ph-A7e" id="tPV-wR-h24"/>
                         <outlet property="tableView" destination="ui6-7l-dzX" id="8yB-Iw-dqq"/>
                         <outlet property="tagTextView" destination="4yL-n6-asx" id="765-yc-UhH"/>
                     </connections>
