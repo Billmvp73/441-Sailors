@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Czj-yy-oD4">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -305,6 +306,13 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tGB-Gx-a4E">
+                                            <rect key="frame" x="352" y="196" width="18" height="22"/>
+                                            <state key="normal" image="plus" catalog="system"/>
+                                            <connections>
+                                                <segue destination="adi-7g-hNg" kind="show" id="U5E-DM-2Vb"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                     <constraints>
                                         <constraint firstAttribute="bottom" secondItem="Yu5-jN-pVC" secondAttribute="bottom" constant="19.5" id="015-Hz-eSg"/>
@@ -312,6 +320,7 @@
                                         <constraint firstAttribute="trailing" secondItem="Jks-Ig-ckO" secondAttribute="trailing" constant="34" id="1Ti-FC-lE8"/>
                                         <constraint firstItem="b0o-dN-pz8" firstAttribute="top" secondItem="adp-K0-mRm" secondAttribute="bottom" constant="46.5" id="DY2-p7-Aau"/>
                                         <constraint firstAttribute="trailing" secondItem="Yu5-jN-pVC" secondAttribute="trailing" constant="96" id="EQi-rn-xXt"/>
+                                        <constraint firstItem="tGB-Gx-a4E" firstAttribute="leading" secondItem="Yu5-jN-pVC" secondAttribute="trailing" constant="34" id="F0J-dP-Voo"/>
                                         <constraint firstItem="zzg-Ry-dRK" firstAttribute="top" secondItem="zoy-dZ-7K3" secondAttribute="bottom" constant="13" id="I13-Nu-Tfk"/>
                                         <constraint firstAttribute="bottom" secondItem="b0o-dN-pz8" secondAttribute="bottom" constant="20.5" id="J4d-z8-5Ru"/>
                                         <constraint firstItem="jtS-Se-lds" firstAttribute="top" secondItem="Xui-my-Sqy" secondAttribute="top" id="Kd9-Oo-mp7"/>
@@ -319,6 +328,7 @@
                                         <constraint firstItem="adp-K0-mRm" firstAttribute="top" secondItem="zzg-Ry-dRK" secondAttribute="bottom" constant="9" id="Q3M-ur-zZL"/>
                                         <constraint firstItem="zoy-dZ-7K3" firstAttribute="leading" secondItem="mmX-82-Psm" secondAttribute="leading" constant="25" id="Tes-5r-ZgH"/>
                                         <constraint firstAttribute="trailing" secondItem="jtS-Se-lds" secondAttribute="trailing" constant="34" id="WaO-T6-ZKs"/>
+                                        <constraint firstAttribute="bottom" secondItem="tGB-Gx-a4E" secondAttribute="bottom" constant="20" symbolic="YES" id="XJn-mK-ib8"/>
                                         <constraint firstItem="adp-K0-mRm" firstAttribute="leading" secondItem="mmX-82-Psm" secondAttribute="leading" constant="25" id="e4f-0Z-hq1"/>
                                         <constraint firstItem="Xui-my-Sqy" firstAttribute="leading" secondItem="mmX-82-Psm" secondAttribute="leading" constant="25" id="isg-Kh-dNZ"/>
                                         <constraint firstItem="zzg-Ry-dRK" firstAttribute="leading" secondItem="mmX-82-Psm" secondAttribute="leading" constant="25" id="iyK-dI-HOM"/>
@@ -394,6 +404,75 @@
             </objects>
             <point key="canvasLocation" x="1823" y="790"/>
         </scene>
+        <!--Game Information-->
+        <scene sceneID="HC8-cu-lZ2">
+            <objects>
+                <viewController id="adi-7g-hNg" customClass="GameInfoVC" customModule="treasure" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="YCn-ov-8Ld">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9iM-JZ-HQk">
+                                <rect key="frame" x="49" y="130" width="50" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Description:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EfE-VI-enp">
+                                <rect key="frame" x="49" y="210" width="92" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Tags:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ir0-ZR-5ef">
+                                <rect key="frame" x="49" y="337" width="41" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Game name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A4U-zt-UWE">
+                                <rect key="frame" x="186" y="130" width="92" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Description Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ugz-9s-1WT">
+                                <rect key="frame" x="49" y="242" width="133" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="tags" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y28-qL-Yzl">
+                                <rect key="frame" x="49" y="366" width="34" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y7N-uE-YRW">
+                                <rect key="frame" x="119" y="456" width="177" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Start">
+                                    <color key="titleColor" systemColor="labelColor"/>
+                                    <color key="titleShadowColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="ADJ-Lj-eUq"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Game Information" id="aad-4M-MUc"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yY6-Z1-eQp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2683" y="790"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="IPi-NU-Yn3">
             <objects>
@@ -415,6 +494,10 @@
     </scenes>
     <resources>
         <image name="mappin.and.ellipse" catalog="system" width="118" height="128"/>
+        <image name="plus" catalog="system" width="128" height="113"/>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
