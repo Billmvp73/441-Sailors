@@ -124,4 +124,4 @@ def adduser(request):
         cursor.execute('UPDATE users SET token = %s, expiration = %s WHERE uid = %s;', (token, now+lifetime, uid))
 
     # Return token and its lifetime
-    return JsonResponse({'token': token, 'lifetime': lifetime})
+    return JsonResponse({'token': token, 'lifetime': lifetime, 'username': username})
