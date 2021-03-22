@@ -12,7 +12,7 @@
         <!--Post Game-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="PostVC" customModule="treasure" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PostVC" id="BYZ-38-t0r" customClass="PostVC" customModule="treasure" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -65,7 +65,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ayY-xf-gIf">
-                                <rect key="frame" x="106" y="648" width="207" height="30"/>
+                                <rect key="frame" x="104" y="771" width="207" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Add Puzzles">
@@ -76,7 +76,7 @@
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ui6-7l-dzX">
-                                <rect key="frame" x="52" y="432" width="342" height="186"/>
+                                <rect key="frame" x="52" y="460" width="342" height="292"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
@@ -125,13 +125,20 @@
                                 </prototypes>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O9f-KV-oCe">
-                                <rect key="frame" x="167" y="700" width="85" height="30"/>
+                                <rect key="frame" x="165" y="807" width="85" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="View Routes"/>
                                 <connections>
                                     <segue destination="Sro-nN-iz3" kind="presentation" identifier="post2Maps" id="ikG-b5-vHZ"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Not logged in" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bog-MP-34A">
+                                <rect key="frame" x="121" y="845" width="176" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -151,6 +158,7 @@
                         <outlet property="popupView" destination="6lO-hL-nDI" id="rn7-XK-ibm"/>
                         <outlet property="responseLabel" destination="oBz-sf-Ops" id="8kB-pY-gEe"/>
                         <outlet property="retryButton" destination="h6R-if-Zrw" id="kH2-4i-DRe"/>
+                        <outlet property="signinIndicator" destination="bog-MP-34A" id="q8X-kg-6KT"/>
                         <outlet property="tableView" destination="ui6-7l-dzX" id="8yB-Iw-dqq"/>
                         <outlet property="tagTextView" destination="4yL-n6-asx" id="765-yc-UhH"/>
                     </connections>

@@ -17,4 +17,9 @@ final class UserID {
         get { Date() >= expiration ? nil : field }
         set(newValue) { field = newValue }
     }
+    private var field2: String?
+    var username: String? {
+        get { Date() >= expiration ? nil : field2 }
+        set(newValue) { field2 = newValue }
+    }
 }

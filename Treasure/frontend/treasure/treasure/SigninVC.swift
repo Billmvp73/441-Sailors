@@ -8,6 +8,8 @@
 import Foundation
 import GoogleSignIn
 // TODO2.1: Declare the ResultDelegate protocol as in lab1
+
+
 protocol sReturnDelegate: UIViewController {
     func onReturn(_ result: String?)
 }
@@ -17,6 +19,7 @@ class SigninVC: UIViewController, GIDSignInDelegate {
     weak var returnDelegate: sReturnDelegate?
     
     private let store = GamesStore()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         guard let signin = GIDSignIn.sharedInstance() else {
@@ -36,8 +39,6 @@ class SigninVC: UIViewController, GIDSignInDelegate {
             // Automatically sign in the user if not previously signed in,
             // which triggers the sign(_:didSignInFor:withError:) delegate/handler
             signin.restorePreviousSignIn()
-//            navigationController?.popViewController(animated: true)
-//            dismiss(animated: true, completion: nil)
         }
     }
     
@@ -54,8 +55,10 @@ class SigninVC: UIViewController, GIDSignInDelegate {
             // class, PostVC
             self.returnDelegate?.onReturn(result)
             DispatchQueue.main.async {
+                self.navigationController?.popViewController(animated: true)
                 self.dismiss(animated: true, completion: nil)
             }
+            
         }
     }
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
@@ -83,9 +86,11 @@ class SigninVC: UIViewController, GIDSignInDelegate {
                 // class, PostVC
                 self.returnDelegate?.onReturn(result)
                 DispatchQueue.main.async {
+                    self.navigationController?.popViewController(animated: true)
                     self.dismiss(animated: true, completion: nil)
                 }
             }
+            
         }
     }
     

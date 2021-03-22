@@ -10,7 +10,11 @@ import UIKit
 class PostVC: UIViewController, UITextViewDelegate, sReturnDelegate, ReturnDelegate, RoutesReturnDelegate, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var tableView: UITableView!
     
-    func onReturn(_ result: String?){ }
+    func onReturn(_ result: String?){
+        DispatchQueue.main.async {
+            self.setLoginIndecator()
+        }
+    }
     private let geodata = GeoData()
     var puzzles = [Puzzle]()
     @IBOutlet var popupView: UIView!
@@ -25,6 +29,7 @@ class PostVC: UIViewController, UITextViewDelegate, sReturnDelegate, ReturnDeleg
     @IBOutlet weak var nameTextField: UITextField!
     
     @IBOutlet weak var tagTextView: UITextField!
+    @IBOutlet weak var signinIndicator: UILabel!
     
     @IBOutlet weak var continueButton: UIButton!
     @IBOutlet weak var retryButton: UIButton!
@@ -57,18 +62,7 @@ class PostVC: UIViewController, UITextViewDelegate, sReturnDelegate, ReturnDeleg
         dismiss(animated: true, completion: nil)
     }
     
-//    var renderGames:(()->Void)?
-//    @IBAction func addPuzzles(_ sender: Any) {
-//        self.renderGames = {
-//            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//            if let puzzlesVC = storyboard.instantiateViewController(withIdentifier: "PuzzlesVC") as? PuzzlesVC{
-//                if self.puzzlestr == nil{
-//                    self.present(puzzlesVC, animated: true, completion: nil)
-//                }
-//            }
-//        }
-//        self.renderGames?()
-//    }
+
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }
@@ -77,16 +71,12 @@ class PostVC: UIViewController, UITextViewDelegate, sReturnDelegate, ReturnDeleg
         super.viewDidLoad()
         descriptionTextView.delegate = self
         descriptionTextView.textColor = UIColor.lightGray
-//        nameTextField.textColor = UIColor.lightGray
-//        tagTextView.textColor = UIColor.lightGray
         descriptionTextView.layer.borderWidth = 0.5
         descriptionTextView.layer.borderColor = UIColor.lightGray.cgColor
         descriptionTextView.clipsToBounds = true
         descriptionTextView.layer.cornerRadius = 6.0
         addPuzzlesButton.clipsToBounds = true
         addPuzzlesButton.layer.cornerRadius = 6.0
-//        self.viewDim.backgroundColor = UIColor.black
-//        self.viewDim.alpha = 0
         popupView.isHidden = true
         descriptionTextView.text = "description"
         nameTextField.text = ""
@@ -100,6 +90,7 @@ class PostVC: UIViewController, UITextViewDelegate, sReturnDelegate, ReturnDeleg
         refreshControl.addTarget(self, action: #selector(PostVC.handleRefresh(_:)), for: UIControl.Event.valueChanged)
         refreshTimeline()
         // Do any additional setup after loading the view.
+        
         guard let _ = UserID.shared.token else {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             if let signinVC = storyboard.instantiateViewController(withIdentifier: "SigninVC") as? SigninVC {
@@ -108,6 +99,8 @@ class PostVC: UIViewController, UITextViewDelegate, sReturnDelegate, ReturnDeleg
             }
             return
         }
+        self.setLoginIndecator()
+        
     }
 
 
@@ -221,9 +214,17 @@ class PostVC: UIViewController, UITextViewDelegate, sReturnDelegate, ReturnDeleg
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
         }
     }
-    @objc func reloadTable(){
+    @objc func reloadTable() {
         DispatchQueue.main.async {
             self.tableView.reloadData()
+        }
+    }
+    
+    func setLoginIndecator() {
+        if ((UserID.shared.token) != nil) {
+            signinIndicator.text = "Logged in as " + UserID.shared.username!
+        } else {
+            signinIndicator.text = "Not logged in"
         }
     }
 }

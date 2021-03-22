@@ -71,10 +71,12 @@ struct GamesStore {
             }
 
             UserID.shared.token = jsonObj["token"] as? String
+            UserID.shared.username = jsonObj["username"] as? String
             UserID.shared.expiration = Date()+(jsonObj["lifetime"] as! TimeInterval)
             completion("OK")
         }
         task.resume()
+
     }
     
     
