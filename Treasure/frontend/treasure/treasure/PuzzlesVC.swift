@@ -12,24 +12,47 @@ protocol ReturnDelegate: UIViewController {
     func onReturn(_ result: Puzzle)
 }
 
-//extension PuzzlesVC: GMSMapViewDelegate {
-//    func mapView(_ mapView: GMSMapView, didLongPressAt coordinate: CLLocationCoordinate2D) {
-//         // Custom logic here
-//         let marker = GMSMarker()
-//         marker.position = coordinate
-//         marker.title = "I added this with a long tap"
-//         marker.snippet = ""
-//         marker.map = mapView
-//    }
-//}
-
-class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate, GMSMapViewDelegate, UITextFieldDelegate {
+class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate, GMSMapViewDelegate, UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate {
 //    @IBOutlet weak var scrollView: UIScrollView!
     weak var returnDelegate: ReturnDelegate?
     @IBOutlet weak var mMap: GMSMapView!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var descriptionText: UITextView!
     @IBOutlet weak var nameText: UITextField!
+    @IBOutlet weak var puzzletypeText: UITextField!
+    @IBOutlet weak var puzzletypeDropdown: UIPickerView!
+    
+    //create puzzle list
+    var list = ["word puzzle","interaction puzzle"]
+    
+    // add drop down list for puzzle type
+    public func numberOfComponents(in pickerView: UIPickerView) -> Int{
+        return 1
+    }
+
+    public func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int{
+        return list.count
+    }
+
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        self.view.endEditing(true)
+        return list[row]
+    }
+
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        self.puzzletypeText.text = self.list[row]
+        self.puzzletypeDropdown.isHidden = true
+    }
+
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+
+        if textField == self.puzzletypeText {
+            self.puzzletypeDropdown.isHidden = false
+            //if you don't want the users to se the keyboard type:
+            textField.endEditing(true)
+        }
+    }
+    
     var prevPuzzles: [Puzzle]? = nil
 //    var geodata: GeoData? = nil
     var puzzle: Puzzle? = nil
@@ -42,13 +65,7 @@ class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate
     @IBAction func stopPuzzles(_ sender: Any) {
         if let coordinate = self.puzzleMarker?.position{
             let geoPuzzle = GeoData(lat: coordinate.latitude, lon: coordinate.longitude)
-//            GMSGeocoder().reverseGeocodeCoordinate(coordinate) { response , _ in
-//                if let address = response?.firstResult(), let lines = address.lines {
-//                    // get city name from the first address returned
-//                    geoPuzzle.loc = lines[0].components(separatedBy: ", ")[1]
-//                }
-//            }
-            puzzle = Puzzle(location: geoPuzzle, name: nameText.text, type: "Empty", description: descriptionText.text)
+            puzzle = Puzzle(location: geoPuzzle, name: nameText.text, type: puzzletypeText.text, description: descriptionText.text)
             returnDelegate?.onReturn(puzzle!)
         }
         dismiss(animated: true, completion: nil)
@@ -61,6 +78,8 @@ class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
 //        scrollView.delegate = self
+//        puzzletypeText.delegate = self
+//        puzzletypeDropdown.delegate = self
         nameText.delegate = self
         descriptionText.delegate = self
         descriptionText.textColor = UIColor.lightGray
@@ -117,26 +136,6 @@ class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate
     @objc func keyboardWillHide(notification: NSNotification) {
          self.view.frame.origin.y = 0 // Move view to original position
     }
-//    @objc func keyboardWillShow(notification: NSNotification) {
-//        guard let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
-//        else {
-//          // if keyboard size is not available for some reason, dont do anything
-//          return
-//        }
-//
-//        let contentInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: keyboardSize.height , right: 0.0)
-//        scrollView.contentInset = contentInsets
-//        scrollView.scrollIndicatorInsets = contentInsets
-//      }
-//
-//      @objc func keyboardWillHide(notification: NSNotification) {
-//        let contentInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: 0.0, right: 0.0)
-//
-//
-//        // reset back the content inset to zero after keyboard is gone
-//        scrollView.contentInset = contentInsets
-//        scrollView.scrollIndicatorInsets = contentInsets
-//      }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = mMap.myLocation else {
