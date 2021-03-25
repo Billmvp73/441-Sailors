@@ -10,7 +10,12 @@
 		2F92ADCF2607D19000A0514B /* credentials.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2F92ADCE2607D19000A0514B /* credentials.plist */; };
 		2F92ADD22607D4F100A0514B /* UserID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F92ADD12607D4F100A0514B /* UserID.swift */; };
 		2F92ADD62607D56C00A0514B /* SigninVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F92ADD52607D56C00A0514B /* SigninVC.swift */; };
-		6CAD1B8D260D1D8E0050F238 /* toy_biplane.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 6CAD1B8C260D1D8E0050F238 /* toy_biplane.usdz */; };
+		6CA21512260D308200CF7326 /* robot.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 6CA2150E260D308200CF7326 /* robot.usdz */; };
+		6CA21513260D308200CF7326 /* drummer.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 6CA2150F260D308200CF7326 /* drummer.usdz */; };
+		6CA21514260D308200CF7326 /* plane.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 6CA21510260D308200CF7326 /* plane.usdz */; };
+		6CA21515260D308200CF7326 /* tulip.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 6CA21511260D308200CF7326 /* tulip.usdz */; };
+		6CA21518260D30FF00CF7326 /* car.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 6CA21517260D30FF00CF7326 /* car.usdz */; };
+		6CA2151B260D312300CF7326 /* wateringcan.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 6CA2151A260D312300CF7326 /* wateringcan.usdz */; };
 		7B6768FD184653727FAD4D77 /* Pods_treasure.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29F752C734AD77F9443A7F0C /* Pods_treasure.framework */; };
 		81BF783E25FD9EA6004F965F /* PuzzlesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BF783D25FD9EA6004F965F /* PuzzlesVC.swift */; };
 		81C51A8C25FBAF9800ACF933 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C51A8B25FBAF9800ACF933 /* AppDelegate.swift */; };
@@ -36,7 +41,12 @@
 		2F92ADCE2607D19000A0514B /* credentials.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = credentials.plist; sourceTree = "<group>"; };
 		2F92ADD12607D4F100A0514B /* UserID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserID.swift; sourceTree = "<group>"; };
 		2F92ADD52607D56C00A0514B /* SigninVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SigninVC.swift; sourceTree = "<group>"; };
-		6CAD1B8C260D1D8E0050F238 /* toy_biplane.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; name = toy_biplane.usdz; path = models/toy_biplane.usdz; sourceTree = SOURCE_ROOT; };
+		6CA2150E260D308200CF7326 /* robot.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = robot.usdz; sourceTree = "<group>"; };
+		6CA2150F260D308200CF7326 /* drummer.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = drummer.usdz; sourceTree = "<group>"; };
+		6CA21510260D308200CF7326 /* plane.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = plane.usdz; sourceTree = "<group>"; };
+		6CA21511260D308200CF7326 /* tulip.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = tulip.usdz; sourceTree = "<group>"; };
+		6CA21517260D30FF00CF7326 /* car.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = car.usdz; sourceTree = "<group>"; };
+		6CA2151A260D312300CF7326 /* wateringcan.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = wateringcan.usdz; sourceTree = "<group>"; };
 		81BF783D25FD9EA6004F965F /* PuzzlesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PuzzlesVC.swift; sourceTree = "<group>"; };
 		81C51A8825FBAF9800ACF933 /* treasure.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = treasure.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		81C51A8B25FBAF9800ACF933 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -92,7 +102,12 @@
 		81C51A8A25FBAF9800ACF933 /* treasure */ = {
 			isa = PBXGroup;
 			children = (
-				6CAD1B8C260D1D8E0050F238 /* toy_biplane.usdz */,
+				6CA2151A260D312300CF7326 /* wateringcan.usdz */,
+				6CA21517260D30FF00CF7326 /* car.usdz */,
+				6CA2150F260D308200CF7326 /* drummer.usdz */,
+				6CA21510260D308200CF7326 /* plane.usdz */,
+				6CA2150E260D308200CF7326 /* robot.usdz */,
+				6CA21511260D308200CF7326 /* tulip.usdz */,
 				81CD8B4C260924B1006A1632 /* PuzzleCell.swift */,
 				81E4E9642605AF970091F0F2 /* icons8-arrow-50.png */,
 				81E4E9612605AE340091F0F2 /* arrow_icon.png */,
@@ -194,12 +209,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				81E4E9652605AF970091F0F2 /* icons8-arrow-50.png in Resources */,
+				6CA21512260D308200CF7326 /* robot.usdz in Resources */,
+				6CA21515260D308200CF7326 /* tulip.usdz in Resources */,
+				6CA2151B260D312300CF7326 /* wateringcan.usdz in Resources */,
 				2F92ADCF2607D19000A0514B /* credentials.plist in Resources */,
 				81E4E9622605AE340091F0F2 /* arrow_icon.png in Resources */,
+				6CA21514260D308200CF7326 /* plane.usdz in Resources */,
+				6CA21513260D308200CF7326 /* drummer.usdz in Resources */,
 				81C51A9825FBAF9900ACF933 /* LaunchScreen.storyboard in Resources */,
 				81C51A9525FBAF9900ACF933 /* Assets.xcassets in Resources */,
 				81C51A9325FBAF9800ACF933 /* Main.storyboard in Resources */,
-				6CAD1B8D260D1D8E0050F238 /* toy_biplane.usdz in Resources */,
+				6CA21518260D30FF00CF7326 /* car.usdz in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

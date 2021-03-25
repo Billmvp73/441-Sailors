@@ -26,7 +26,7 @@ class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate
     @IBOutlet weak var sceneView: SCNView!
     
     //create puzzle list
-    var list = ["word puzzle","interaction puzzle"]
+    var list = ["plane","drummer","robot","car"]
     
     // add drop down list for puzzle type
     public func numberOfComponents(in pickerView: UIPickerView) -> Int{
@@ -45,6 +45,8 @@ class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         self.puzzletypeText.text = self.list[row]
         self.puzzletypeDropdown.isHidden = true
+        let name = self.list[row] + ".usdz"
+        self.showAr(name: name)
     }
 
     func textFieldDidBeginEditing(_ textField: UITextField) {
@@ -57,11 +59,9 @@ class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate
     }
     
     var prevPuzzles: [Puzzle]? = nil
-//    var geodata: GeoData? = nil
     var puzzle: Puzzle? = nil
     var markerPress: [GMSMarker]? = nil
     var puzzleMarker: GMSMarker?
-//    var puzzles: [Puzzle]? = nil
 
     private lazy var locmanager = CLLocationManager() // Create a location manager to interface with iOS's location manager.
 
@@ -78,13 +78,8 @@ class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate
         self.view.endEditing(true)
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        
-        // 1: Load .obj file
-        let scene = SCNScene(named: "toy_biplane.usdz")
-        
+    func showAr(name: String) {
+        let scene = SCNScene(named: name)
         // 2: Add camera node
         let cameraNode = SCNNode()
         cameraNode.camera = SCNCamera()
@@ -106,6 +101,7 @@ class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate
         ambientLightNode.light?.type = .ambient
         ambientLightNode.light?.color = UIColor.darkGray
         scene?.rootNode.addChildNode(ambientLightNode)
+        
                 
         // If you don't want to fix manually the lights
     //        sceneView.autoenablesDefaultLighting = true
@@ -124,14 +120,23 @@ class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate
         
         // Set scene settings
         sceneView.scene = scene
-//        scrollView.delegate = self
-//        puzzletypeText.delegate = self
-//        puzzletypeDropdown.delegate = self
+    }
+    
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        print("in the viewdidload")
+        
+//        let name = puzzletypeText.text! + ".usdz"
+        // 1: Load .obj file
+//        let scene = SCNScene(named: "toy plane.usdz")
+        self.showAr(name: "plane.usdz")
+                            
+        
+        
         nameText.delegate = self
         descriptionText.delegate = self
         descriptionText.textColor = UIColor.lightGray
-//        nameTextField.textColor = UIColor.lightGray
-//        tagTextView.textColor = UIColor.lightGray
         descriptionText.layer.borderWidth = 0.5
         descriptionText.layer.borderColor = UIColor.lightGray.cgColor
         descriptionText.clipsToBounds = true
