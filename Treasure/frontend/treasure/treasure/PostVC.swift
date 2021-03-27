@@ -164,6 +164,7 @@ class PostVC: UIViewController, UITextViewDelegate, sReturnDelegate, ReturnDeleg
         cell.indexLabel?.text = "#"+String(indexPath.row)
         cell.nameLabel?.text = puzzle.name
         cell.descriptionLabel?.text = puzzle.description
+        cell.puzzletypeLabel?.text = puzzle.type
         return cell
     }
     

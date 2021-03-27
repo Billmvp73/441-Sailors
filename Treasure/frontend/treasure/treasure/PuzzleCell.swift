@@ -12,6 +12,7 @@ class PuzzleCell: UITableViewCell{
     @IBOutlet weak var indexLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var puzzletypeLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

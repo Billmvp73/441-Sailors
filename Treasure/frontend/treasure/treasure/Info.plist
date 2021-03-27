@@ -31,6 +31,8 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>camera access</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Ask for location usage permission</string>
 	<key>UIApplicationSceneManifest</key>
@@ -75,7 +77,5 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>NSCameraUsageDescription</key>
-	<string>camera access</string>
 </dict>
 </plist>

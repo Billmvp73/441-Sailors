@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import UserNotifications
+
 extension UILabel {
     func highlight(searchedText: String?..., color: UIColor = .systemBlue) {
         guard let txtLabel = self.text else { return }
@@ -22,15 +24,17 @@ extension UILabel {
 }
 
 class MainVC: UITableViewController {
+    let userNotificationCenter = UNUserNotificationCenter.current()
     private var games = [Game]()  // array of Chatt
     private let geodata = GeoData()
-//    private let geodata = GeoData()
     override func viewDidLoad() {
         super.viewDidLoad()
         let swipeRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(startMap(_:)))
         swipeRecognizer.direction = .left
         self.view.addGestureRecognizer(swipeRecognizer)
         refreshControl?.addTarget(self, action: #selector(MainVC.handleRefresh(_:)), for: UIControl.Event.valueChanged)
+        self.requestNotificationAuthorization()
+        self.sendNotification()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -128,5 +132,42 @@ class MainVC: UITableViewController {
     
     @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
          refreshTimeline()
+    }
+    
+    func requestNotificationAuthorization() {
+        let authOptions = UNAuthorizationOptions.init(arrayLiteral: .alert, .badge, .sound)
+        self.userNotificationCenter.requestAuthorization(options: authOptions) { (success, error) in
+            if let error = error {
+                print("Error: ", error)
+            }
+        }
+    }
+
+    func sendNotification() {
+        let notificationContent = UNMutableNotificationContent()
+        notificationContent.title = "Treasure!!"
+        notificationContent.body = "Your friends uploaded new games! Come and try!"
+        notificationContent.badge = NSNumber(value: 1)
+        
+        if let url = Bundle.main.url(forResource: "dune",
+                                    withExtension: "png") {
+            if let attachment = try? UNNotificationAttachment(identifier: "dune",
+                                                            url: url,
+                                                            options: nil) {
+                notificationContent.attachments = [attachment]
+            }
+        }
+        
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 15,
+                                                        repeats: false)
+        let request = UNNotificationRequest(identifier: "testNotification",
+                                            content: notificationContent,
+                                            trigger: trigger)
+        
+        userNotificationCenter.add(request) { (error) in
+            if let error = error {
+                print("Notification Error: ", error)
+            }
+        }
     }
 }
