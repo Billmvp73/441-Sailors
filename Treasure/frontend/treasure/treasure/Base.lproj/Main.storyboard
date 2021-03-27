@@ -19,43 +19,26 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GFR-le-jFY">
-<<<<<<< Updated upstream
                                 <rect key="frame" x="36" y="133" width="54" height="21"/>
-=======
-                                <rect key="frame" x="25" y="113" width="54" height="21"/>
->>>>>>> Stashed changes
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-<<<<<<< Updated upstream
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V3R-85-9I7">
                                 <rect key="frame" x="36" y="192" width="92" height="21"/>
-=======
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Description:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V3R-85-9I7">
-                                <rect key="frame" x="25" y="168" width="92" height="21"/>
->>>>>>> Stashed changes
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-<<<<<<< Updated upstream
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="description" translatesAutoresizingMaskIntoConstraints="NO" id="xme-nf-RvI">
                                 <rect key="frame" x="36" y="228" width="346" height="124"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="124" id="pIf-eI-qKT"/>
-=======
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" text="description" translatesAutoresizingMaskIntoConstraints="NO" id="xme-nf-RvI">
-                                <rect key="frame" x="34" y="197" width="346" height="160"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="130" id="LwC-6s-kBk"/>
->>>>>>> Stashed changes
                                 </constraints>
                                 <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-<<<<<<< Updated upstream
                             <textField opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="trL-8M-K6S">
                                 <rect key="frame" x="128" y="126" width="250" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -63,20 +46,10 @@
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tag:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VWv-Mw-vsW">
                                 <rect key="frame" x="36" y="368" width="33" height="21"/>
-=======
-                            <textField opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="trL-8M-K6S">
-                                <rect key="frame" x="104" y="106" width="250" height="34"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Tag:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VWv-Mw-vsW">
-                                <rect key="frame" x="25" y="373" width="33" height="21"/>
->>>>>>> Stashed changes
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-<<<<<<< Updated upstream
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="tag" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4yL-n6-asx">
                                 <rect key="frame" x="119" y="361" width="49" height="35"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -90,35 +63,13 @@
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ui6-7l-dzX">
                                 <rect key="frame" x="52" y="460" width="342" height="292"/>
-=======
-                            <textField opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="tag" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4yL-n6-asx">
-                                <rect key="frame" x="104" y="366" width="250" height="34"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ayY-xf-gIf">
-                                <rect key="frame" x="104" y="679" width="207" height="30"/>
-                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal" title="Add Puzzles">
-                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <segue destination="x6p-L0-Uxu" kind="presentation" identifier="post2Puzzles" id="Gzq-fa-QHd"/>
-                                </connections>
-                            </button>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ui6-7l-dzX">
-                                <rect key="frame" x="30" y="439" width="354" height="220"/>
->>>>>>> Stashed changes
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="180" id="TzI-yg-fxN"/>
-                                </constraints>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PuzzleCell" rowHeight="107" id="Lgk-ZM-RFd" customClass="PuzzleCell" customModule="treasure" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="354" height="107"/>
+                                        <rect key="frame" x="0.0" y="28" width="342" height="107"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Lgk-ZM-RFd" id="MRU-dt-QFP">
-                                            <rect key="frame" x="0.0" y="0.0" width="354" height="107"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="107"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a03-sf-xkx">
@@ -167,29 +118,19 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-<<<<<<< Updated upstream
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O9f-KV-oCe">
                                 <rect key="frame" x="164.5" y="799" width="85" height="30"/>
-=======
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O9f-KV-oCe">
-                                <rect key="frame" x="165" y="724" width="85" height="30"/>
->>>>>>> Stashed changes
                                 <state key="normal" title="View Routes"/>
                                 <connections>
                                     <segue destination="Sro-nN-iz3" kind="presentation" identifier="post2Maps" id="ikG-b5-vHZ"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Not logged in" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bog-MP-34A">
-<<<<<<< Updated upstream
                                 <rect key="frame" x="121" y="837" width="176" height="21"/>
-=======
-                                <rect key="frame" x="119" y="769" width="176" height="21"/>
->>>>>>> Stashed changes
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-<<<<<<< Updated upstream
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ayY-xf-gIf">
                                 <rect key="frame" x="104" y="761" width="206" height="30"/>
                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -200,19 +141,10 @@
                                     <segue destination="x6p-L0-Uxu" kind="presentation" identifier="post2Puzzles" id="Gzq-fa-QHd"/>
                                 </connections>
                             </button>
-=======
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="(use commas to separate tags)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0PR-ti-fDa">
-                                <rect key="frame" x="104" y="408" width="209" height="16"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
->>>>>>> Stashed changes
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-<<<<<<< Updated upstream
                             <constraint firstItem="bog-MP-34A" firstAttribute="top" secondItem="O9f-KV-oCe" secondAttribute="bottom" constant="8" id="04l-sY-4rb"/>
                             <constraint firstItem="xme-nf-RvI" firstAttribute="top" secondItem="V3R-85-9I7" secondAttribute="bottom" constant="15" id="41b-vt-dEj"/>
                             <constraint firstItem="VWv-Mw-vsW" firstAttribute="centerY" secondItem="4yL-n6-asx" secondAttribute="centerY" id="5Bk-TH-tWc"/>
@@ -241,39 +173,6 @@
                             <constraint firstItem="ayY-xf-gIf" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="104" id="kqr-SF-CeM"/>
                             <constraint firstItem="O9f-KV-oCe" firstAttribute="top" secondItem="ayY-xf-gIf" secondAttribute="bottom" constant="8" id="lM3-RN-igO"/>
                             <constraint firstItem="GFR-le-jFY" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="45" id="x4k-uI-zlA"/>
-=======
-                            <constraint firstItem="VWv-Mw-vsW" firstAttribute="top" secondItem="xme-nf-RvI" secondAttribute="bottom" constant="16" id="2YQ-IW-hiC"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="0PR-ti-fDa" secondAttribute="trailing" constant="101" id="4NV-E5-54H"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="ayY-xf-gIf" secondAttribute="trailing" constant="103" id="DCJ-FC-oK3"/>
-                            <constraint firstItem="ui6-7l-dzX" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="30" id="E5m-pk-f2j"/>
-                            <constraint firstItem="O9f-KV-oCe" firstAttribute="top" secondItem="ayY-xf-gIf" secondAttribute="bottom" constant="15" id="GfJ-Lm-9Gr"/>
-                            <constraint firstItem="O9f-KV-oCe" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="165" id="HOI-tn-uUc"/>
-                            <constraint firstItem="trL-8M-K6S" firstAttribute="leading" secondItem="GFR-le-jFY" secondAttribute="trailing" constant="25" id="Kcx-Hj-A2s"/>
-                            <constraint firstItem="GFR-le-jFY" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="25" id="KxG-Rc-T4g"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="bog-MP-34A" secondAttribute="trailing" constant="119" id="MFZ-EC-y8D"/>
-                            <constraint firstItem="bog-MP-34A" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="119" id="Mbu-1C-aNw"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="xme-nf-RvI" secondAttribute="trailing" constant="34" id="ORw-v9-8Xc"/>
-                            <constraint firstItem="4yL-n6-asx" firstAttribute="top" secondItem="xme-nf-RvI" secondAttribute="bottom" constant="9" id="Ru2-YC-SHN"/>
-                            <constraint firstItem="xme-nf-RvI" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="34" id="TlW-YN-TZA"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="bog-MP-34A" secondAttribute="bottom" constant="72" id="Wxv-Bl-9VZ"/>
-                            <constraint firstItem="bog-MP-34A" firstAttribute="top" secondItem="O9f-KV-oCe" secondAttribute="bottom" constant="15" id="a4J-n5-e8U"/>
-                            <constraint firstItem="V3R-85-9I7" firstAttribute="top" secondItem="trL-8M-K6S" secondAttribute="bottom" constant="28" id="bBc-kO-dyg"/>
-                            <constraint firstItem="V3R-85-9I7" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="25" id="eaR-FH-XGv"/>
-                            <constraint firstItem="ui6-7l-dzX" firstAttribute="top" secondItem="0PR-ti-fDa" secondAttribute="bottom" constant="15" id="exb-HD-Aw9"/>
-                            <constraint firstItem="VWv-Mw-vsW" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="25" id="jzn-Zy-Ank"/>
-                            <constraint firstItem="0PR-ti-fDa" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="104" id="kpk-YG-wTz"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="ui6-7l-dzX" secondAttribute="trailing" constant="30" id="la0-wO-F6r"/>
-                            <constraint firstItem="0PR-ti-fDa" firstAttribute="top" secondItem="4yL-n6-asx" secondAttribute="bottom" constant="8" id="mbV-8h-43z"/>
-                            <constraint firstItem="GFR-le-jFY" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="25" id="nMb-bu-av6"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="4yL-n6-asx" secondAttribute="trailing" constant="60" id="qIQ-A8-ZJw"/>
-                            <constraint firstItem="4yL-n6-asx" firstAttribute="leading" secondItem="VWv-Mw-vsW" secondAttribute="trailing" constant="46" id="r1P-zj-sF0"/>
-                            <constraint firstItem="ayY-xf-gIf" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="104" id="sBB-TF-Fat"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="O9f-KV-oCe" secondAttribute="trailing" constant="164" id="sf0-2Q-3q9"/>
-                            <constraint firstItem="xme-nf-RvI" firstAttribute="top" secondItem="V3R-85-9I7" secondAttribute="bottom" constant="8" id="t3K-YF-hwK"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="trL-8M-K6S" secondAttribute="trailing" constant="60" id="ty7-GA-k62"/>
-                            <constraint firstItem="trL-8M-K6S" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="18" id="uZp-Ar-3uT"/>
-                            <constraint firstItem="ayY-xf-gIf" firstAttribute="top" secondItem="ui6-7l-dzX" secondAttribute="bottom" constant="20" id="vfl-G8-P5v"/>
->>>>>>> Stashed changes
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Post Game" id="W7r-e7-qMJ">
@@ -354,18 +253,14 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Description:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="14t-b0-EJh">
-<<<<<<< Updated upstream
                                 <rect key="frame" x="20" y="658" width="92" height="21"/>
-=======
-                                <rect key="frame" x="20" y="544" width="92" height="21"/>
->>>>>>> Stashed changes
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FpU-k1-Ntf">
-                                <rect key="frame" x="20" y="254" width="50" height="21"/>
+                                <rect key="frame" x="63" y="254" width="50" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -377,7 +272,6 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-<<<<<<< Updated upstream
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="description" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="uBt-bz-LdJ">
                                 <rect key="frame" x="40" y="687" width="339" height="103"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -387,9 +281,6 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="plane" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2HX-Yk-1Ot">
-=======
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2HX-Yk-1Ot">
->>>>>>> Stashed changes
                                 <rect key="frame" x="159" y="297" width="201" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -398,7 +289,6 @@
                                     <outlet property="delegate" destination="x6p-L0-Uxu" id="c6G-sV-Rab"/>
                                 </connections>
                             </textField>
-<<<<<<< Updated upstream
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="Model Tyle:" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="umD-Cn-8xo">
                                 <rect key="frame" x="18" y="297" width="102" height="36.5"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -407,8 +297,6 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-=======
->>>>>>> Stashed changes
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aA4-yU-Q1R">
                                 <rect key="frame" x="330" y="300" width="30" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -429,37 +317,6 @@
                                     <outlet property="delegate" destination="x6p-L0-Uxu" id="6B7-K9-BBd"/>
                                 </connections>
                             </pickerView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Content:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FRG-TP-9A5">
-                                <rect key="frame" x="20" y="411" width="66" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="Puzzle Tyle:" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="umD-Cn-8xo">
-                                <rect key="frame" x="20" y="298" width="102" height="33"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <color key="textColor" systemColor="labelColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="Puzzle Content" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="l9g-Nf-cFL" userLabel="contentText">
-                                <rect key="frame" x="94" y="411" width="240" height="125"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <color key="textColor" systemColor="labelColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="description" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="uBt-bz-LdJ">
-                                <rect key="frame" x="63" y="573" width="288" height="106"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="F29-J8-x0J"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -471,11 +328,7 @@
                         <outlet property="nameText" destination="BLn-kb-9zx" id="gfm-PX-HJB"/>
                         <outlet property="puzzletypeDropdown" destination="ieJ-nX-yJb" id="E7I-Dh-4rX"/>
                         <outlet property="puzzletypeText" destination="2HX-Yk-1Ot" id="NWH-iY-B3p"/>
-<<<<<<< Updated upstream
                         <outlet property="sceneView" destination="Hxa-mE-9VB" id="eoi-Gm-Gxz"/>
-=======
-                        <outlet property="wordContentText" destination="l9g-Nf-cFL" id="67r-bK-Qz7"/>
->>>>>>> Stashed changes
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XLg-OZ-fcy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
