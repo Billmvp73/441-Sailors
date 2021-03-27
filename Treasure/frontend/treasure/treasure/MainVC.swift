@@ -172,17 +172,21 @@ class MainVC: UITableViewController {
         }
     }
     
+    
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let index = sender as! Int
-//        let indexPath = self.tableView.indexPath(for: cell)
-        
-        let game = games[index]
-        
-        let gameInfo = segue.destination as! GameInfo
-        
-        gameInfo.gamenameString = game.gamename!
-        gameInfo.gamedescriptionString = game.description!
-        gameInfo.gameTagString = game.tag!
+        if (segue.identifier == "gameinfoSegue") {
+            let index = sender as! Int
+            
+            let game = games[index]
+            
+            let gameInfo = segue.destination as! GameInfo
+            
+            gameInfo.gamenameString = game.gamename!
+            gameInfo.gamedescriptionString = game.description!
+            gameInfo.gameTagString = game.tag!
+        }
+
     }
     
     
