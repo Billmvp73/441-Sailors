@@ -27,7 +27,7 @@ class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate
     @IBOutlet weak var sceneView: SCNView!
     
     //create puzzle list
-    var list = ["plane","drummer","robot","car"]
+    var list = ["word", "plane","drummer","robot","car"]
     
     // add drop down list for puzzle type
     public func numberOfComponents(in pickerView: UIPickerView) -> Int{
@@ -46,7 +46,15 @@ class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         self.puzzletypeText.text = self.list[row]
         self.puzzletypeDropdown.isHidden = true
-        let name = self.list[row] + ".usdz"
+//        let name = self.list[row] + ".usdz"
+        let name = "art.scnassets/\(self.list[row]).usdz"
+        if self.list[row] != "word"{
+            self.wordContentText.isHidden = true
+            self.sceneView.isHidden = false
+        } else{
+            self.wordContentText.isHidden = false
+            self.sceneView.isHidden = true
+        }
         self.showAr(name: name)
     }
 
@@ -131,8 +139,8 @@ class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate
 //        let name = puzzletypeText.text! + ".usdz"
         // 1: Load .obj file
 //        let scene = SCNScene(named: "toy plane.usdz")
-        self.showAr(name: "plane.usdz")
-                            
+//        self.showAr(name: "plane.usdz")
+        self.puzzletypeDropdown.isHidden = true
         
         
         nameText.delegate = self
@@ -144,6 +152,11 @@ class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate
         descriptionText.clipsToBounds = true
         descriptionText.layer.cornerRadius = 6.0
         descriptionText.text = "description"
+        wordContentText.textColor = UIColor.lightGray
+        wordContentText.layer.borderWidth = 0.5
+        wordContentText.layer.borderColor = UIColor.lightGray.cgColor
+        wordContentText.clipsToBounds = true
+        wordContentText.layer.cornerRadius = 6.0
         // set self as the delegate for GMSMapView's infoWindow events
         mMap.delegate = self
         // put mylocation marker down; Google automatically asks for location permission

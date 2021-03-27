@@ -7,7 +7,7 @@
 
 import UIKit
 import UserNotifications
-
+import CoreLocation
 extension UILabel {
     func highlight(searchedText: String?..., color: UIColor = .systemBlue) {
         guard let txtLabel = self.text else { return }
@@ -185,6 +185,8 @@ class MainVC: UITableViewController {
             gameInfo.gamenameString = game.gamename!
             gameInfo.gamedescriptionString = game.description!
             gameInfo.gameTagString = game.tag!
+            gameInfo.puzzles = game.puzzles
+            gameInfo.location = CLLocation(latitude: geodata.lat, longitude: geodata.lon)
         }
 
     }

@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+import CoreLocation
 class GameInfo: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     
@@ -17,7 +17,8 @@ class GameInfo: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     var gamenameString = ""
     var gamedescriptionString = ""
     var gameTagString = ""
-    
+    var puzzles = [Puzzle]()
+    var location: CLLocation?
     override func viewDidLoad() {
         super.viewDidLoad()
         gameName.text = gamenameString
@@ -26,10 +27,17 @@ class GameInfo: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     }
     
     @IBAction func startGame(_ sender: Any) {
-        if UIImagePickerController.isSourceTypeAvailable(.camera) {
-            presentPicker(.camera)
-        } else {
-            print("Camera not available. iPhone simulators don't simulate the camera.")
+//        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+//            presentPicker(.camera)
+//        } else {
+//            print("Camera not available. iPhone simulators don't simulate the camera.")
+//        }
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        if let arcameraVC = storyboard.instantiateViewController(identifier: "ARCameraVC") as? ARCameraVC{
+//            arcameraVC.delegate = self
+            arcameraVC.puzzles = self.puzzles
+            arcameraVC.userLocation = self.location!
+            self.present(arcameraVC, animated: true, completion: nil)
         }
     }
     
@@ -46,3 +54,10 @@ class GameInfo: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     }
     
 }
+
+//extension GameInfo: ARCameraDelegate{
+//    func viewController(controller: ARCameraVC, tappedTarget: ARItem) {
+//        self.dismiss(animated: true, completion: nil)
+//
+//    }
+//}

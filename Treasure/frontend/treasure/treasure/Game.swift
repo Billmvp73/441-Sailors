@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import CoreLocation
+import SceneKit
 struct Game {
     var username: String?
     var gamename: String?
@@ -32,4 +34,10 @@ struct GamePost {
     var location: GeoData?
     var puzzles: Array<Puzzle> = Array()
     static let nFields = 5
+}
+
+struct ARItem {
+  var itemDescription: String
+  var location: CLLocation
+  var itemNode: SCNNode?
 }
