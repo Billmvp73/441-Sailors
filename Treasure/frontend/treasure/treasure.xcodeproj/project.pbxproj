@@ -455,14 +455,22 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+<<<<<<< Updated upstream
 				DEVELOPMENT_TEAM = 58J98HEB28;
+=======
+				DEVELOPMENT_TEAM = 94DRVA8V7D;
+>>>>>>> Stashed changes
 				INFOPLIST_FILE = treasure/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+<<<<<<< Updated upstream
 				PRODUCT_BUNDLE_IDENTIFIER = edu.umich.guoxiny.treasure;
+=======
+				PRODUCT_BUNDLE_IDENTIFIER = edu.umich.pyhuang.treasure;
+>>>>>>> Stashed changes
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
@@ -478,14 +486,14 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 58J98HEB28;
+				DEVELOPMENT_TEAM = 94DRVA8V7D;
 				INFOPLIST_FILE = treasure/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = edu.umich.guoxiny.treasure;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.umich.pyhuang.treasure;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
