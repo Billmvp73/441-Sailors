@@ -65,8 +65,9 @@ class MainVC: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // event handler when a cell is tapped
         tableView.deselectRow(at: indexPath as IndexPath, animated: true)
+        performSegue(withIdentifier: "gameinfoSegue", sender: indexPath.row)
     }
-    
+
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
             // populate a single cell
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "GameTableCell", for: indexPath) as? GameTableCell else {
@@ -170,4 +171,19 @@ class MainVC: UITableViewController {
             }
         }
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let index = sender as! Int
+//        let indexPath = self.tableView.indexPath(for: cell)
+        
+        let game = games[index]
+        
+        let gameInfo = segue.destination as! GameInfo
+        
+        gameInfo.gamenameString = game.gamename!
+        gameInfo.gamedescriptionString = game.description!
+        gameInfo.gameTagString = game.tag!
+    }
+    
+    
 }

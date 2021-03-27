@@ -33,6 +33,7 @@
 		81CD8B4D260924B1006A1632 /* PuzzleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81CD8B4C260924B1006A1632 /* PuzzleCell.swift */; };
 		81E4E9622605AE340091F0F2 /* arrow_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 81E4E9612605AE340091F0F2 /* arrow_icon.png */; };
 		81E4E9652605AF970091F0F2 /* icons8-arrow-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 81E4E9642605AF970091F0F2 /* icons8-arrow-50.png */; };
+		AD509801260F63AB000E6602 /* GameInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD509800260F63AB000E6602 /* GameInfo.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -65,6 +66,7 @@
 		81CD8B4C260924B1006A1632 /* PuzzleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PuzzleCell.swift; sourceTree = "<group>"; };
 		81E4E9612605AE340091F0F2 /* arrow_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow_icon.png; sourceTree = "<group>"; };
 		81E4E9642605AF970091F0F2 /* icons8-arrow-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icons8-arrow-50.png"; sourceTree = "<group>"; };
+		AD509800260F63AB000E6602 /* GameInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameInfo.swift; sourceTree = "<group>"; };
 		CBA52ACCE0E73D54DE78AA27 /* Pods-treasure.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-treasure.debug.xcconfig"; path = "Target Support Files/Pods-treasure/Pods-treasure.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -127,6 +129,7 @@
 				81C51ABB25FC8CE000ACF933 /* MapsVC.swift */,
 				81BF783D25FD9EA6004F965F /* PuzzlesVC.swift */,
 				2F92ADD12607D4F100A0514B /* UserID.swift */,
+				AD509800260F63AB000E6602 /* GameInfo.swift */,
 			);
 			path = treasure;
 			sourceTree = "<group>";
@@ -296,6 +299,7 @@
 				81C51AA625FC652D00ACF933 /* GamesStore.swift in Sources */,
 				81C51A8C25FBAF9800ACF933 /* AppDelegate.swift in Sources */,
 				81C51ABC25FC8CE000ACF933 /* MapsVC.swift in Sources */,
+				AD509801260F63AB000E6602 /* GameInfo.swift in Sources */,
 				81C51A8E25FBAF9800ACF933 /* SceneDelegate.swift in Sources */,
 				81CD8B4D260924B1006A1632 /* PuzzleCell.swift in Sources */,
 				2F92ADD22607D4F100A0514B /* UserID.swift in Sources */,
@@ -451,14 +455,14 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = ARD29H66P5;
+				DEVELOPMENT_TEAM = 58J98HEB28;
 				INFOPLIST_FILE = treasure/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = edu.umich.xinyun.treasure;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.umich.guoxiny.treasure;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
