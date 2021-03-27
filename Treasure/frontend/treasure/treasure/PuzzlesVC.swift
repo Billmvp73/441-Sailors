@@ -7,7 +7,11 @@
 
 import UIKit
 import GoogleMaps
+<<<<<<< Updated upstream
 import SceneKit
+=======
+import Shuffle_iOS
+>>>>>>> Stashed changes
 
 protocol ReturnDelegate: UIViewController {
     func onReturn(_ result: Puzzle)
@@ -22,6 +26,7 @@ class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate
     @IBOutlet weak var nameText: UITextField!
     @IBOutlet weak var puzzletypeText: UITextField!
     @IBOutlet weak var puzzletypeDropdown: UIPickerView!
+    @IBOutlet weak var wordContentText: UITextView!
     
     @IBOutlet weak var sceneView: SCNView!
     
@@ -45,8 +50,16 @@ class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         self.puzzletypeText.text = self.list[row]
         self.puzzletypeDropdown.isHidden = true
+<<<<<<< Updated upstream
         let name = self.list[row] + ".usdz"
         self.showAr(name: name)
+=======
+        if self.list[row] != "word puzzle"{
+            self.wordContentText.isHidden = true
+        } else{
+            self.wordContentText.isHidden = false
+        }
+>>>>>>> Stashed changes
     }
 
     func textFieldDidBeginEditing(_ textField: UITextField) {
@@ -136,6 +149,7 @@ class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate
         
         nameText.delegate = self
         descriptionText.delegate = self
+        wordContentText.delegate = self
         descriptionText.textColor = UIColor.lightGray
         descriptionText.layer.borderWidth = 0.5
         descriptionText.layer.borderColor = UIColor.lightGray.cgColor
