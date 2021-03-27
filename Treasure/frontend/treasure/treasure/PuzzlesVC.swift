@@ -7,11 +7,7 @@
 
 import UIKit
 import GoogleMaps
-<<<<<<< Updated upstream
 import SceneKit
-=======
-import Shuffle_iOS
->>>>>>> Stashed changes
 
 protocol ReturnDelegate: UIViewController {
     func onReturn(_ result: Puzzle)
@@ -50,16 +46,8 @@ class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         self.puzzletypeText.text = self.list[row]
         self.puzzletypeDropdown.isHidden = true
-<<<<<<< Updated upstream
         let name = self.list[row] + ".usdz"
         self.showAr(name: name)
-=======
-        if self.list[row] != "word puzzle"{
-            self.wordContentText.isHidden = true
-        } else{
-            self.wordContentText.isHidden = false
-        }
->>>>>>> Stashed changes
     }
 
     func textFieldDidBeginEditing(_ textField: UITextField) {
