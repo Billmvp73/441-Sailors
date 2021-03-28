@@ -52,7 +52,10 @@ def postgames(request):
     tag = tag.replace(" ", "")
     tag = tag.replace(",", ", ")
     location = json_data['location']
-    city = location.split(',')[2].split('"')[1]
+    try:
+        city = location.split(',')[2].split('"')[1]
+    except:
+        city = "null"
     puzzles = json_data['puzzles']
     cursor.execute('INSERT INTO games (username, gamename, description, tag, location, puzzles, city) VALUES '
                    '(%s, %s, %s,%s, %s, %s, %s);', (row[0], gamename, description, tag, location, puzzles, city))
