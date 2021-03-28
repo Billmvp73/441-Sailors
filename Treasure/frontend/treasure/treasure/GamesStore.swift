@@ -182,7 +182,8 @@ struct GamesStore {
             var games = [Game]()
             var jsonPuzzle: [Dictionary<String, String?>]?
             let gamesReceived = jsonObj["games"] as? [[String?]] ?? []
-            for gameEntry in gamesReceived {
+            let gidsReceived = jsonObj["gids"] as? [Int?] ?? []
+            for (gameEntry, gid) in zip(gamesReceived, gidsReceived) {
                 var puzzles = [Puzzle]()
                 if let PuzzleObj = gameEntry[7]?.data(using: .utf8){
                     jsonPuzzle = try? JSONSerialization.jsonObject(with: PuzzleObj, options: .allowFragments) as?[Dictionary<String, String>]
@@ -213,14 +214,14 @@ struct GamesStore {
                                  gamename: gameEntry[1],
                                  description: gameEntry[2],
                                  tag: gameEntry[3],
-                                 gid:gameEntry[5],
+                                 gid: gid,
                                  location: (geoArr == nil) ? nil :
                                     GeoData(lat: geoArr![0] as! Double,
                                             lon: geoArr![1] as! Double,
                                             loc: geoArr![2] as! String,
                                             facing: geoArr![3] as! String,
                                             speed: geoArr![4] as! String)
-                                 , puzzles: puzzles, timestamp: gameEntry[6])]
+                                 , puzzles: puzzles, timestamp: gameEntry[5])]
             }
             refresh(games)
         }
