@@ -37,7 +37,7 @@ class GameInfo: UIViewController, UIImagePickerControllerDelegate, UINavigationC
 //            arcameraVC.delegate = self
             arcameraVC.puzzles = self.puzzles
             arcameraVC.userLocation = self.location!
-            self.present(arcameraVC, animated: true, completion: nil)
+            self.navigationController?.pushViewController(arcameraVC, animated: true)
         }
     }
     

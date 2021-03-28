@@ -38,13 +38,16 @@ class ARCameraVC: UIViewController{
       self.cameraSession?.startRunning()
       self.locationManger.delegate = self
       self.locationManger.startUpdatingHeading()
-      
+//      loadCamera()
       sceneView.scene = scene
       cameraNode.camera = SCNCamera()
       cameraNode.position = SCNVector3(x: 0, y: 0, z: 10)
       scene.rootNode.addChildNode(cameraNode)
       target = ARItem(itemDescription: "", location: CLLocation(latitude: 0, longitude: 0), itemNode: nil)
-      setupTarget()
+      let isTarget = setupTarget()
+        if isTarget == false{
+        self.navigationController?.popViewController(animated: true)
+      }
     }
     
     override func didReceiveMemoryWarning() {
@@ -153,7 +156,7 @@ class ARCameraVC: UIViewController{
       }
     }
 
-    func setupTarget() {
+    func setupTarget() -> Bool?{
         let puzzle = puzzles?.popLast()
         if let itemDescription = puzzle?.type{
 //            let scene = SCNScene(named: "art.scnassets/\(itemDescription).usdz")
@@ -181,6 +184,9 @@ class ARCameraVC: UIViewController{
                 self.target.location = CLLocation(latitude: geodata.lat, longitude: geodata.lon)
 //                self.target.location = CLLocation(latitude: 42.30099599327609, longitude: -83.71567403950316)
             }
+            return true
+        } else {
+            return false
         }
     }
     

@@ -7,7 +7,7 @@
 
 import UIKit
 import GoogleMaps
-
+import CoreLocation
 protocol RoutesReturnDelegate: UIViewController {
     func onReturnFromRoutes(_ result: Puzzle)
 }
@@ -25,6 +25,7 @@ class MapsVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate{
     var game: Game? = nil
     var puzzles: [Puzzle]? = nil
     var isGames: Bool? = nil
+    var isPlay: Bool? = nil
     var pins = [CLLocationCoordinate2D]()
     weak var returnDelegate: RoutesReturnDelegate?
     @IBAction func stopMapView(_ sender: Any) {
@@ -42,61 +43,65 @@ class MapsVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate{
         // enable the location bull's eye button
         mMap.settings.myLocationButton = true
         var chattMarker: GMSMarker!
-        if isGames == true{
-            if let game = game, let geodata = game.location {
-                
-                let coordinate = CLLocationCoordinate2D(latitude: geodata.lat, longitude: geodata.lon)
-                chattMarker = GMSMarker(position: coordinate)
-                chattMarker.map = mMap
-                chattMarker.userData = game
+        if isPlay == false{
+            if isGames == true{
+                if let game = game, let geodata = game.location {
+                    
+                    let coordinate = CLLocationCoordinate2D(latitude: geodata.lat, longitude: geodata.lon)
+                    chattMarker = GMSMarker(position: coordinate)
+                    chattMarker.map = mMap
+                    chattMarker.userData = game
 
-                // move camera to chatt's location
-                mMap.camera = GMSCameraPosition.camera(withTarget: coordinate, zoom: 15.0)
-            }
-            if let games = games{
-                // set self as the delegate for CLLocationManager's events
-                // and set up the location manager.
+                    // move camera to chatt's location
+                    mMap.camera = GMSCameraPosition.camera(withTarget: coordinate, zoom: 15.0)
+                }
+                if let games = games{
+                    // set self as the delegate for CLLocationManager's events
+                    // and set up the location manager.
+                    locmanager.delegate = self
+                    locmanager.desiredAccuracy = kCLLocationAccuracyBest
+
+                    // obtain user's current location so that we can
+                    // zoom the map to the current location
+                    locmanager.startUpdatingLocation()
+                    
+                    // Add a marker on the MapView for each chatt
+                    games.forEach {
+                        if let geodata = $0.location {
+                            let coordinate = CLLocationCoordinate2D(latitude: geodata.lat, longitude: geodata.lon)
+                            chattMarker = GMSMarker(position: coordinate)
+                            chattMarker.map = mMap
+                            chattMarker.userData = $0
+                            
+                        }
+                    }
+                   
+                }
+            } else {
                 locmanager.delegate = self
                 locmanager.desiredAccuracy = kCLLocationAccuracyBest
 
                 // obtain user's current location so that we can
                 // zoom the map to the current location
                 locmanager.startUpdatingLocation()
-                
-                // Add a marker on the MapView for each chatt
-                games.forEach {
+                puzzles?.forEach {
                     if let geodata = $0.location {
                         let coordinate = CLLocationCoordinate2D(latitude: geodata.lat, longitude: geodata.lon)
                         chattMarker = GMSMarker(position: coordinate)
                         chattMarker.map = mMap
                         chattMarker.userData = $0
-                        
+                        pins += [coordinate]
                     }
                 }
-               
+                self.drawPolyline()
+                
+                let geodata = GeoData()
+                let coordinate = CLLocationCoordinate2D(latitude: geodata.lat, longitude: geodata.lon)
+                // move camera to chatt's location
+                mMap.camera = GMSCameraPosition.camera(withTarget: coordinate, zoom: 15.0)
             }
-        } else {
-            locmanager.delegate = self
-            locmanager.desiredAccuracy = kCLLocationAccuracyBest
-
-            // obtain user's current location so that we can
-            // zoom the map to the current location
-            locmanager.startUpdatingLocation()
-            puzzles?.forEach {
-                if let geodata = $0.location {
-                    let coordinate = CLLocationCoordinate2D(latitude: geodata.lat, longitude: geodata.lon)
-                    chattMarker = GMSMarker(position: coordinate)
-                    chattMarker.map = mMap
-                    chattMarker.userData = $0
-                    pins += [coordinate]
-                }
-            }
-            self.drawPolyline()
+        } else{
             
-            let geodata = GeoData()
-            let coordinate = CLLocationCoordinate2D(latitude: geodata.lat, longitude: geodata.lon)
-            // move camera to chatt's location
-            mMap.camera = GMSCameraPosition.camera(withTarget: coordinate, zoom: 15.0)
         }
     }
 
