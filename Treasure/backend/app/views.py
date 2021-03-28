@@ -55,7 +55,7 @@ def postgames(request):
     city = location.split(',')[2].split('"')[1]
     puzzles = json_data['puzzles']
     cursor.execute('INSERT INTO games (username, gamename, description, tag, location, puzzles, city) VALUES '
-                   '(%s, %s, %s,%s, %s, %s, %s);', (gid, row[0], gamename, description, tag, location, puzzles, city))
+                   '(%s, %s, %s,%s, %s, %s, %s);', (row[0], gamename, description, tag, location, puzzles, city))
     return JsonResponse({})
 
 
