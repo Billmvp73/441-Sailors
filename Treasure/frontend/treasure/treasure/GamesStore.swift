@@ -183,44 +183,52 @@ struct GamesStore {
             var jsonPuzzle: [Dictionary<String, String?>]?
             let gamesReceived = jsonObj["games"] as? [[String?]] ?? []
             for gameEntry in gamesReceived {
-                var puzzles = [Puzzle]()
-                if let PuzzleObj = gameEntry[7]?.data(using: .utf8){
-                    jsonPuzzle = try? JSONSerialization.jsonObject(with: PuzzleObj, options: .allowFragments) as?[Dictionary<String, String>]
-                    if jsonPuzzle != nil{
-                        for puzzleObj in jsonPuzzle!{
-                            let puzzleArr = puzzleObj as Dictionary<String, String?>
-                            let geoObj = puzzleArr[
-                                "location"]!?.data(using: .utf8)
-                            let geoArr = (geoObj == nil) ? nil : try? JSONSerialization.jsonObject(with: geoObj!) as? [Any]
-                            let puzzle = Puzzle(location: (geoArr == nil) ? nil :
-                                                    GeoData(lat: geoArr![0] as! Double,
-                                                            lon: geoArr![1] as! Double,
-                                                            loc: geoArr![2] as! String,
-                                                            facing: geoArr![3] as! String,
-                                                            speed: geoArr![4] as! String),
-                                                name: puzzleArr["name"]!!,
-                                                type: puzzleArr["type"]!!,
-                                                description: puzzleArr["description"]!!)
-                            puzzles += [puzzle]
+                if (gameEntry.count == Game.nFields) {
+                    // TODO: change to json type, do not use gameEntry[xxxx]
+                    var puzzles = [Puzzle]()
+                    if let PuzzleObj = gameEntry[7]?.data(using: .utf8){
+                        jsonPuzzle = try? JSONSerialization.jsonObject(with: PuzzleObj, options: .allowFragments) as?[Dictionary<String, String>]
+                        if jsonPuzzle != nil{
+                            for puzzleObj in jsonPuzzle!{
+                                let puzzleArr = puzzleObj as Dictionary<String, String?>
+//                                let puzzleArrs = try? JSONSerialization.jsonObject(with: puzzleArr!) as? [Any]
+//                                let puzzle = Puzzle(location: puzzleArrs![0]as!String, name: puzzleArrs![1]as!String, type: puzzleArrs![2]as!String, description: puzzleArrs![3]as!String)
+                                let geoObj = puzzleArr[
+                                    "location"]!?.data(using: .utf8)
+                                let geoArr = (geoObj == nil) ? nil : try? JSONSerialization.jsonObject(with: geoObj!) as? [Any]
+                                let puzzle = Puzzle(location: (geoArr == nil) ? nil :
+                                                        GeoData(lat: geoArr![0] as! Double,
+                                                                lon: geoArr![1] as! Double,
+                                                                loc: geoArr![2] as! String,
+                                                                facing: geoArr![3] as! String,
+                                                                speed: geoArr![4] as! String),
+                                                    name: puzzleArr["name"]!!,
+                                                    type: puzzleArr["type"]!!,
+                                                    description: puzzleArr["description"]!!)
+                                puzzles += [puzzle]
+                            }
                         }
+//                        print(jsonPuzzle)
+                    } else{
+                        print("puzzle: nil.")
                     }
-                } else{
-                    print("puzzle: nil.")
+                    let geoObj = gameEntry[4]?.data(using: .utf8)
+                    let geoArr = (geoObj == nil) ? nil : try? JSONSerialization.jsonObject(with: geoObj!) as? [Any]
+                    games += [Game(username: gameEntry[0],
+                                     gamename: gameEntry[1],
+                                     description: gameEntry[2],
+                                     tag: gameEntry[3],
+                                     gid:gameEntry[5],
+                                     location: (geoArr == nil) ? nil :
+                                        GeoData(lat: geoArr![0] as! Double,
+                                                lon: geoArr![1] as! Double,
+                                                loc: geoArr![2] as! String,
+                                                facing: geoArr![3] as! String,
+                                                speed: geoArr![4] as! String)
+                                     , puzzles: puzzles, timestamp: gameEntry[6])]
+                } else {
+                    print("getGames: Received unexpected number of fields: \(gameEntry.count) instead of \(Game.nFields).")
                 }
-                let geoObj = gameEntry[4]?.data(using: .utf8)
-                let geoArr = (geoObj == nil) ? nil : try? JSONSerialization.jsonObject(with: geoObj!) as? [Any]
-                games += [Game(username: gameEntry[0],
-                                 gamename: gameEntry[1],
-                                 description: gameEntry[2],
-                                 tag: gameEntry[3],
-                                 gid:gameEntry[5],
-                                 location: (geoArr == nil) ? nil :
-                                    GeoData(lat: geoArr![0] as! Double,
-                                            lon: geoArr![1] as! Double,
-                                            loc: geoArr![2] as! String,
-                                            facing: geoArr![3] as! String,
-                                            speed: geoArr![4] as! String)
-                                 , puzzles: puzzles, timestamp: gameEntry[6])]
             }
             refresh(games)
         }
