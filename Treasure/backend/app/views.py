@@ -15,24 +15,19 @@ def getgames(request, city_info):
     # city = city_info.split('+')[0]
     # latitude = float(city_info.split('+')[1])
     # longitude = float(city_info.split('+')[2])
-    cursor = connection.cursor()
-    cursor.execute('SELECT * FROM games ORDER BY time DESC;')
-    rows = cursor.fetchall()
+
+    
 
     if city_info == "null":
         response = {}
         response['games'] = []
         return JsonResponse(response)
-    new_rows = []
-    for row in rows:
-        location = row[4].split(',')[2].split('"')[1]
-        if location == city_info:
-            new_rows.append(row)
-        if len(new_rows) == 25:
-            break
-    response = {}
-    # response['games'] = final_rows       # <<<<< NOTE: REPLACE dummy response WITH chatts <<<
-    response['games'] = new_rows
+
+    cursor = connection.cursor()
+    cursor.execute('SELECT username, gamename, description, tag, location, gid, time FROM games WHERE city = %s ORDER BY time DESC;', (city_info,))
+    rows = cursor.fetchall()
+
+    response['games'] = rows
     return JsonResponse(response)
 
 @csrf_exempt
@@ -52,18 +47,16 @@ def postgames(request):
         return HttpResponse(status=401) # 401 Unauthorized
 
 
-    # assign a new gid
-    cursor.execute('SELECT COUNT(*) FROM games;')
-    gid = str(int(cursor.fetchone()[0])+1)
     gamename = json_data['gamename']
     description = json_data['description']
     tag = json_data['tag']
     tag = tag.replace(" ", "")
     tag = tag.replace(",", ", ")
     location = json_data['location']
+    city = location.split(',')[2].split('"')[1]
     puzzles = json_data['puzzles']
-    cursor.execute('INSERT INTO games (gid, username, gamename, description, tag, location, puzzles) VALUES '
-                   '(%s, %s, %s, %s,%s, %s, %s);', (gid, row[0], gamename, description, tag, location, puzzles))
+    cursor.execute('INSERT INTO games (username, gamename, description, tag, location, puzzles, city) VALUES '
+                   '(%s, %s, %s,%s, %s, %s, %s);', (gid, row[0], gamename, description, tag, location, puzzles, city))
     return JsonResponse({})
 
 
