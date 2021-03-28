@@ -17,9 +17,8 @@ def getgames(request, city_info):
     # longitude = float(city_info.split('+')[2])
 
     
-
+    response = {}
     if city_info == "null":
-        response = {}
         response['games'] = []
         return JsonResponse(response)
 

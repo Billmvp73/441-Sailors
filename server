@@ -1,5 +1,5 @@
 ssh pyhuang@174.138.33.66
-    
+8A$BTxh2eGV!aMU
 
 sudo -u postgres psql
 \connect treasuredb
@@ -12,10 +12,8 @@ SELECT * from games;
 
 TRUNCATE TABLE chatts; 
 
-ALTER TABLE games ADD COLUMN gid SERIAL;
-ALTER TABLE games DROP COLUMN gid;
-
-SERIAL
+ALTER TABLE chatts ADD COLUMN audio TEXT;
+ALTER TABLE chatts DROP COLUMN voice;
 
 games:
 username|gamename|description|tag|location|gid|time|puzzles
