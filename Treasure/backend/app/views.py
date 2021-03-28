@@ -23,11 +23,10 @@ def getgames(request, city_info):
         return JsonResponse(response)
 
     cursor = connection.cursor()
-    cursor.execute('SELECT username, gamename, description, tag, location, time, gid FROM games WHERE city = %s ORDER BY time DESC;', (city_info,))
+    cursor.execute('SELECT username, gamename, description, tag, location, cast(gid as varchar), time FROM games WHERE city = %s ORDER BY time DESC;', (city_info,))
     rows = cursor.fetchall()
 
-    response['games'] = rows[:, [0,6]]
-    response['gids'] = rows[:, 6]
+    response['games'] = rows
     return JsonResponse(response)
 
 @csrf_exempt
