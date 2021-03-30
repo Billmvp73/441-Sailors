@@ -38,9 +38,9 @@ def searchgame(request, city_info, keyword):
     if city_info == "null":
         response['games'] = []
         return JsonResponse(response)
-
+    kw = "%" + keyword + "%"
     cursor = connection.cursor()
-    cursor.execute("SELECT username, gamename, description, tag, location, cast(gid as varchar), time, puzzles FROM games WHERE city = %s AND CONCAT(IFNULL(username, ''), IFNULL(gamename,''), IFNULL(description,''), IFNULL(tag,'')) LIKE CONCAT('%',%s,'%') ORDER BY time DESC;", (city_info,keyword))
+    cursor.execute("SELECT username, gamename, description, tag, location, cast(gid as varchar), time, puzzles FROM games WHERE city = %s AND CONCAT(coalesce(username, ''), coalesce(gamename,''), coalesce(description,''), coalesce(tag,'')) LIKE %s  ORDER BY time DESC;", (city_info,kw))
     rows = cursor.fetchall()
 
     response['games'] = rows
