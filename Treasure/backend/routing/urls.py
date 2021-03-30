@@ -20,5 +20,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # path('getgames/<str:city_info>/', views.getgames, name='getgames'),
     path('getgames/<str:city_info>/', views.getgames, name='getgames'),
+    path('getgames/<str:city_info>/<str:keyword>/', views.searchgame, name='searchgame'),
     path('postgames/', views.postgames, name='postgames'),
 ]
