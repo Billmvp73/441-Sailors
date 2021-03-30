@@ -21,5 +21,6 @@ urlpatterns = [
     # path('getgames/<str:city_info>/', views.getgames, name='getgames'),
     path('getgames/<str:city_info>/', views.getgames, name='getgames'),
     path('getgames/<str:city_info>/<str:keyword>/', views.searchgame, name='searchgame'),
+    path('adduser/', views.adduser, name='adduser'),
     path('postgames/', views.postgames, name='postgames'),
 ]
