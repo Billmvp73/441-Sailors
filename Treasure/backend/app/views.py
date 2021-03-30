@@ -29,6 +29,25 @@ def getgames(request, city_info):
     response['games'] = rows
     return JsonResponse(response)
 
+
+@csrf_exempt
+def searchgame(request, city_info, keyword):
+    if request.method != 'GET':
+        return HttpResponse(status=404)
+    response = {}
+    if city_info == "null":
+        response['games'] = []
+        return JsonResponse(response)
+
+    cursor = connection.cursor()
+    cursor.execute("SELECT username, gamename, description, tag, location, cast(gid as varchar), time, puzzles FROM games WHERE city = %s AND CONCAT(IFNULL(username, ''), IFNULL(gamename,''), IFNULL(description,''), IFNULL(tag,'')) LIKE CONCAT('%',%s,'%') ORDER BY time DESC;", (city_info,keyword))
+    rows = cursor.fetchall()
+
+    response['games'] = rows
+    return JsonResponse(response)
+
+
+
 @csrf_exempt
 def postgames(request):
     if request.method != 'POST':
