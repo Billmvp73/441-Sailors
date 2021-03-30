@@ -33,7 +33,7 @@ def getallgames(request):
     cursor = connection.cursor()
     cursor.execute('SELECT username, gamename, description, tag, location, cast(gid as varchar), time, puzzles FROM games ORDER BY time DESC;')
     rows = cursor.fetchall()
-
+    response = {}
     response['games'] = rows
     return JsonResponse(response)
 
