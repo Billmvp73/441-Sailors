@@ -23,10 +23,17 @@ extension UILabel {
     }
 }
 
+extension Date {
+    static var currentTimeStamp: Int64{
+        return Int64(Date().timeIntervalSince1970 * 1000)
+    }
+}
+
 class MainVC: UITableViewController {
     let userNotificationCenter = UNUserNotificationCenter.current()
     private var games = [Game]()  // array of Chatt
     private let geodata = GeoData()
+    private var lastRefreshTime = Date.currentTimeStamp
     override func viewDidLoad() {
         super.viewDidLoad()
         let swipeRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(startMap(_:)))
@@ -113,6 +120,7 @@ class MainVC: UITableViewController {
     }
     
     private func refreshTimeline() {
+        lastRefreshTime = Date.currentTimeStamp
         var store = GamesStore()
         let geodata = self.geodata
         store.getLocation(geodata)
@@ -132,7 +140,27 @@ class MainVC: UITableViewController {
     }
     
     @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
-         refreshTimeline()
+        if Date.currentTimeStamp - lastRefreshTime <= 1200 {
+            lastRefreshTime = Date.currentTimeStamp
+            var store = GamesStore()
+            let geodata = self.geodata
+            store.getLocation(geodata)
+            store.getAllGames(refresh: { games in
+                self.games = games
+                DispatchQueue.main.async {
+                    self.tableView.estimatedRowHeight = 140
+                    self.tableView.rowHeight = UITableView.automaticDimension
+                    self.tableView.reloadData()
+                }
+            }) {
+                DispatchQueue.main.async {
+                    // stop the refreshing animation upon completion:
+                    self.refreshControl?.endRefreshing()
+                }
+            }
+        } else {
+            refreshTimeline()
+        }
     }
     
     func requestNotificationAuthorization() {
