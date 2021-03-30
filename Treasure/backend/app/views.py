@@ -12,10 +12,6 @@ import hashlib, time
 def getgames(request, city_info):
     if request.method != 'GET':
         return HttpResponse(status=404)
-    # city = city_info.split('+')[0]
-    # latitude = float(city_info.split('+')[1])
-    # longitude = float(city_info.split('+')[2])
-
     
     response = {}
     if city_info == "null":
@@ -24,6 +20,18 @@ def getgames(request, city_info):
 
     cursor = connection.cursor()
     cursor.execute('SELECT username, gamename, description, tag, location, cast(gid as varchar), time, puzzles FROM games WHERE city = %s ORDER BY time DESC;', (city_info,))
+    rows = cursor.fetchall()
+
+    response['games'] = rows
+    return JsonResponse(response)
+
+@csrf_exempt
+def getallgames(request):
+    if request.method != 'GET':
+        return HttpResponse(status=404)
+
+    cursor = connection.cursor()
+    cursor.execute('SELECT username, gamename, description, tag, location, cast(gid as varchar), time, puzzles FROM games ORDER BY time DESC;')
     rows = cursor.fetchall()
 
     response['games'] = rows
