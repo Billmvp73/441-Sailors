@@ -226,4 +226,79 @@ struct GamesStore {
         }
         task.resume()
     }
+    
+    func getAllGames(refresh: @escaping ([Game]) -> (),
+                       completion: @escaping () -> ()) {
+        let strURL = serverUrl + "getallgames/"
+
+        guard let apiUrl = URL(string: strURL) else {
+            print("getGames: Bad URL")
+            return
+        }
+        
+        var request = URLRequest(url: apiUrl)
+        request.httpMethod = "GET"
+        
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            defer { completion() }
+            guard let data = data, error == nil else {
+                print("getGames: NETWORKING ERROR")
+                return
+            }
+            if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {
+                print("getGames: HTTP STATUS: \(httpStatus.statusCode)")
+                return
+            }
+            
+            guard let jsonObj = try? JSONSerialization.jsonObject(with: data) as? [String:Any] else {
+                print("getGames: failed JSON deserialization")
+                return
+            }
+            var games = [Game]()
+            var jsonPuzzle: [Dictionary<String, String?>]?
+            let gamesReceived = jsonObj["games"] as? [[String?]] ?? []
+            for gameEntry in gamesReceived {
+                var puzzles = [Puzzle]()
+                if let PuzzleObj = gameEntry[7]?.data(using: .utf8){
+                    jsonPuzzle = try? JSONSerialization.jsonObject(with: PuzzleObj, options: .allowFragments) as?[Dictionary<String, String>]
+                    if jsonPuzzle != nil{
+                        for puzzleObj in jsonPuzzle!{
+                            let puzzleArr = puzzleObj as Dictionary<String, String?>
+                            let geoObj = puzzleArr[
+                                "location"]!?.data(using: .utf8)
+                            let geoArr = (geoObj == nil) ? nil : try? JSONSerialization.jsonObject(with: geoObj!) as? [Any]
+                            let puzzle = Puzzle(location: (geoArr == nil) ? nil :
+                                                    GeoData(lat: geoArr![0] as! Double,
+                                                            lon: geoArr![1] as! Double,
+                                                            loc: geoArr![2] as! String,
+                                                            facing: geoArr![3] as! String,
+                                                            speed: geoArr![4] as! String),
+                                                name: puzzleArr["name"]!!,
+                                                type: puzzleArr["type"]!!,
+                                                description: puzzleArr["description"]!!)
+                            puzzles += [puzzle]
+                        }
+                    }
+                } else{
+                    print("puzzle: nil.")
+                }
+                let geoObj = gameEntry[4]?.data(using: .utf8)
+                let geoArr = (geoObj == nil) ? nil : try? JSONSerialization.jsonObject(with: geoObj!) as? [Any]
+                games += [Game(username: gameEntry[0],
+                                 gamename: gameEntry[1],
+                                 description: gameEntry[2],
+                                 tag: gameEntry[3],
+                                 gid:gameEntry[5],
+                                 location: (geoArr == nil) ? nil :
+                                    GeoData(lat: geoArr![0] as! Double,
+                                            lon: geoArr![1] as! Double,
+                                            loc: geoArr![2] as! String,
+                                            facing: geoArr![3] as! String,
+                                            speed: geoArr![4] as! String)
+                                 , puzzles: puzzles, timestamp: gameEntry[6])]
+            }
+            refresh(games)
+        }
+        task.resume()
+    }
 }
