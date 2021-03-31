@@ -44,6 +44,10 @@ class MainVC: UITableViewController {
     private var games = [Game]()  // array of Chatt
     private let geodata = GeoData()
     private var lastRefreshTime = Date.currentTimeStamp
+    @IBAction func sortList(_ sender: Any) {
+        self.games.sort {$0.username!  < $1.username!}
+        tableView.reloadData()
+    }
     
     var filteredGames: [Game] = []
     
