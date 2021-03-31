@@ -53,7 +53,7 @@ class MainVC: UITableViewController {
     
     func filterContentForSearchText(_ searchText: String) {
         filteredGames = games.filter{(game:Game)->Bool in
-            return game.gamename!.range(of:searchText, options: .caseInsensitive) != nil
+            return game.gamename!.range(of:searchText, options: .caseInsensitive) != nil || game.tag!.range(of:searchText, options: .caseInsensitive) != nil
         }
         
         tableView.reloadData()
