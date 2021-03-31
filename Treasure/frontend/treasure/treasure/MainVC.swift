@@ -29,11 +29,39 @@ extension Date {
     }
 }
 
+extension MainVC: UISearchResultsUpdating {
+    func updateSearchResults(for searchController:UISearchController) {
+        let searchBar = searchController.searchBar
+        filterContentForSearchText(searchBar.text!)
+    }
+}
+
 class MainVC: UITableViewController {
     let userNotificationCenter = UNUserNotificationCenter.current()
+    
+    let searchController = UISearchController(searchResultsController: nil)
+    
     private var games = [Game]()  // array of Chatt
     private let geodata = GeoData()
     private var lastRefreshTime = Date.currentTimeStamp
+    
+    var filteredGames: [Game] = []
+    
+    var isSearchBarEmpty: Bool {
+        return searchController.searchBar.text?.isEmpty ?? true
+    }
+    
+    func filterContentForSearchText(_ searchText: String) {
+        filteredGames = games.filter{(game:Game)->Bool in
+            return game.gamename!.range(of:searchText, options: .caseInsensitive) != nil
+        }
+        
+        tableView.reloadData()
+    }
+    
+    var isFiltering: Bool {
+        return searchController.isActive && !isSearchBarEmpty
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         let swipeRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(startMap(_:)))
@@ -42,6 +70,11 @@ class MainVC: UITableViewController {
         refreshControl?.addTarget(self, action: #selector(MainVC.handleRefresh(_:)), for: UIControl.Event.valueChanged)
         self.requestNotificationAuthorization()
         self.sendNotification()
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Search Games"
+        navigationItem.searchController = searchController
+        definesPresentationContext = true
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -65,6 +98,9 @@ class MainVC: UITableViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // how many rows per section
+        if isFiltering {
+            return filteredGames.count
+        }
         return games.count
     }
     
@@ -80,7 +116,12 @@ class MainVC: UITableViewController {
             fatalError("No reusable cell!")
         }
         
-        let game = games[indexPath.row]
+        let game: Game
+        if isFiltering {
+            game = filteredGames[indexPath.row]
+        } else {
+            game = games[indexPath.row]
+        }
         
         cell.usernameLabel.text = game.username
         cell.usernameLabel.sizeToFit()
@@ -205,7 +246,12 @@ class MainVC: UITableViewController {
         if (segue.identifier == "gameinfoSegue") {
             let index = sender as! Int
             
-            let game = games[index]
+            let game: Game
+            if isFiltering {
+                game = filteredGames[index]
+            } else {
+                game = games[index]
+            }
             
             let gameInfo = segue.destination as! GameInfo
             
