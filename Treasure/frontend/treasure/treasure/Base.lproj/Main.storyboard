@@ -480,16 +480,28 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Game Store" id="Qoj-WT-2XL">
-                        <barButtonItem key="leftBarButtonItem" style="plain" id="8JO-rz-FC8">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="ZZi-XD-cJR">
-                                <rect key="frame" x="20" y="11" width="22" height="22"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="list.dash" catalog="system"/>
-                                <connections>
-                                    <action selector="sortList:" destination="SXH-ck-NzU" eventType="touchUpInside" id="r9m-OS-jdu"/>
-                                </connections>
-                            </button>
-                        </barButtonItem>
+                        <leftBarButtonItems>
+                            <barButtonItem style="plain" id="8JO-rz-FC8">
+                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="ZZi-XD-cJR">
+                                    <rect key="frame" x="20" y="11" width="22" height="22"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal" image="person" catalog="system"/>
+                                    <connections>
+                                        <action selector="sortList:" destination="SXH-ck-NzU" eventType="touchUpInside" id="r9m-OS-jdu"/>
+                                    </connections>
+                                </button>
+                            </barButtonItem>
+                            <barButtonItem style="plain" id="KY2-EW-zqr">
+                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="BHz-8e-e5j">
+                                    <rect key="frame" x="50" y="11" width="28" height="22"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal" image="gamecontroller" catalog="system"/>
+                                    <connections>
+                                        <action selector="sortListbygamename:" destination="SXH-ck-NzU" eventType="touchUpInside" id="S4e-fe-PWg"/>
+                                    </connections>
+                                </button>
+                            </barButtonItem>
+                        </leftBarButtonItems>
                         <barButtonItem key="rightBarButtonItem" title="Create" id="dnW-iB-S3Z">
                             <connections>
                                 <segue destination="BYZ-38-t0r" kind="show" id="v6w-eF-VJx"/>
@@ -700,8 +712,9 @@
     </scenes>
     <resources>
         <image name="arrow.up.and.down.square" catalog="system" width="128" height="114"/>
-        <image name="list.dash" catalog="system" width="128" height="85"/>
+        <image name="gamecontroller" catalog="system" width="128" height="80"/>
         <image name="mappin.and.ellipse" catalog="system" width="118" height="128"/>
+        <image name="person" catalog="system" width="128" height="117"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

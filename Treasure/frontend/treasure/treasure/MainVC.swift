@@ -48,6 +48,10 @@ class MainVC: UITableViewController {
         self.games.sort {$0.username!  < $1.username!}
         tableView.reloadData()
     }
+    @IBAction func sortListbygamename(_ sender: Any) {
+        self.games.sort {$0.gamename!  < $1.gamename!}
+        tableView.reloadData()
+    }
     
     var filteredGames: [Game] = []
     
