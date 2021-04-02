@@ -10,8 +10,12 @@ import SceneKit
 import AVFoundation
 import CoreLocation
 
-//protocol ARCameraDelegate {
-//    func viewController(controller: ARCameraVC, tappedTarget: ARItem)
+protocol ARCameraDelegate: UIViewController {
+    func onReturn(_ result: Puzzle)
+}
+//
+//protocol ReturnDelegate: UIViewController {
+//    func onReturn(_ result: Puzzle)
 //}
 
 class ARCameraVC: UIViewController{
@@ -24,8 +28,9 @@ class ARCameraVC: UIViewController{
     var locationManger = CLLocationManager()
     var heading: Double = 0
     var userLocation = CLLocation()
-    var puzzles: [Puzzle]?
-//    var delegate: ARCameraDelegate?
+//    var puzzles: [Puzzle]?
+    var puzzleTarget: Puzzle?
+    weak var arCameraDelegate: ARCameraDelegate?
     
     let scene = SCNScene()
     let cameraNode = SCNNode()
@@ -44,6 +49,7 @@ class ARCameraVC: UIViewController{
       cameraNode.position = SCNVector3(x: 0, y: 0, z: 10)
       scene.rootNode.addChildNode(cameraNode)
       target = ARItem(itemDescription: "", location: CLLocation(latitude: 0, longitude: 0), itemNode: nil)
+      // failed to handle word type puzzle
       let isTarget = setupTarget()
         if isTarget == false{
         self.navigationController?.popViewController(animated: true)
@@ -157,37 +163,52 @@ class ARCameraVC: UIViewController{
     }
 
     func setupTarget() -> Bool?{
-        let puzzle = puzzles?.popLast()
-        if let itemDescription = puzzle?.type{
-//            let scene = SCNScene(named: "art.scnassets/\(itemDescription).usdz")
+//        let puzzle = puzzles?.popLast()
+        if let puzzle = self.puzzleTarget{
+            if let itemDescription = puzzle.type{
+    //            let scene = SCNScene(named: "art.scnassets/\(itemDescription).usdz")
 
-            let scene = SCNScene(named: "art.scnassets/\(itemDescription).usdz")
-//            let enemy = scene?.rootNode.childNode(withName: "toy_car", recursively: true)
-//            if itemDescription == "car" {
-//              enemy?.position = SCNVector3(x: 0, y: -15, z: 0)
-//            } else {
-//              enemy?.position = SCNVector3(x: 0, y: 0, z: 0)
-//            }
-            var node = SCNNode()
-            var nodeArray = scene!.rootNode.childNodes
-            for childNode in nodeArray{
-                node.addChildNode(childNode as SCNNode)
+                let scene = SCNScene(named: "art.scnassets/\(itemDescription).usdz")
+                let lightNode = SCNNode()
+                lightNode.light = SCNLight()
+                lightNode.light?.type = .omni
+                lightNode.position = SCNVector3(x: 0, y: 10, z: 35)
+                scene?.rootNode.addChildNode(lightNode)
+                
+                // 6: Creating and adding ambien light to scene
+                let ambientLightNode = SCNNode()
+                ambientLightNode.light = SCNLight()
+                ambientLightNode.light?.type = .ambient
+                ambientLightNode.light?.color = UIColor.darkGray
+                scene?.rootNode.addChildNode(ambientLightNode)
+    //            let enemy = scene?.rootNode.childNode(withName: "toy_car", recursively: true)
+    //            if itemDescription == "car" {
+    //              enemy?.position = SCNVector3(x: 0, y: -15, z: 0)
+    //            } else {
+    //              enemy?.position = SCNVector3(x: 0, y: 0, z: 0)
+    //            }
+                let node = SCNNode()
+                let nodeArray = scene!.rootNode.childNodes
+                for childNode in nodeArray{
+                    node.addChildNode(childNode as SCNNode)
+                }
+                node.position = SCNVector3(x:0, y: 0, z:0)
+    //            enemy.position = SCNVector3(x: 0, y: 0, z: 0)
+    //            let node = SCNNode()
+    //            node.addChildNode(enemy!)
+                node.name = "puzzle"
+                self.target.itemDescription = itemDescription
+                self.target.itemNode = node
+                if let geodata = puzzle.location{
+                    self.target.location = CLLocation(latitude: geodata.lat, longitude: geodata.lon)
+    //                self.target.location = CLLocation(latitude: 42.30099599327609, longitude: -83.71567403950316)
+                }
+                return true
+            } else {
+                return false
             }
-            node.position = SCNVector3(x:0, y: 0, z:0)
-//            enemy.position = SCNVector3(x: 0, y: 0, z: 0)
-//            let node = SCNNode()
-//            node.addChildNode(enemy!)
-            node.name = "puzzle"
-            self.target.itemDescription = itemDescription
-            self.target.itemNode = node
-            if let geodata = puzzle?.location{
-                self.target.location = CLLocation(latitude: geodata.lat, longitude: geodata.lon)
-//                self.target.location = CLLocation(latitude: 42.30099599327609, longitude: -83.71567403950316)
-            }
-            return true
-        } else {
-            return false
         }
+        return false
     }
     
     func completePuzzle(){
@@ -213,10 +234,16 @@ class ARCameraVC: UIViewController{
             SCNAction.wait(duration: 3.5),
             SCNAction.run({_ in
 //              self.delegate?.viewController(controller: self, tappedTarget: self.target)
-                self.completePuzzle()
+//                self.completePuzzle()
+                self.arCameraDelegate?.onReturn(self.puzzleTarget!)
+                DispatchQueue.main.async {
+                    self.navigationController?.popViewController(animated: true)
+                    self.dismiss(animated: true, completion: nil)
+                }
             })])
         emitterNode.runAction(sequence)
       } else {
+
         emitterNode.runAction(SCNAction.move(to: SCNVector3(x: 0, y: 0, z: -30), duration: 0.5))
       }
     }

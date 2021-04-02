@@ -75,10 +75,12 @@ class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate
     private lazy var locmanager = CLLocationManager() // Create a location manager to interface with iOS's location manager.
 
     @IBAction func stopPuzzles(_ sender: Any) {
-        if let coordinate = self.puzzleMarker?.position{
-            let geoPuzzle = GeoData(lat: coordinate.latitude, lon: coordinate.longitude)
-            puzzle = Puzzle(location: geoPuzzle, name: nameText.text, type: puzzletypeText.text, description: descriptionText.text)
-            returnDelegate?.onReturn(puzzle!)
+        if self.puzzleMarker?.map != nil{
+            if let coordinate = self.puzzleMarker?.position{
+                let geoPuzzle = GeoData(lat: coordinate.latitude, lon: coordinate.longitude)
+                puzzle = Puzzle(location: geoPuzzle, name: nameText.text, type: puzzletypeText.text, description: descriptionText.text)
+                returnDelegate?.onReturn(puzzle!)
+            }
         }
         dismiss(animated: true, completion: nil)
     }

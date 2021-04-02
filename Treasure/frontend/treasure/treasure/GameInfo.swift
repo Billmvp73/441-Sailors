@@ -7,7 +7,7 @@
 
 import UIKit
 import CoreLocation
-class GameInfo: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class GameInfo: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
     
     
     @IBOutlet weak var gameName: UILabel!
@@ -27,17 +27,21 @@ class GameInfo: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     }
     
     @IBAction func startGame(_ sender: Any) {
-//        if UIImagePickerController.isSourceTypeAvailable(.camera) {
-//            presentPicker(.camera)
-//        } else {
-//            print("Camera not available. iPhone simulators don't simulate the camera.")
+//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//        if let arcameraVC = storyboard.instantiateViewController(identifier: "ARCameraVC") as? ARCameraVC{
+////            arcameraVC.delegate = self
+//            arcameraVC.puzzles = self.puzzles
+//            arcameraVC.userLocation = self.location!
+//            self.navigationController?.pushViewController(arcameraVC, animated: true)
 //        }
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        if let arcameraVC = storyboard.instantiateViewController(identifier: "ARCameraVC") as? ARCameraVC{
+        if let mapsVC = storyboard.instantiateViewController(identifier: "MapsVC") as? MapsVC{
 //            arcameraVC.delegate = self
-            arcameraVC.puzzles = self.puzzles
-            arcameraVC.userLocation = self.location!
-            self.navigationController?.pushViewController(arcameraVC, animated: true)
+            mapsVC.puzzles = self.puzzles
+//            mapsVC.userLocation = self.location!
+            mapsVC.isPlay = true
+            mapsVC.isGames = false
+            self.navigationController?.pushViewController(mapsVC, animated: true)
         }
     }
     
