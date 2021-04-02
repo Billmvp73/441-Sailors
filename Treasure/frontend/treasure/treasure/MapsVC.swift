@@ -8,9 +8,7 @@
 import UIKit
 import GoogleMaps
 import CoreLocation
-protocol RoutesReturnDelegate: UIViewController {
-    func onReturnFromRoutes(_ result: Puzzle)
-}
+
 
 extension Array {
     func chunked(into size: Int) -> [[Element]] {
@@ -27,7 +25,6 @@ class MapsVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate{
     var isGames: Bool? = nil
     var isPlay: Bool? = nil
     var pins = [CLLocationCoordinate2D]()
-    weak var returnDelegate: RoutesReturnDelegate?
     @IBAction func stopMapView(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
@@ -44,6 +41,7 @@ class MapsVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate{
         mMap.settings.myLocationButton = true
         var chattMarker: GMSMarker!
         if isPlay == false{
+            //user is showing game locations not playing.
             if isGames == true{
                 if let game = game, let geodata = game.location {
                     
@@ -84,13 +82,18 @@ class MapsVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate{
                 // obtain user's current location so that we can
                 // zoom the map to the current location
                 locmanager.startUpdatingLocation()
+                var puzzleIndex = 0
                 puzzles?.forEach {
                     if let geodata = $0.location {
                         let coordinate = CLLocationCoordinate2D(latitude: geodata.lat, longitude: geodata.lon)
                         chattMarker = GMSMarker(position: coordinate)
+                        if puzzleIndex == 0{
+                            chattMarker.icon = GMSMarker.markerImage(with: UIColor.green)
+                        }
                         chattMarker.map = mMap
                         chattMarker.userData = $0
                         pins += [coordinate]
+                        puzzleIndex += 1
                     }
                 }
                 self.drawPolyline()
@@ -101,6 +104,7 @@ class MapsVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate{
                 mMap.camera = GMSCameraPosition.camera(withTarget: coordinate, zoom: 15.0)
             }
         } else{
+            // users are playing the game. Show real map to them
             
         }
     }

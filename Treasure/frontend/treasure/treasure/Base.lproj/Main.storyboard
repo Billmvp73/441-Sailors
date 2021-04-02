@@ -185,6 +185,7 @@
                     <connections>
                         <outlet property="addPuzzlesButton" destination="ayY-xf-gIf" id="qC0-FW-fFn"/>
                         <outlet property="continueButton" destination="ivs-4k-rp2" id="Bgw-Ni-lfD"/>
+                        <outlet property="countdownTimer" destination="SWc-eX-JNc" id="krd-nL-cO3"/>
                         <outlet property="descriptionTextView" destination="xme-nf-RvI" id="Tph-Zu-Fon"/>
                         <outlet property="nameTextField" destination="trL-8M-K6S" id="za0-PF-mSW"/>
                         <outlet property="popupView" destination="6lO-hL-nDI" id="rn7-XK-ibm"/>
@@ -202,9 +203,9 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ivs-4k-rp2">
-                            <rect key="frame" x="58" y="79" width="125" height="30"/>
+                            <rect key="frame" x="147" y="78" width="62" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" title="Post a new game?"/>
+                            <state key="normal" title="Continue"/>
                             <connections>
                                 <action selector="refreshPost:" destination="BYZ-38-t0r" eventType="touchUpInside" id="1U3-Yq-Ndh"/>
                             </connections>
@@ -224,6 +225,13 @@
                                 <action selector="submitGames:" destination="BYZ-38-t0r" eventType="touchUpInside" id="b3J-Cy-KBQ"/>
                             </connections>
                         </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Back" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SWc-eX-JNc">
+                            <rect key="frame" x="16" y="83" width="38" height="21"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                     </subviews>
                     <viewLayoutGuide key="safeArea" id="nSC-G4-4zB"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>

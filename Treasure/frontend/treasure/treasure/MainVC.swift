@@ -156,6 +156,7 @@ class MainVC: UITableViewController {
                     mapsVC.game = game
                     mapsVC.games = self.games
                     mapsVC.isGames = true
+                    mapsVC.isPlay = false
                     self.present(mapsVC, animated: true, completion: nil)
                 }
             }

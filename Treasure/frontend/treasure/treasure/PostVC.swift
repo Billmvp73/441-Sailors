@@ -7,9 +7,10 @@
 
 import UIKit
 
-class PostVC: UIViewController, UITextViewDelegate, sReturnDelegate, ReturnDelegate, RoutesReturnDelegate, UITableViewDelegate, UITableViewDataSource {
+class PostVC: UIViewController, UITextViewDelegate, sReturnDelegate, ReturnDelegate, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var tableView: UITableView!
-    
+    var timer: Timer?
+    var secondsRemaining = 5
     func onReturn(_ result: String?){
     }
     private let geodata = GeoData()
@@ -22,6 +23,7 @@ class PostVC: UIViewController, UITextViewDelegate, sReturnDelegate, ReturnDeleg
     @IBAction func refreshPost(_ sender: Any) {
         self.viewDidLoad()
     }
+    @IBOutlet weak var countdownTimer: UILabel!
     
     @IBOutlet weak var submitButton: UIBarButtonItem!
     @IBOutlet weak var nameTextField: UITextField!
@@ -32,34 +34,76 @@ class PostVC: UIViewController, UITextViewDelegate, sReturnDelegate, ReturnDeleg
     @IBOutlet weak var continueButton: UIButton!
     @IBOutlet weak var retryButton: UIButton!
     @IBAction func submitGames(_ sender: Any) {
-        let game = GamePost(gamename: self.nameTextField.text, description: self.descriptionTextView.text, tag: self.tagTextView.text, location: self.geodata, puzzles: self.puzzles)
-        
-        let store = GamesStore()
-        var postResponse : Bool?=nil
-        postResponse = store.postGames(game)
-        if postResponse == true{
-            responseLabel.text = "Post successfully!"
-            self.retryButton.isHidden = true
-            self.continueButton.isHidden = false
+        var game = GamePost(gamename: self.nameTextField.text, description: self.descriptionTextView.text, tag: self.tagTextView.text, location: self.geodata, puzzles: self.puzzles)
+        if puzzles.count > 0{
+            game.location = puzzles[0].location
+            let store = GamesStore()
+            var postResponse : Bool?=nil
+            postResponse = store.postGames(game)
+            if postResponse == true{
+                responseLabel.text = "Post successfully!"
+                self.retryButton.isHidden = true
+                self.continueButton.isHidden = false
+                self.countdownTimer.isHidden = false
+                self.secondsRemaining = 5
+                timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.updateCounting), userInfo: nil, repeats: true)
+            } else{
+                responseLabel.text = "Failed. Please retry."
+                self.continueButton.isHidden = true
+                self.retryButton.isHidden = false
+                self.countdownTimer.isHidden = true
+            }
+            popupView.isHidden = false
+            popupView.center = self.view.center
+            popupView.alpha = 1
+            popupView.transform = CGAffineTransform(scaleX: 0.8, y: 1.2)
+            self.view.addSubview(popupView)
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: [], animations: {
+                self.popupView.transform = .identity
+    //            self.viewDim.alpha = 0.8
+            }, completion: nil)
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
+//
+//            }
         } else{
-            responseLabel.text = "Failed. Please retry."
-            self.continueButton.isHidden = true
+            responseLabel.text = "Your Game has no puzzle."
             self.retryButton.isHidden = false
+            self.continueButton.isHidden = true
+            self.countdownTimer.isHidden = true
+            popupView.isHidden = false
+            popupView.center = self.view.center
+            popupView.alpha = 1
+            popupView.transform = CGAffineTransform(scaleX: 0.8, y: 1.2)
+            self.view.addSubview(popupView)
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: [], animations: {
+                self.popupView.transform = .identity
+    //            self.viewDim.alpha = 0.8
+            }, completion: nil)
         }
-        popupView.isHidden = false
-        popupView.center = self.view.center
-        popupView.alpha = 1
-        popupView.transform = CGAffineTransform(scaleX: 0.8, y: 1.2)
-        self.view.addSubview(popupView)
-        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: [], animations: {
-            self.popupView.transform = .identity
-//            self.viewDim.alpha = 0.8
-        }, completion: nil)
-//        puzzles = [Puzzle]()
-        navigationController?.popViewController(animated: true)
-        dismiss(animated: true, completion: nil)
+        
+//        popupView.isHidden = false
+//        popupView.center = self.view.center
+//        popupView.alpha = 1
+//        popupView.transform = CGAffineTransform(scaleX: 0.8, y: 1.2)
+//        self.view.addSubview(popupView)
+//        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: [], animations: {
+//            self.popupView.transform = .identity
+////            self.viewDim.alpha = 0.8
+//        }, completion: nil)
+        puzzles = [Puzzle]()
     }
     
+    
+    @objc func updateCounting(){
+        if self.secondsRemaining > 0{
+            self.countdownTimer.text = "\(self.secondsRemaining)s"
+            self.secondsRemaining -= 1
+        }else{
+            self.timer?.invalidate()
+            self.navigationController?.popViewController(animated: true)
+            self.dismiss(animated: true, completion: nil)
+        }
+    }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
@@ -117,7 +161,7 @@ class PostVC: UIViewController, UITextViewDelegate, sReturnDelegate, ReturnDeleg
             let mapsVC = segue.destination as? MapsVC
             mapsVC?.puzzles = self.puzzles
             mapsVC?.isGames = false
-            mapsVC?.returnDelegate = self
+            mapsVC?.isPlay = false
         }
     }
     
