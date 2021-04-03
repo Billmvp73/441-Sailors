@@ -209,6 +209,29 @@ def pausedgames(request):
 
 
 @csrf_exempt
+def availablear(request):
+    if request.method != 'POST':
+        return HttpResponse(status=404)
+    json_data = json.loads(request.body)
+    cursor = connection.cursor()
+
+    token = json_data['token']
+    cursor.execute('SELECT uid, expiration FROM users WHERE token = %s;', (token,))
+
+    row = cursor.fetchone()
+    now = time.time()
+    if row is None or now > row[1]:
+        # return an error if there is no chatter with that ID
+        return HttpResponse(status=401) # 401 Unauthorized
+
+    uid = row[0]
+
+    cursor.execute("SELECT name, hash, type FROM ar WHERE uid = %s OR uid = '1';", (uid, ))
+    rows = cursor.fetchall()
+    return JsonResponse({"ar": rows})
+
+
+@csrf_exempt
 def adduser(request):
     if request.method != 'POST':
         return HttpResponse(status=404)

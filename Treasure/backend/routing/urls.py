@@ -31,4 +31,5 @@ urlpatterns = [
     path('pausedgames/', views.pausedgames, name='pausedgames'),
     path('resume/', views.resume, name='resume'),
     path('uploadar/', views.uploadar, name='uploadar'),
+    path('availablear/', views.availablear, name='availablear'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) 
