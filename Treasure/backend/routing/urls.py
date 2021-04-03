@@ -26,4 +26,5 @@ urlpatterns = [
     path('pause/', views.pause, name='pause'),
     path('pausedgames/', views.pausedgames, name='pausedgames'),
     path('resume/', views.resume, name='resume'),
+    url(r'media/(?P<path>.*)/$', serve, {'document_root': MEDIA_ROOT}),
 ]
