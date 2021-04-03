@@ -6,6 +6,9 @@ import math
 from django.shortcuts import render
 from google.oauth2 import id_token
 from google.auth.transport import requests
+import os
+from django.conf import settings
+from django.core.files.storage import FileSystemStorage
 
 import hashlib, time
 
@@ -142,6 +145,44 @@ def resume(request):
     else:
         cursor.execute("UPDATE progress SET status = 'continue' WHERE uid = %s AND gid = %s;", (uid, gid))
         return JsonResponse({"success": True, "pid": row[0]})
+
+
+@csrf_exempt
+def uploadar(request):
+    if request.method != 'POST':
+        return HttpResponse(status=404)
+
+    token = request.POST.get("token")
+
+    cursor = connection.cursor()
+    cursor.execute('SELECT uid, expiration FROM users WHERE token = %s;', (token,))
+
+    row = cursor.fetchone()
+    now = time.time()
+    if row is None or now > row[1]:
+        # return an error if there is no chatter with that ID
+        return HttpResponse(status=401) # 401 Unauthorized
+
+    ar = request.FILES['ar']
+
+    sha256_hash = hashlib.sha256()
+    for byte_block in iter(lambda: ar.read(4096), b""):
+        sha256_hash.update(byte_block)
+
+    filename = sha256_hash.hexdigest()
+
+    cursor.execute("SELECT filename FROM ar;")
+    row = cursor.fetchone()
+    if row is None:
+        fs = FileSystemStorage()
+        filename = fs.save(filename, ar)
+        cursor.execute('INSERT INTO ar (uid, hash) VALUES '
+               '(%s, %s);', (row[0], filename))
+        return JsonResponse({"filename": filename})
+    else:
+        return JsonResponse({"filename": filename})
+
+
 
 @csrf_exempt
 def pausedgames(request):
