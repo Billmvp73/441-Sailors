@@ -8,12 +8,41 @@
 import UIKit
 import GoogleMaps
 import SceneKit
+import RealityKit
+//import Alamofire
+import QuickLook
 
 protocol ReturnDelegate: UIViewController {
     func onReturn(_ result: Puzzle)
 }
 
-class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate, GMSMapViewDelegate, UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate {
+class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate, GMSMapViewDelegate, UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate, URLSessionDownloadDelegate{
+    
+//    var modelURL: URL?
+    
+    
+//    func downloadSampleUSDZ() {
+//            let url = URL(string: "https://developer.apple.com/augmented-reality/quick-look/models/drummertoy/toy_drummer.usdz")!
+//            let downloadTask = URLSession.shared.downloadTask(with: url) { urlOrNil, responseOrNil, errorOrNil in
+//                 guard let fileURL = urlOrNil else { return }
+//                 do {
+//                     let documentsURL = try
+//                         FileManager.default.url(for: .documentDirectory,
+//                                                 in: .userDomainMask,
+//                                                 appropriateFor: nil,
+//                                                 create: false)
+//                     let savedURL = documentsURL.appendingPathComponent(url.lastPathComponent)
+//                     print(savedURL)
+//                     try FileManager.default.moveItem(at: fileURL, to: savedURL)
+//                     self.modelURL = savedURL
+//                 } catch {
+//                     print ("file error: \(error)")
+//                 }
+//         }
+//         downloadTask.resume()
+//    }
+
+    
 //    @IBOutlet weak var scrollView: UIScrollView!
     weak var returnDelegate: ReturnDelegate?
     @IBOutlet weak var mMap: GMSMapView!
@@ -26,8 +55,57 @@ class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate
     
     @IBOutlet weak var sceneView: SCNView!
     
+    
+    
     //create puzzle list
-    var list = ["word", "plane","drummer","robot","car"]
+    var list = ["word", "toy_plane","toy_drummer","toy_robot_vintage"]
+    var ar_url = ["","https://developer.apple.com/augmented-reality/quick-look/models/biplane/toy_biplane.usdz","https://developer.apple.com/augmented-reality/quick-look/models/drummertoy/toy_drummer.usdz","https://developer.apple.com/augmented-reality/quick-look/models/vintagerobot2k/toy_robot_vintage.usdz"]
+    var cur_row = 0
+    
+    /// Downloads An SCNFile From A Remote URL
+    func downloadSceneTask(url_string: String){
+
+            //1. Get The URL Of The SCN File
+            guard let url = URL(string: url_string) else { return }
+
+            //2. Create The Download Session
+            let downloadSession = URLSession(configuration: URLSession.shared.configuration, delegate: self, delegateQueue: nil)
+
+            //3. Create The Download Task & Run It
+            let downloadTask = downloadSession.downloadTask(with: url)
+            downloadTask.resume()
+        }
+    
+    func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
+
+        //1. Create The Filename
+        let new_name = "\(self.list[self.cur_row]).usdz"
+        let fileURL = getDocumentsDirectory().appendingPathComponent(new_name)
+
+        //2. Copy It To The Documents Directory
+        do {
+            try FileManager.default.copyItem(at: location, to: fileURL)
+
+            print("Successfuly Saved File \(fileURL)")
+
+            //3. Load The Model
+            self.showAr(name: self.list[self.cur_row])
+            
+
+        } catch {
+
+            print("Error Saving: \(error)")
+        }
+
+    }
+    func getDocumentsDirectory() -> URL {
+
+    let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+    let documentsDirectory = paths[0]
+    return documentsDirectory
+
+    }
+
     
     // add drop down list for puzzle type
     public func numberOfComponents(in pickerView: UIPickerView) -> Int{
@@ -47,15 +125,19 @@ class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate
         self.puzzletypeText.text = self.list[row]
         self.puzzletypeDropdown.isHidden = true
 //        let name = self.list[row] + ".usdz"
+        self.cur_row = row
         let name = "art.scnassets/\(self.list[row]).usdz"
         if self.list[row] != "word"{
             self.wordContentText.isHidden = true
             self.sceneView.isHidden = false
+            self.downloadSceneTask(url_string: self.ar_url[row])
         } else{
             self.wordContentText.isHidden = false
             self.sceneView.isHidden = true
         }
-        self.showAr(name: name)
+//        self.downloadSampleUSDZ()
+        
+        self.showAr(name: self.list[row])
     }
 
     func textFieldDidBeginEditing(_ textField: UITextField) {
@@ -88,53 +170,69 @@ class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate
     }
     
     func showAr(name: String) {
-        let scene = SCNScene(named: name)
-        // 2: Add camera node
-        let cameraNode = SCNNode()
-        cameraNode.camera = SCNCamera()
-        // 3: Place camera
-        cameraNode.position = SCNVector3(x: 0, y: 10, z: 35)
-        // 4: Set camera on scene
-        scene?.rootNode.addChildNode(cameraNode)
+//    func showAr() {
+        let new_name = "\(name).usdz"
+        let downloadedScenePath = getDocumentsDirectory().appendingPathComponent(new_name)
+        do {
+            let scene = try SCNScene(url: downloadedScenePath, options: nil)
+            
+    //        let scene = SCNScene(named: name)
+            // 2: Add camera node
+            let cameraNode = SCNNode()
+            cameraNode.camera = SCNCamera()
+            // 3: Place camera
+            cameraNode.position = SCNVector3(x: 0, y: 10, z: 35)
+            // 4: Set camera on scene
+            scene.rootNode.addChildNode(cameraNode)
+            
+            // 5: Adding light to scene
+            let lightNode = SCNNode()
+            lightNode.light = SCNLight()
+            lightNode.light?.type = .omni
+            lightNode.position = SCNVector3(x: 0, y: 10, z: 35)
+            scene.rootNode.addChildNode(lightNode)
+            
+            // 6: Creating and adding ambien light to scene
+            let ambientLightNode = SCNNode()
+            ambientLightNode.light = SCNLight()
+            ambientLightNode.light?.type = .ambient
+            ambientLightNode.light?.color = UIColor.darkGray
+            scene.rootNode.addChildNode(ambientLightNode)
+            
+                    
+            // If you don't want to fix manually the lights
+        //        sceneView.autoenablesDefaultLighting = true
+            
+            // Allow user to manipulate camera
+            sceneView.allowsCameraControl = true
+            
+            // Show FPS logs and timming
+            // sceneView.showsStatistics = true
+            
+            // Set background color
+            sceneView.backgroundColor = UIColor.white
+            
+            // Allow user translate image
+            sceneView.cameraControlConfiguration.allowsTranslation = false
+            
+            // Set scene settings
+            sceneView.scene = scene
+        } catch  {
+            print("Error Loading Scene")
+        }
         
-        // 5: Adding light to scene
-        let lightNode = SCNNode()
-        lightNode.light = SCNLight()
-        lightNode.light?.type = .omni
-        lightNode.position = SCNVector3(x: 0, y: 10, z: 35)
-        scene?.rootNode.addChildNode(lightNode)
         
-        // 6: Creating and adding ambien light to scene
-        let ambientLightNode = SCNNode()
-        ambientLightNode.light = SCNLight()
-        ambientLightNode.light?.type = .ambient
-        ambientLightNode.light?.color = UIColor.darkGray
-        scene?.rootNode.addChildNode(ambientLightNode)
-        
-                
-        // If you don't want to fix manually the lights
-    //        sceneView.autoenablesDefaultLighting = true
-        
-        // Allow user to manipulate camera
-        sceneView.allowsCameraControl = true
-        
-        // Show FPS logs and timming
-        // sceneView.showsStatistics = true
-        
-        // Set background color
-        sceneView.backgroundColor = UIColor.white
-        
-        // Allow user translate image
-        sceneView.cameraControlConfiguration.allowsTranslation = false
-        
-        // Set scene settings
-        sceneView.scene = scene
     }
+    
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+//        self.downloadSampleUSDZ()
+//        let url = URL(fileURLWithPath: "https://developer.apple.com/augmented-reality/quick-look/models/drummertoy/toy_drummer.usdz")
+//        let entity = try? Entity.load(contentsOf: url)
         print("in the viewdidload")
+        
         
 //        let name = puzzletypeText.text! + ".usdz"
         // 1: Load .obj file
