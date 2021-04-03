@@ -22,6 +22,7 @@ class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate
     var list = ["word", "toy_plane","toy_drummer","toy_robot_vintage"]
     var ar_url = ["","https://developer.apple.com/augmented-reality/quick-look/models/biplane/toy_biplane.usdz","https://developer.apple.com/augmented-reality/quick-look/models/drummertoy/toy_drummer.usdz","https://developer.apple.com/augmented-reality/quick-look/models/vintagerobot2k/toy_robot_vintage.usdz"]
     var cur_row = 0
+    var activeTextField : UITextField? = nil
     
 //    @IBOutlet weak var scrollView: UIScrollView!
     weak var returnDelegate: ReturnDelegate?
@@ -140,6 +141,11 @@ class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate
             //if you don't want the users to se the keyboard type:
             textField.endEditing(true)
         }
+        self.activeTextField = textField
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+      self.activeTextField = nil
     }
     
     var prevPuzzles: [Puzzle]? = nil
@@ -287,7 +293,28 @@ class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate
     }
     
     @objc func keyboardWillShow(notification: NSNotification) {
-         self.view.frame.origin.y = -150 // Move view 150 points upward
+//         self.view.frame.origin.y = -210 // Move view 150 points upward
+        guard let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
+
+          // if keyboard size is not available for some reason, dont do anything
+          return
+        }
+
+        var shouldMoveViewUp = true
+
+        // if active text field is not nil
+        if activeTextField != nil {
+            shouldMoveViewUp = false;
+        }
+
+        self.view.frame.origin.y = 0 - keyboardSize.height
+        if(!shouldMoveViewUp) {
+            self.view.frame.origin.y = 0
+            print("not move the view up")
+        } else {
+            print("move the view up")
+        }
+      
     }
 
     @objc func keyboardWillHide(notification: NSNotification) {
