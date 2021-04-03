@@ -261,7 +261,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Description:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="14t-b0-EJh">
-                                <rect key="frame" x="18" y="534" width="92" height="21"/>
+                                <rect key="frame" x="18" y="580" width="92" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -306,7 +306,7 @@
                                 </state>
                             </button>
                             <sceneKitView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hxa-mE-9VB">
-                                <rect key="frame" x="40" y="381" width="350" height="145"/>
+                                <rect key="frame" x="40" y="431" width="350" height="145"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </sceneKitView>
                             <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ieJ-nX-yJb">
@@ -318,7 +318,7 @@
                                 </connections>
                             </pickerView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="What's the content of this puzzle?" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="KRc-ww-ag6">
-                                <rect key="frame" x="40" y="381" width="350" height="145"/>
+                                <rect key="frame" x="40" y="431" width="350" height="145"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <color key="textColor" systemColor="labelColor"/>
@@ -326,13 +326,34 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="description" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="uBt-bz-LdJ">
-                                <rect key="frame" x="38" y="570" width="339" height="103"/>
+                                <rect key="frame" x="38" y="609" width="339" height="103"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Input Model URL: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zxi-xl-4wl">
+                                <rect key="frame" x="20" y="411" width="136" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="model url" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="e4q-Nn-zLC">
+                                <rect key="frame" x="163" y="404" width="184" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rNA-de-GMN">
+                                <rect key="frame" x="355" y="404" width="47" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="submit"/>
+                                <connections>
+                                    <action selector="submit_model_url:" destination="x6p-L0-Uxu" eventType="touchUpInside" id="g9q-qS-n67"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="F29-J8-x0J"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -341,6 +362,7 @@
                         <outlet property="descriptionLabel" destination="14t-b0-EJh" id="K9R-aU-kw9"/>
                         <outlet property="descriptionText" destination="uBt-bz-LdJ" id="CuQ-hL-kIW"/>
                         <outlet property="mMap" destination="C52-1W-080" id="eJb-Sb-FA1"/>
+                        <outlet property="modelurlText" destination="e4q-Nn-zLC" id="RLC-KF-xaI"/>
                         <outlet property="nameText" destination="BLn-kb-9zx" id="gfm-PX-HJB"/>
                         <outlet property="puzzletypeDropdown" destination="ieJ-nX-yJb" id="E7I-Dh-4rX"/>
                         <outlet property="puzzletypeText" destination="2HX-Yk-1Ot" id="NWH-iY-B3p"/>

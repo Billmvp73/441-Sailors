@@ -18,30 +18,10 @@ protocol ReturnDelegate: UIViewController {
 
 class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate, GMSMapViewDelegate, UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate, URLSessionDownloadDelegate{
     
-//    var modelURL: URL?
-    
-    
-//    func downloadSampleUSDZ() {
-//            let url = URL(string: "https://developer.apple.com/augmented-reality/quick-look/models/drummertoy/toy_drummer.usdz")!
-//            let downloadTask = URLSession.shared.downloadTask(with: url) { urlOrNil, responseOrNil, errorOrNil in
-//                 guard let fileURL = urlOrNil else { return }
-//                 do {
-//                     let documentsURL = try
-//                         FileManager.default.url(for: .documentDirectory,
-//                                                 in: .userDomainMask,
-//                                                 appropriateFor: nil,
-//                                                 create: false)
-//                     let savedURL = documentsURL.appendingPathComponent(url.lastPathComponent)
-//                     print(savedURL)
-//                     try FileManager.default.moveItem(at: fileURL, to: savedURL)
-//                     self.modelURL = savedURL
-//                 } catch {
-//                     print ("file error: \(error)")
-//                 }
-//         }
-//         downloadTask.resume()
-//    }
-
+    //create puzzle list
+    var list = ["word", "toy_plane","toy_drummer","toy_robot_vintage"]
+    var ar_url = ["","https://developer.apple.com/augmented-reality/quick-look/models/biplane/toy_biplane.usdz","https://developer.apple.com/augmented-reality/quick-look/models/drummertoy/toy_drummer.usdz","https://developer.apple.com/augmented-reality/quick-look/models/vintagerobot2k/toy_robot_vintage.usdz"]
+    var cur_row = 0
     
 //    @IBOutlet weak var scrollView: UIScrollView!
     weak var returnDelegate: ReturnDelegate?
@@ -52,15 +32,24 @@ class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate
     @IBOutlet weak var puzzletypeText: UITextField!
     @IBOutlet weak var puzzletypeDropdown: UIPickerView!
     @IBOutlet weak var wordContentText: UITextView!
-    
+    @IBOutlet weak var modelurlText: UITextField!
     @IBOutlet weak var sceneView: SCNView!
     
-    
-    
-    //create puzzle list
-    var list = ["word", "toy_plane","toy_drummer","toy_robot_vintage"]
-    var ar_url = ["","https://developer.apple.com/augmented-reality/quick-look/models/biplane/toy_biplane.usdz","https://developer.apple.com/augmented-reality/quick-look/models/drummertoy/toy_drummer.usdz","https://developer.apple.com/augmented-reality/quick-look/models/vintagerobot2k/toy_robot_vintage.usdz"]
-    var cur_row = 0
+    @IBAction func submit_model_url(_ sender: Any) {
+        let model_url: String = self.modelurlText.text!
+        print(model_url)
+        self.ar_url.append(model_url)
+        let model_name_arr = model_url.components(separatedBy: "/")
+        let model_file_name = model_name_arr[model_name_arr.endIndex - 1]
+        let model_name = model_file_name.components(separatedBy: ".")[0]
+        print(model_name)
+        self.list.append(model_name)
+        self.modelurlText.text = ""
+        print(self.list)
+//        pickerView.reloadAllComponents()
+        
+        
+    }
     
     /// Downloads An SCNFile From A Remote URL
     func downloadSceneTask(url_string: String){
@@ -118,15 +107,20 @@ class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate
 
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         self.view.endEditing(true)
+//        pickerView.reloadAllComponents()
+//        pickerView.selectRow(0, inComponent: 0, animated: true)
+//        pickerView.reloadAllComponents();
         return list[row]
     }
 
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        pickerView.selectRow(0, inComponent: 0, animated: true)
+        pickerView.reloadAllComponents();
         self.puzzletypeText.text = self.list[row]
         self.puzzletypeDropdown.isHidden = true
 //        let name = self.list[row] + ".usdz"
         self.cur_row = row
-        let name = "art.scnassets/\(self.list[row]).usdz"
+//        let name = "art.scnassets/\(self.list[row]).usdz"
         if self.list[row] != "word"{
             self.wordContentText.isHidden = true
             self.sceneView.isHidden = false
@@ -135,7 +129,6 @@ class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate
             self.wordContentText.isHidden = false
             self.sceneView.isHidden = true
         }
-//        self.downloadSampleUSDZ()
         
         self.showAr(name: self.list[row])
     }
@@ -230,9 +223,6 @@ class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        self.downloadSampleUSDZ()
-//        let url = URL(fileURLWithPath: "https://developer.apple.com/augmented-reality/quick-look/models/drummertoy/toy_drummer.usdz")
-//        let entity = try? Entity.load(contentsOf: url)
         print("in the viewdidload")
         
         
