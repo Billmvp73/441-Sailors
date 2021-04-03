@@ -17,7 +17,12 @@ protocol ReturnDelegate: UIViewController {
 }
 
 class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate, GMSMapViewDelegate, UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate, URLSessionDownloadDelegate{
-    
+
+
+
+
+
+var test_merge = 0
 //    var modelURL: URL?
     
     
