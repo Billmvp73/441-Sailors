@@ -9,6 +9,7 @@ from google.auth.transport import requests
 
 import hashlib, time
 
+@csrf_exempt
 def getgames(request, city_info):
     if request.method != 'GET':
         return HttpResponse(status=404)
@@ -142,6 +143,7 @@ def resume(request):
         cursor.execute("UPDATE progress SET status = 'continue' WHERE uid = %s AND gid = %s;", (uid, gid))
         return JsonResponse({"success": True, "pid": row[0]})
 
+@csrf_exempt
 def pausedgames(request):
     if request.method != 'POST':
         return HttpResponse(status=404)
