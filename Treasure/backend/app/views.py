@@ -153,7 +153,8 @@ def uploadar(request):
         return HttpResponse(status=404)
 
     token = request.POST.get("token")
-
+    artype = request.POST.get("type")
+    arname = request.POST.get("name")
     cursor = connection.cursor()
     cursor.execute('SELECT uid, expiration FROM users WHERE token = %s;', (token,))
 
@@ -164,23 +165,23 @@ def uploadar(request):
         return HttpResponse(status=401) # 401 Unauthorized
 
     ar = request.FILES['ar']
-
+    uid = row[0]
     sha256_hash = hashlib.sha256()
     for byte_block in iter(lambda: ar.read(4096), b""):
         sha256_hash.update(byte_block)
 
     filename = sha256_hash.hexdigest()
 
-    cursor.execute("SELECT filename FROM ar;")
+    cursor.execute("SELECT * FROM ar WHERE hash = %s;", (filename,))
     row = cursor.fetchone()
     if row is None:
         fs = FileSystemStorage()
-        filename = fs.save(filename, ar)
-        cursor.execute('INSERT INTO ar (uid, hash) VALUES '
-               '(%s, %s);', (row[0], filename))
-        return JsonResponse({"filename": filename})
+        fs.save(filename + "." + artype, ar)
+        cursor.execute('INSERT INTO ar (uid, hash, name, type) VALUES '
+               '(%s, %s, %s, %s);', (uid, filename, arname, artype))
+        return JsonResponse({"filename": filename + "." + artype})
     else:
-        return JsonResponse({"filename": filename})
+        return JsonResponse({"filename": filename + "." + artype})
 
 
 
