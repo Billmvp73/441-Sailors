@@ -317,13 +317,8 @@
                                     <outlet property="delegate" destination="x6p-L0-Uxu" id="6B7-K9-BBd"/>
                                 </connections>
                             </pickerView>
-<<<<<<< HEAD
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="What's the content of this puzzle?" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="KRc-ww-ag6">
-                                <rect key="frame" x="40" y="431" width="350" height="145"/>
-=======
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="1" contentMode="scaleToFill" fixedFrame="YES" text="What's the content of this puzzle?" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="KRc-ww-ag6">
                                 <rect key="frame" x="40" y="381" width="350" height="145"/>
->>>>>>> 8fef4926b3bab0defa83b13946393f99d59e1175
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <color key="textColor" systemColor="labelColor"/>
