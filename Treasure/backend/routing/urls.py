@@ -23,4 +23,6 @@ urlpatterns = [
     path('getgames/<str:city_info>/<str:keyword>/', views.searchgame, name='searchgame'),
     path('adduser/', views.adduser, name='adduser'),
     path('postgames/', views.postgames, name='postgames'),
+    path('pause/', views.pause, name='pause'),
+    path('resume/', views.resume, name='resume'),
 ]

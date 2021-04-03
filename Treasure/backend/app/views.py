@@ -88,6 +88,60 @@ def postgames(request):
                    '(%s, %s, %s,%s, %s, %s, %s);', (row[0], gamename, description, tag, location, puzzles, city))
     return JsonResponse({})
 
+@csrf_exempt
+def pause(request):
+    if request.method != 'POST':
+        return HttpResponse(status=404)
+    json_data = json.loads(request.body)
+    cursor = connection.cursor()
+
+    token = json_data['token']
+    cursor.execute('SELECT uid, expiration FROM users WHERE token = %s;', (token,))
+
+    row = cursor.fetchone()
+    now = time.time()
+    if row is None or now > row[1]:
+        # return an error if there is no chatter with that ID
+        return HttpResponse(status=401) # 401 Unauthorized
+
+
+    gid = json_data['gid']
+    pid = json_data['pid']
+    status = "pause"
+    cursor.execute("UPDATE progress SET status = 'continue' WHERE uid = %s AND gid = %s;", (uid, gid))
+
+    cursor.execute('INSERT INTO progress (uid, gid, pid, status) VALUES '
+               '(%s, %s, %s,%s);', (row[0], gid, pid, status))
+
+    return JsonResponse({})
+
+@csrf_exempt
+def resume(request):
+    if request.method != 'POST':
+        return HttpResponse(status=404)
+    json_data = json.loads(request.body)
+    cursor = connection.cursor()
+
+    token = json_data['token']
+    cursor.execute('SELECT uid, expiration FROM users WHERE token = %s;', (token,))
+
+    row = cursor.fetchone()
+    now = time.time()
+    if row is None or now > row[1]:
+        # return an error if there is no chatter with that ID
+        return HttpResponse(status=401) # 401 Unauthorized
+
+    gid = json_data['gid']
+    uid = row[0]
+
+    cursor.execute("SELECT pid FROM progress WHERE uid = %s AND gid = %s AND status = 'pause';", (uid, gid))
+    row = cursor.fetchone()
+    if row is None:
+        return JsonResponse({'success': False})
+    else:
+        cursor.execute("UPDATE progress SET status = 'continue' WHERE uid = %s AND gid = %s;", (uid, gid))
+        return JsonResponse({'success': True, "pid": row[0]})
+
 
 @csrf_exempt
 def adduser(request):
