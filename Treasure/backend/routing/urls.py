@@ -16,6 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from app import views
+from django.conf import settings
+from django.conf.urls.static import static
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('getallgames/', views.getallgames, name='getallgames'),
@@ -26,5 +30,4 @@ urlpatterns = [
     path('pause/', views.pause, name='pause'),
     path('pausedgames/', views.pausedgames, name='pausedgames'),
     path('resume/', views.resume, name='resume'),
-    url(r'media/(?P<path>.*)/$', serve, {'document_root': MEDIA_ROOT}),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) 
