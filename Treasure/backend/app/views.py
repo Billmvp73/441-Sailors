@@ -108,7 +108,7 @@ def pause(request):
     gid = json_data['gid']
     pid = json_data['pid']
     status = "pause"
-    cursor.execute("UPDATE progress SET status = 'continue' WHERE uid = %s AND gid = %s;", (uid, gid))
+    cursor.execute("UPDATE progress SET status = 'continue' WHERE uid = %s AND gid = %s;", (row[0], gid))
 
     cursor.execute('INSERT INTO progress (uid, gid, pid, status) VALUES '
                '(%s, %s, %s,%s);', (row[0], gid, pid, status))
