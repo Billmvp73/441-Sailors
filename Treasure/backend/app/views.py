@@ -137,10 +137,31 @@ def resume(request):
     cursor.execute("SELECT pid FROM progress WHERE uid = %s AND gid = %s AND status = 'pause';", (uid, gid))
     row = cursor.fetchone()
     if row is None:
-        return JsonResponse({'success': False})
+        return JsonResponse({"success": False})
     else:
         cursor.execute("UPDATE progress SET status = 'continue' WHERE uid = %s AND gid = %s;", (uid, gid))
-        return JsonResponse({'success': True, "pid": row[0]})
+        return JsonResponse({"success": True, "pid": row[0]})
+
+def pausedgames(request):
+    if request.method != 'POST':
+        return HttpResponse(status=404)
+    json_data = json.loads(request.body)
+    cursor = connection.cursor()
+
+    token = json_data['token']
+    cursor.execute('SELECT uid, expiration FROM users WHERE token = %s;', (token,))
+
+    row = cursor.fetchone()
+    now = time.time()
+    if row is None or now > row[1]:
+        # return an error if there is no chatter with that ID
+        return HttpResponse(status=401) # 401 Unauthorized
+
+    uid = row[0]
+
+    cursor.execute("SELECT gid FROM progress WHERE uid = %s AND status = 'pause';", (uid, ))
+    rows = cursor.fetchall()
+    return JsonResponse({"gid": rows})
 
 
 @csrf_exempt

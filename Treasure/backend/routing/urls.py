@@ -24,5 +24,6 @@ urlpatterns = [
     path('adduser/', views.adduser, name='adduser'),
     path('postgames/', views.postgames, name='postgames'),
     path('pause/', views.pause, name='pause'),
+    path('pausedgames/', views.pause, name='pausedgames'),
     path('resume/', views.resume, name='resume'),
 ]
