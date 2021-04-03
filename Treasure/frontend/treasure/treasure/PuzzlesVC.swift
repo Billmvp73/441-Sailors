@@ -367,7 +367,12 @@ class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate
     }
     func textViewDidEndEditing(_ textView: UITextView) {
         if textView.text.isEmpty {
-            textView.text = "description"
+            if textView.tag == 1 {
+                textView.text = "What's the content of this puzzle?"
+            } else {
+                textView.text = "description"
+            }
+            
             textView.textColor = UIColor.lightGray
         }
     }

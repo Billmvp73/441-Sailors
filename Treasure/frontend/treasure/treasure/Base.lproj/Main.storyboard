@@ -317,7 +317,7 @@
                                     <outlet property="delegate" destination="x6p-L0-Uxu" id="6B7-K9-BBd"/>
                                 </connections>
                             </pickerView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="What's the content of this puzzle?" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="KRc-ww-ag6">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="1" contentMode="scaleToFill" fixedFrame="YES" text="What's the content of this puzzle?" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="KRc-ww-ag6">
                                 <rect key="frame" x="40" y="381" width="350" height="145"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
