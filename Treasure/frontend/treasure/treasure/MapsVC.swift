@@ -18,13 +18,28 @@ extension Array {
     }
 }
 
-class MapsVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate{
+class MapsVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate, ARCameraDelegate{
+    func onReturn(_ result: Puzzle) {
+//        self.dismiss(animated: true, completion: nil)
+//        self.navigationController?.popViewController(animated: true)
+        let index = self.puzzles?.firstIndex(where: {$0.name == result.name})
+        if let puzzleIndex  = index{
+            self.puzzles?.remove(at: puzzleIndex)
+        }
+        selectedMarker?.map = nil
+        if self.loadPuzzle() == false{
+            self.completeGame()
+        }
+    }
+    
     @IBOutlet weak var mMap: GMSMapView!
     var game: Game? = nil
     var puzzles: [Puzzle]? = nil
     var isGames: Bool? = nil
     var isPlay: Bool? = nil
     var pins = [CLLocationCoordinate2D]()
+    var selectedMarker : GMSMarker?
+    private let geodata = GeoData()
     @IBAction func stopMapView(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
@@ -39,16 +54,16 @@ class MapsVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate{
         mMap.isMyLocationEnabled = true
         // enable the location bull's eye button
         mMap.settings.myLocationButton = true
-        var chattMarker: GMSMarker!
+        var Marker: GMSMarker!
         if isPlay == false{
             //user is showing game locations not playing.
             if isGames == true{
                 if let game = game, let geodata = game.location {
                     
                     let coordinate = CLLocationCoordinate2D(latitude: geodata.lat, longitude: geodata.lon)
-                    chattMarker = GMSMarker(position: coordinate)
-                    chattMarker.map = mMap
-                    chattMarker.userData = game
+                    Marker = GMSMarker(position: coordinate)
+                    Marker.map = mMap
+                    Marker.userData = game
 
                     // move camera to chatt's location
                     mMap.camera = GMSCameraPosition.camera(withTarget: coordinate, zoom: 15.0)
@@ -67,10 +82,9 @@ class MapsVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate{
                     games.forEach {
                         if let geodata = $0.location {
                             let coordinate = CLLocationCoordinate2D(latitude: geodata.lat, longitude: geodata.lon)
-                            chattMarker = GMSMarker(position: coordinate)
-                            chattMarker.map = mMap
-                            chattMarker.userData = $0
-                            
+                            Marker = GMSMarker(position: coordinate)
+                            Marker.map = mMap
+                            Marker.userData = $0
                         }
                     }
                    
@@ -86,12 +100,12 @@ class MapsVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate{
                 puzzles?.forEach {
                     if let geodata = $0.location {
                         let coordinate = CLLocationCoordinate2D(latitude: geodata.lat, longitude: geodata.lon)
-                        chattMarker = GMSMarker(position: coordinate)
+                        Marker = GMSMarker(position: coordinate)
                         if puzzleIndex == 0{
-                            chattMarker.icon = GMSMarker.markerImage(with: UIColor.green)
+                            Marker.icon = GMSMarker.markerImage(with: UIColor.green)
                         }
-                        chattMarker.map = mMap
-                        chattMarker.userData = $0
+                        Marker.map = mMap
+                        Marker.userData = $0
                         pins += [coordinate]
                         puzzleIndex += 1
                     }
@@ -105,8 +119,31 @@ class MapsVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate{
             }
         } else{
             // users are playing the game. Show real map to them
-            
+            if self.loadPuzzle() == false{
+                //no puzzles available
+                self.completeGame()
+            }
         }
+    }
+    
+    func completeGame(){
+        // complete Game
+    }
+    
+    func loadPuzzle()->Bool{
+        var Marker = GMSMarker()
+        if puzzles!.count > 0{
+            let puzzle = puzzles![0]
+            if let geodata = puzzle.location{
+                let coordinate = CLLocationCoordinate2D(latitude: geodata.lat, longitude: geodata.lon)
+                Marker = GMSMarker(position: coordinate)
+                Marker.map = mMap
+                Marker.userData = CLLocation(latitude: geodata.lat, longitude: geodata.lon)
+                mMap.camera = GMSCameraPosition.camera(withTarget: coordinate, zoom: 15.0)
+            }
+            return true
+        }
+        return false
     }
 
     func drawPolyline() {
@@ -238,4 +275,27 @@ class MapsVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate{
 
            
        }
+    // When playing
+    // click marker to popu up camera background
+    func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) ->Bool {
+        if let coordinate = marker.userData as? CLLocation{
+            let userLocation = CLLocation(latitude: self.geodata.lat, longitude: self.geodata.lon)
+            if userLocation.distance(from: coordinate) < 50 {
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                if let arcameraVC = storyboard.instantiateViewController(identifier: "ARCameraVC") as? ARCameraVC{
+        //            arcameraVC.delegate = self
+                    arcameraVC.puzzleTarget = self.puzzles![0]
+                    arcameraVC.userLocation = userLocation
+                    arcameraVC.arCameraDelegate = self
+                    selectedMarker = marker
+                    self.navigationController?.pushViewController(arcameraVC, animated: true)
+                }
+            }
+        }
+        return true
+    }
+//    func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
+//        print("Do what ever you want.")
+//        return true
+//    }
 }

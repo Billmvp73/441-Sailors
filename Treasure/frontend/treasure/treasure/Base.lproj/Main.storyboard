@@ -708,12 +708,37 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="countDownTimer" destination="NDP-aX-S8H" id="DXK-os-lcO"/>
                         <outlet property="leftIndicator" destination="kJj-aV-xE6" id="WIn-zb-Bqq"/>
+                        <outlet property="popupView" destination="Ije-7c-UMV" id="tJd-wY-Kp8"/>
                         <outlet property="rightIndicator" destination="8UQ-48-kIe" id="8zJ-mQ-lfY"/>
                         <outlet property="sceneView" destination="Bdp-gd-Vip" id="UdU-Eg-c6E"/>
+                        <outlet property="successMessage" destination="vUU-Mr-k8S" id="F3P-Zo-eD7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SW8-cm-H6K" sceneMemberID="firstResponder"/>
+                <view contentMode="scaleToFill" id="Ije-7c-UMV">
+                    <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="congratulation" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vUU-Mr-k8S">
+                            <rect key="frame" x="65" y="28" width="110" height="21"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Go Back" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NDP-aX-S8H">
+                            <rect key="frame" x="88" y="75" width="64" height="21"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <viewLayoutGuide key="safeArea" id="I62-1u-s6k"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                </view>
             </objects>
             <point key="canvasLocation" x="4431.884057971015" y="792.85714285714278"/>
         </scene>
