@@ -287,7 +287,13 @@ class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate
     }
     
     @objc func keyboardWillShow(notification: NSNotification) {
-         self.view.frame.origin.y = -150 // Move view 150 points upward
+         self.view.frame.origin.y = -210 // Move view 150 points upward
+//        guard let userInfo = notification.userInfo else {return}
+//        guard let keyboardSize = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else {return}
+//        let keyboardFrame = keyboardSize.cgRectValue
+//        if self.view.frame.origin.y == 0{
+//            self.view.frame.origin.y -= keyboardFrame.height
+//        }
     }
 
     @objc func keyboardWillHide(notification: NSNotification) {
