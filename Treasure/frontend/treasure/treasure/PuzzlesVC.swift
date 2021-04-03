@@ -17,36 +17,12 @@ protocol ReturnDelegate: UIViewController {
 }
 
 class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate, GMSMapViewDelegate, UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate, URLSessionDownloadDelegate{
-
-
-
-
-
-var test_merge = 0
-//    var modelURL: URL?
     
-    
-//    func downloadSampleUSDZ() {
-//            let url = URL(string: "https://developer.apple.com/augmented-reality/quick-look/models/drummertoy/toy_drummer.usdz")!
-//            let downloadTask = URLSession.shared.downloadTask(with: url) { urlOrNil, responseOrNil, errorOrNil in
-//                 guard let fileURL = urlOrNil else { return }
-//                 do {
-//                     let documentsURL = try
-//                         FileManager.default.url(for: .documentDirectory,
-//                                                 in: .userDomainMask,
-//                                                 appropriateFor: nil,
-//                                                 create: false)
-//                     let savedURL = documentsURL.appendingPathComponent(url.lastPathComponent)
-//                     print(savedURL)
-//                     try FileManager.default.moveItem(at: fileURL, to: savedURL)
-//                     self.modelURL = savedURL
-//                 } catch {
-//                     print ("file error: \(error)")
-//                 }
-//         }
-//         downloadTask.resume()
-//    }
-
+    //create puzzle list
+    var list = ["word", "toy_plane","toy_drummer","toy_robot_vintage"]
+    var ar_url = ["","https://developer.apple.com/augmented-reality/quick-look/models/biplane/toy_biplane.usdz","https://developer.apple.com/augmented-reality/quick-look/models/drummertoy/toy_drummer.usdz","https://developer.apple.com/augmented-reality/quick-look/models/vintagerobot2k/toy_robot_vintage.usdz"]
+    var cur_row = 0
+    var activeTextField : UITextField? = nil
     
 //    @IBOutlet weak var scrollView: UIScrollView!
     weak var returnDelegate: ReturnDelegate?
@@ -57,15 +33,24 @@ var test_merge = 0
     @IBOutlet weak var puzzletypeText: UITextField!
     @IBOutlet weak var puzzletypeDropdown: UIPickerView!
     @IBOutlet weak var wordContentText: UITextView!
-    
+    @IBOutlet weak var modelurlText: UITextField!
     @IBOutlet weak var sceneView: SCNView!
     
-    
-    
-    //create puzzle list
-    var list = ["word", "toy_plane","toy_drummer","toy_robot_vintage"]
-    var ar_url = ["","https://developer.apple.com/augmented-reality/quick-look/models/biplane/toy_biplane.usdz","https://developer.apple.com/augmented-reality/quick-look/models/drummertoy/toy_drummer.usdz","https://developer.apple.com/augmented-reality/quick-look/models/vintagerobot2k/toy_robot_vintage.usdz"]
-    var cur_row = 0
+    @IBAction func submit_model_url(_ sender: Any) {
+        let model_url: String = self.modelurlText.text!
+        print(model_url)
+        self.ar_url.append(model_url)
+        let model_name_arr = model_url.components(separatedBy: "/")
+        let model_file_name = model_name_arr[model_name_arr.endIndex - 1]
+        let model_name = model_file_name.components(separatedBy: ".")[0]
+        print(model_name)
+        self.list.append(model_name)
+        self.modelurlText.text = ""
+        print(self.list)
+//        pickerView.reloadAllComponents()
+        
+        
+    }
     
     /// Downloads An SCNFile From A Remote URL
     func downloadSceneTask(url_string: String){
@@ -123,15 +108,20 @@ var test_merge = 0
 
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         self.view.endEditing(true)
+//        pickerView.reloadAllComponents()
+//        pickerView.selectRow(0, inComponent: 0, animated: true)
+//        pickerView.reloadAllComponents();
         return list[row]
     }
 
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        pickerView.selectRow(0, inComponent: 0, animated: true)
+        pickerView.reloadAllComponents();
         self.puzzletypeText.text = self.list[row]
         self.puzzletypeDropdown.isHidden = true
 //        let name = self.list[row] + ".usdz"
         self.cur_row = row
-        let name = "art.scnassets/\(self.list[row]).usdz"
+//        let name = "art.scnassets/\(self.list[row]).usdz"
         if self.list[row] != "word"{
             self.wordContentText.isHidden = true
             self.sceneView.isHidden = false
@@ -140,7 +130,6 @@ var test_merge = 0
             self.wordContentText.isHidden = false
             self.sceneView.isHidden = true
         }
-//        self.downloadSampleUSDZ()
         
         self.showAr(name: self.list[row])
     }
@@ -152,6 +141,11 @@ var test_merge = 0
             //if you don't want the users to se the keyboard type:
             textField.endEditing(true)
         }
+        self.activeTextField = textField
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+      self.activeTextField = nil
     }
     
     var prevPuzzles: [Puzzle]? = nil
@@ -235,9 +229,6 @@ var test_merge = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        self.downloadSampleUSDZ()
-//        let url = URL(fileURLWithPath: "https://developer.apple.com/augmented-reality/quick-look/models/drummertoy/toy_drummer.usdz")
-//        let entity = try? Entity.load(contentsOf: url)
         print("in the viewdidload")
         
         
@@ -302,7 +293,28 @@ var test_merge = 0
     }
     
     @objc func keyboardWillShow(notification: NSNotification) {
-         self.view.frame.origin.y = -150 // Move view 150 points upward
+//         self.view.frame.origin.y = -210 // Move view 150 points upward
+        guard let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
+
+          // if keyboard size is not available for some reason, dont do anything
+          return
+        }
+
+        var shouldMoveViewUp = true
+
+        // if active text field is not nil
+        if activeTextField != nil {
+            shouldMoveViewUp = false;
+        }
+
+        self.view.frame.origin.y = 0 - keyboardSize.height
+        if(!shouldMoveViewUp) {
+            self.view.frame.origin.y = 0
+            print("not move the view up")
+        } else {
+            print("move the view up")
+        }
+      
     }
 
     @objc func keyboardWillHide(notification: NSNotification) {
@@ -372,7 +384,12 @@ var test_merge = 0
     }
     func textViewDidEndEditing(_ textView: UITextView) {
         if textView.text.isEmpty {
-            textView.text = "description"
+            if textView.tag == 1 {
+                textView.text = "What's the content of this puzzle?"
+            } else {
+                textView.text = "description"
+            }
+            
             textView.textColor = UIColor.lightGray
         }
     }
