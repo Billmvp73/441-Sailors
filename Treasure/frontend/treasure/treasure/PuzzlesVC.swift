@@ -25,6 +25,7 @@ class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate
     var model_name = ["word", "plane", "drummer", "vintage robot"]
     var cur_row = 0
     var activeTextField : UITextField? = nil
+    var activeViewField : UITextView? = nil
     
 //    @IBOutlet weak var scrollView: UIScrollView!
     weak var returnDelegate: ReturnDelegate?
@@ -315,20 +316,15 @@ class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate
           return
         }
 
-        var shouldMoveViewUp = true
-
         // if active text field is not nil
-        if activeTextField != nil {
-            shouldMoveViewUp = false;
-        }
-
-        self.view.frame.origin.y = 0 - keyboardSize.height
-        if(!shouldMoveViewUp) {
+        if activeTextField != nil && activeTextField!.tag == 1{
             self.view.frame.origin.y = 0
             print("not move the view up")
         } else {
+            self.view.frame.origin.y = 0 - keyboardSize.height
             print("move the view up")
         }
+
       
     }
 
@@ -396,6 +392,7 @@ class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate
             textView.text = nil
             textView.textColor = UIColor.black
         }
+        self.activeViewField = textView
     }
     func textViewDidEndEditing(_ textView: UITextView) {
         if textView.text.isEmpty {
@@ -407,5 +404,6 @@ class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate
             
             textView.textColor = UIColor.lightGray
         }
+        self.activeViewField = nil
     }
 }
