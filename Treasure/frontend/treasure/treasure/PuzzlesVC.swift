@@ -21,6 +21,8 @@ class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate
     //create puzzle list
     var list = ["word", "toy_plane","toy_drummer","toy_robot_vintage"]
     var ar_url = ["","https://developer.apple.com/augmented-reality/quick-look/models/biplane/toy_biplane.usdz","https://developer.apple.com/augmented-reality/quick-look/models/drummertoy/toy_drummer.usdz","https://developer.apple.com/augmented-reality/quick-look/models/vintagerobot2k/toy_robot_vintage.usdz"]
+    var model_files_name = ["","toy_biplane.usdz","toy_drummer.usdz","toy_robot_vintage.usdz"]
+    var model_name = ["word", "plane", "drummer", "vintage robot"]
     var cur_row = 0
     var activeTextField : UITextField? = nil
     
@@ -34,22 +36,32 @@ class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate
     @IBOutlet weak var puzzletypeDropdown: UIPickerView!
     @IBOutlet weak var wordContentText: UITextView!
     @IBOutlet weak var modelurlText: UITextField!
+    @IBOutlet weak var modelnameText: UITextField!
     @IBOutlet weak var sceneView: SCNView!
     
     @IBAction func submit_model_url(_ sender: Any) {
         let model_url: String = self.modelurlText.text!
-        print(model_url)
         self.ar_url.append(model_url)
-        let model_name_arr = model_url.components(separatedBy: "/")
-        let model_file_name = model_name_arr[model_name_arr.endIndex - 1]
+        let model_file_name = self.get_file_name(url_string: model_url)
         let model_name = model_file_name.components(separatedBy: ".")[0]
-        print(model_name)
         self.list.append(model_name)
+        self.model_files_name.append(model_file_name)
         self.modelurlText.text = ""
-        print(self.list)
-//        pickerView.reloadAllComponents()
+        if (modelnameText.text != nil) {
+            self.model_name.append(modelnameText.text!)
+        }
+        else {
+            self.model_name.append(model_name)
+        }
+        self.modelnameText.text = ""
         
         
+    }
+    
+    func get_file_name(url_string: String) -> String{
+        let model_name_arr = url_string.components(separatedBy: "/")
+        let model_file_name = model_name_arr[model_name_arr.endIndex - 1]
+        return model_file_name
     }
     
     /// Downloads An SCNFile From A Remote URL
@@ -69,7 +81,8 @@ class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate
     func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
 
         //1. Create The Filename
-        let new_name = "\(self.list[self.cur_row]).usdz"
+//        let new_name = "\(self.list[self.cur_row]).usdz"
+        let new_name = "\(self.model_files_name[self.cur_row])"
         let fileURL = getDocumentsDirectory().appendingPathComponent(new_name)
 
         //2. Copy It To The Documents Directory
@@ -79,7 +92,7 @@ class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate
             print("Successfuly Saved File \(fileURL)")
 
             //3. Load The Model
-            self.showAr(name: self.list[self.cur_row])
+//            self.showAr(name: self.model_files_name[self.cur_row])
             
 
         } catch {
@@ -90,20 +103,22 @@ class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate
     }
     func getDocumentsDirectory() -> URL {
 
-    let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-    let documentsDirectory = paths[0]
-    return documentsDirectory
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        let documentsDirectory = paths[0]
+        return documentsDirectory
 
     }
 
-    
     // add drop down list for puzzle type
     public func numberOfComponents(in pickerView: UIPickerView) -> Int{
         return 1
     }
 
     public func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int{
-        return list.count
+//        pickerView.selectRow(0, inComponent: 0, animated: true)
+//        pickerView.reloadAllComponents();
+//        return list.count
+        return model_name.count
     }
 
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
@@ -111,17 +126,18 @@ class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate
 //        pickerView.reloadAllComponents()
 //        pickerView.selectRow(0, inComponent: 0, animated: true)
 //        pickerView.reloadAllComponents();
-        return list[row]
+//        return list[row]
+        return model_name[row]
     }
 
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        self.view.endEditing(true)
         pickerView.selectRow(0, inComponent: 0, animated: true)
         pickerView.reloadAllComponents();
-        self.puzzletypeText.text = self.list[row]
+//        self.puzzletypeText.text = self.list[row]
+        self.puzzletypeText.text = self.model_name[row]
         self.puzzletypeDropdown.isHidden = true
-//        let name = self.list[row] + ".usdz"
         self.cur_row = row
-//        let name = "art.scnassets/\(self.list[row]).usdz"
         if self.list[row] != "word"{
             self.wordContentText.isHidden = true
             self.sceneView.isHidden = false
@@ -131,7 +147,7 @@ class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate
             self.sceneView.isHidden = true
         }
         
-        self.showAr(name: self.list[row])
+        self.showAr(name: self.model_files_name[row])
     }
 
     func textFieldDidBeginEditing(_ textField: UITextField) {
@@ -159,7 +175,7 @@ class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate
         if self.puzzleMarker?.map != nil{
             if let coordinate = self.puzzleMarker?.position{
                 let geoPuzzle = GeoData(lat: coordinate.latitude, lon: coordinate.longitude)
-                puzzle = Puzzle(location: geoPuzzle, name: nameText.text, type: puzzletypeText.text, description: descriptionText.text)
+                puzzle = Puzzle(location: geoPuzzle, name: nameText.text, type: self.list[self.cur_row],description: descriptionText.text)
                 returnDelegate?.onReturn(puzzle!)
             }
         }
@@ -172,8 +188,7 @@ class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate
     
     func showAr(name: String) {
 //    func showAr() {
-        let new_name = "\(name).usdz"
-        let downloadedScenePath = getDocumentsDirectory().appendingPathComponent(new_name)
+        let downloadedScenePath = getDocumentsDirectory().appendingPathComponent(name)
         do {
             let scene = try SCNScene(url: downloadedScenePath, options: nil)
             

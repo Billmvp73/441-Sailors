@@ -24,6 +24,7 @@ struct Puzzle {
     var location: GeoData?
     var name: String?
     var type: String?
+//    var url: String?
     var description: String?
 }
 
