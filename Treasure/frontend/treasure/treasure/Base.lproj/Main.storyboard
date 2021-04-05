@@ -647,14 +647,15 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" title="Game" id="7Jd-v9-h27">
-                        <barButtonItem key="rightBarButtonItem" title="Pause" id="RMS-5V-TOr">
+                        <barButtonItem key="rightBarButtonItem" title="Pause" id="zzh-Ds-VYn">
                             <connections>
-                                <action selector="pauseButton:" destination="Sro-nN-iz3" id="sJ3-5s-1K3"/>
+                                <action selector="pauseGame:" destination="Sro-nN-iz3" id="t3d-ca-Fnp"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="mMap" destination="u9q-oh-0Z4" id="g2T-ox-1S0"/>
+                        <outlet property="pauseButton" destination="zzh-Ds-VYn" id="uQY-Zo-J8h"/>
                         <outlet property="popupView" destination="kmK-YY-55Q" id="XF5-q4-HSt"/>
                         <outlet property="responseLabel" destination="U3m-zL-aqJ" id="FrC-lg-nBd"/>
                         <outlet property="retryButton" destination="K1k-xY-1uc" id="szS-4K-23E"/>

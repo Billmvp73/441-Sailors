@@ -112,6 +112,18 @@ class GameInfo: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        let token = UserID.shared.token
+        if token == nil{
+            self.LogInButton.isHidden = false
+            self.continueButton.isHidden = true
+        } else{
+            self.continueButton.isHidden = false
+            self.LogInButton.isHidden = true
+        }
+    }
+    
     private func presentPicker(_ sourceType: UIImagePickerController.SourceType) {
         let imagePickerController = UIImagePickerController()
         imagePickerController.sourceType = sourceType
