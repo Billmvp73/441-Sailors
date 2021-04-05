@@ -25,6 +25,8 @@ class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate
     var model_name = ["word", "plane", "drummer", "vintage robot"]
     var cur_row = 0
     var activeTextField : UITextField? = nil
+    var final_model_name = ""
+    var final_model_url = ""
     
 //    @IBOutlet weak var scrollView: UIScrollView!
     weak var returnDelegate: ReturnDelegate?
@@ -35,29 +37,37 @@ class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate
     @IBOutlet weak var puzzletypeText: UITextField!
     @IBOutlet weak var puzzletypeDropdown: UIPickerView!
     @IBOutlet weak var wordContentText: UITextView!
-    @IBOutlet weak var modelurlText: UITextField!
-    @IBOutlet weak var modelnameText: UITextField!
     @IBOutlet weak var sceneView: SCNView!
     
-    @IBAction func submit_model_url(_ sender: Any) {
-        let model_url: String = self.modelurlText.text!
-        self.ar_url.append(model_url)
-        let model_file_name = self.get_file_name(url_string: model_url)
-        let model_name = model_file_name.components(separatedBy: ".")[0]
-        self.list.append(model_name)
-        self.model_files_name.append(model_file_name)
-        self.modelurlText.text = ""
-        if (modelnameText.text != nil) {
-            self.model_name.append(modelnameText.text!)
-        }
-        else {
-            self.model_name.append(model_name)
-        }
-        self.modelnameText.text = ""
-        
+//    @IBAction func submit_model_url(_ sender: Any) {
+//        let model_url: String = self.modelurlText.text!
+//        self.ar_url.append(model_url)
+//        let model_file_name = self.get_file_name(url_string: model_url)
+//        let model_name = model_file_name.components(separatedBy: ".")[0]
+//        self.list.append(model_name)
+//        self.model_files_name.append(model_file_name)
+//        self.modelurlText.text = ""
+//        if (modelnameText.text != nil) {
+//            self.model_name.append(modelnameText.text!)
+//        }
+//        else {
+//            self.model_name.append(model_name)
+//        }
+//        self.modelnameText.text = ""
+//        self.downloadSceneTask(url_string: model_url)
+//
+//
+//    }
+    
+    @IBAction func showPopup(_ sender: Any) {
+        let popOverVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "ArPopUpID") as! PopUpViewController
+//        self.addChildViewController(popOverVC)
+        self.addChild(popOverVC)
+        popOverVC.self.view.frame = self.view.frame
+        self.view.addSubview(popOverVC.view)
+        popOverVC.didMove(toParent: self)
         
     }
-    
     func get_file_name(url_string: String) -> String{
         let model_name_arr = url_string.components(separatedBy: "/")
         let model_file_name = model_name_arr[model_name_arr.endIndex - 1]
@@ -67,15 +77,36 @@ class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate
     /// Downloads An SCNFile From A Remote URL
     func downloadSceneTask(url_string: String){
 
-            //1. Get The URL Of The SCN File
-            guard let url = URL(string: url_string) else { return }
+            let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+            let documentsDirectory = paths[0]
+            let model_file_name = self.get_file_name(url_string: url_string)
+            let filePath = documentsDirectory.appendingPathComponent(model_file_name).path
+            let fileManager = FileManager.default
+            if fileManager.fileExists(atPath: filePath) {
+                print("FILE AVAILABLE")
+            } else {
+                print("FILE NOT AVAILABLE")
+//                self.downloadSceneTask(url_string: url)
+                //1. Get The URL Of The SCN File
+                guard let url = URL(string: url_string) else { return }
 
-            //2. Create The Download Session
-            let downloadSession = URLSession(configuration: URLSession.shared.configuration, delegate: self, delegateQueue: nil)
+                //2. Create The Download Session
+                let downloadSession = URLSession(configuration: URLSession.shared.configuration, delegate: self, delegateQueue: nil)
 
-            //3. Create The Download Task & Run It
-            let downloadTask = downloadSession.downloadTask(with: url)
-            downloadTask.resume()
+                //3. Create The Download Task & Run It
+                let downloadTask = downloadSession.downloadTask(with: url)
+                downloadTask.resume()
+            }
+        
+//            //1. Get The URL Of The SCN File
+//            guard let url = URL(string: url_string) else { return }
+//
+//            //2. Create The Download Session
+//            let downloadSession = URLSession(configuration: URLSession.shared.configuration, delegate: self, delegateQueue: nil)
+//
+//            //3. Create The Download Task & Run It
+//            let downloadTask = downloadSession.downloadTask(with: url)
+//            downloadTask.resume()
         }
     
     func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
@@ -138,7 +169,7 @@ class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate
         self.puzzletypeText.text = self.model_name[row]
         self.puzzletypeDropdown.isHidden = true
         self.cur_row = row
-        if self.list[row] != "word"{
+        if self.model_name[row] != "word"{
             self.wordContentText.isHidden = true
             self.sceneView.isHidden = false
             self.downloadSceneTask(url_string: self.ar_url[row])
@@ -245,6 +276,31 @@ class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         print("in the viewdidload")
+        
+        for url in self.ar_url{
+            if (url != "") {
+                self.downloadSceneTask(url_string: url)
+            }
+            
+        }
+        
+//        for (index, url) in self.ar_url.enumerated() {
+//            let model_file_name = self.model_files_name[index]
+//            if (url != "") {
+//                let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+//                let documentsDirectory = paths[0]
+//                let filePath = documentsDirectory.appendingPathComponent(model_file_name).path
+//                let fileManager = FileManager.default
+//                if fileManager.fileExists(atPath: filePath) {
+//                    print("FILE AVAILABLE")
+//                } else {
+//                    print("FILE NOT AVAILABLE")
+//                    self.downloadSceneTask(url_string: url)
+//                }
+//
+//            }
+//
+//        }
         
         
 //        let name = puzzletypeText.text! + ".usdz"
