@@ -52,6 +52,8 @@ class PostVC: UIViewController, UITextViewDelegate, sReturnDelegate, ReturnDeleg
                 self.continueButton.isHidden = true
                 self.retryButton.isHidden = false
                 self.countdownTimer.isHidden = true
+                self.secondsRemaining = 3
+                timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.updateCounting), userInfo: nil, repeats: true)
             }
             popupView.isHidden = false
             popupView.center = self.view.center
