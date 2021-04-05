@@ -36,7 +36,7 @@ class PopUpViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        var vc = segue.destination as! PuzzlesVC
+        let vc = segue.destination as! PuzzlesVC
         vc.model_name.append(self.modelname)
         vc.ar_url.append(self.modelurl)
         let model_file_name = self.get_file_name(url_string: self.modelurl)

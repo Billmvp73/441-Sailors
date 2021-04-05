@@ -18,11 +18,18 @@ protocol ReturnDelegate: UIViewController {
 
 class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate, GMSMapViewDelegate, UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate, URLSessionDownloadDelegate{
     
+    private let serverMedia = "https://174.138.33.66/media/"
     //create puzzle list
-    var list = ["word", "toy_plane","toy_drummer","toy_robot_vintage"]
-    var ar_url = ["","https://developer.apple.com/augmented-reality/quick-look/models/biplane/toy_biplane.usdz","https://developer.apple.com/augmented-reality/quick-look/models/drummertoy/toy_drummer.usdz","https://developer.apple.com/augmented-reality/quick-look/models/vintagerobot2k/toy_robot_vintage.usdz"]
-    var model_files_name = ["","toy_biplane.usdz","toy_drummer.usdz","toy_robot_vintage.usdz"]
-    var model_name = ["word", "plane", "drummer", "vintage robot"]
+//    var list = ["word", "toy_plane","toy_drummer","toy_robot_vintage"]
+//    var ar_url = ["","https://developer.apple.com/augmented-reality/quick-look/models/biplane/toy_biplane.usdz","https://developer.apple.com/augmented-reality/quick-look/models/drummertoy/toy_drummer.usdz","https://developer.apple.com/augmented-reality/quick-look/models/vintagerobot2k/toy_robot_vintage.usdz"]
+//    var model_files_name = ["","toy_biplane.usdz","toy_drummer.usdz","toy_robot_vintage.usdz"]
+//    var model_name = ["word", "plane", "drummer", "vintage robot"]
+    
+    var list = ["word"]
+    var ar_url = [""]
+    var model_files_name = [""]
+    var model_name = ["word"]
+    
     var cur_row = 0
     var activeTextField : UITextField? = nil
     var final_model_name = ""
@@ -277,6 +284,15 @@ class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         print("in the viewdidload")
+        let store = GamesStore()
+        let ars = store.availableAr()
+        for ar in ars! {
+            list.append(ar[1]!)
+            ar_url.append(serverMedia + ar[1]! + "." + ar[2]!)
+            model_name.append(ar[0]!)
+            model_files_name.append(ar[1]! + "." + ar[2]!)
+        }
+        
         
         for url in self.ar_url{
             if (url != "") {

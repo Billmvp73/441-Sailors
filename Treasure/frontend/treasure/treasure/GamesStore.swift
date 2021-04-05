@@ -151,6 +151,46 @@ struct GamesStore {
         return true
     }
     
+    func availableAr()->[[String?]]?{
+        let sem = DispatchSemaphore.init(value: 0)
+        let jsonObj = ["token": UserID.shared.token]
+        var gamesReceived = [[String?]]()
+        if jsonObj["token"] == nil{
+            return []
+        }
+        guard let jsonData = try? JSONSerialization.data(withJSONObject: jsonObj) else {
+            print("availableAr: jsonData serialization error")
+            return []
+        }
+        guard let apiUrl = URL(string: serverUrl+"availablear/") else {
+            print("availableAr: Bad URL")
+            return []
+        }
+        var request = URLRequest(url: apiUrl)
+        request.httpMethod = "POST"
+        request.httpBody = jsonData
+
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            defer { sem.signal() }
+            guard let data = data, error == nil else {
+                print("availableAr: NETWORKING ERROR")
+                return
+            }
+            if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {
+                print("availableAr: HTTP STATUS: \(httpStatus.statusCode)")
+                return
+            }
+            guard let jsonObj = try? JSONSerialization.jsonObject(with: data) as? [String:Any] else {
+                print("availableAr: failed JSON deserialization")
+                return
+            }
+            gamesReceived = jsonObj["ar"] as? [[String?]] ?? []
+        }
+        task.resume()
+        sem.wait()
+        return gamesReceived
+    }
+    
     func postGames(_ game: GamePost)->Bool? {
         
         var geoObj: Data?
