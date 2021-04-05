@@ -16,6 +16,7 @@ protocol ReturnDelegate: UIViewController {
     func onReturn(_ result: Puzzle)
 }
 
+@available(iOS 14.0, *)
 class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate, GMSMapViewDelegate, UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate, URLSessionDownloadDelegate{
     
     private let serverMedia = "https://174.138.33.66/media/"
