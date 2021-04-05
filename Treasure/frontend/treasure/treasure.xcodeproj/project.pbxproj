@@ -10,6 +10,7 @@
 		2F92ADCF2607D19000A0514B /* credentials.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2F92ADCE2607D19000A0514B /* credentials.plist */; };
 		2F92ADD22607D4F100A0514B /* UserID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F92ADD12607D4F100A0514B /* UserID.swift */; };
 		2F92ADD62607D56C00A0514B /* SigninVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F92ADD52607D56C00A0514B /* SigninVC.swift */; };
+		6CFE4BFB261A978200E87D54 /* PopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CFE4BFA261A978200E87D54 /* PopUpViewController.swift */; };
 		7B6768FD184653727FAD4D77 /* Pods_treasure.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29F752C734AD77F9443A7F0C /* Pods_treasure.framework */; };
 		81911B9F260FC379008CBEDD /* ARCameraVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81911B9E260FC379008CBEDD /* ARCameraVC.swift */; };
 		81911BA4260FCB3B008CBEDD /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 81911BA3260FCB3B008CBEDD /* art.scnassets */; };
@@ -38,6 +39,7 @@
 		2F92ADCE2607D19000A0514B /* credentials.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = credentials.plist; sourceTree = "<group>"; };
 		2F92ADD12607D4F100A0514B /* UserID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserID.swift; sourceTree = "<group>"; };
 		2F92ADD52607D56C00A0514B /* SigninVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SigninVC.swift; sourceTree = "<group>"; };
+		6CFE4BFA261A978200E87D54 /* PopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpViewController.swift; sourceTree = "<group>"; };
 		81911B9E260FC379008CBEDD /* ARCameraVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARCameraVC.swift; sourceTree = "<group>"; };
 		81911BA3260FCB3B008CBEDD /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
 		81911BA6260FD167008CBEDD /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
@@ -105,6 +107,7 @@
 				81C51AA225FC650B00ACF933 /* Game.swift */,
 				81C51A8F25FBAF9800ACF933 /* PostVC.swift */,
 				81C51A9125FBAF9800ACF933 /* Main.storyboard */,
+				6CFE4BFA261A978200E87D54 /* PopUpViewController.swift */,
 				81C51A9425FBAF9900ACF933 /* Assets.xcassets */,
 				81C51A9625FBAF9900ACF933 /* LaunchScreen.storyboard */,
 				81C51A9925FBAF9900ACF933 /* Info.plist */,
@@ -173,6 +176,7 @@
 				TargetAttributes = {
 					81C51A8725FBAF9800ACF933 = {
 						CreatedOnToolsVersion = 12.4;
+						LastSwiftMigration = 1240;
 					};
 				};
 			};
@@ -282,6 +286,7 @@
 				81C51AA625FC652D00ACF933 /* GamesStore.swift in Sources */,
 				81C51A8C25FBAF9800ACF933 /* AppDelegate.swift in Sources */,
 				81C51ABC25FC8CE000ACF933 /* MapsVC.swift in Sources */,
+				6CFE4BFB261A978200E87D54 /* PopUpViewController.swift in Sources */,
 				81911B9F260FC379008CBEDD /* ARCameraVC.swift in Sources */,
 				AD509801260F63AB000E6602 /* GameInfo.swift in Sources */,
 				81C51A8E25FBAF9800ACF933 /* SceneDelegate.swift in Sources */,
@@ -437,6 +442,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 94DRVA8V7D;
@@ -449,6 +455,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = edu.umich.pyhuang.treasure;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -460,6 +467,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 94DRVA8V7D;
