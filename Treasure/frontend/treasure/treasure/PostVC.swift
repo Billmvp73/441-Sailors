@@ -7,12 +7,17 @@
 
 import UIKit
 
-class PostVC: UIViewController, UITextViewDelegate, sReturnDelegate, ReturnDelegate, UITableViewDelegate, UITableViewDataSource {
+class PostVC: UIViewController, UITextViewDelegate, ReturnDelegate, UITableViewDelegate, UITableViewDataSource, sReturnDelegate {
+    func onReturn(_ result: String?) {
+        if result != "FAILED"{
+            DispatchQueue.main.async{
+                self.setLoginIndecator()
+            }
+        }
+    }
     @IBOutlet weak var tableView: UITableView!
     var timer: Timer?
     var secondsRemaining = 5
-    func onReturn(_ result: String?){
-    }
     private let geodata = GeoData()
     var puzzles = [Puzzle]()
     @IBOutlet var popupView: UIView!

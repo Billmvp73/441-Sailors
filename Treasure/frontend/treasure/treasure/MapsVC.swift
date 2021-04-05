@@ -34,10 +34,18 @@ class MapsVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate, A
     
     @IBOutlet weak var mMap: GMSMapView!
     var game: Game? = nil
+    var gid: String? = nil
+    var timer: Timer? = nil
+    var secondsRemaining = 5
     var puzzles: [Puzzle]? = nil
     var isGames: Bool? = nil
     var isPlay: Bool? = nil
+    var totalPuzzle: Int? = nil
+    @IBOutlet weak var returnLabel: UILabel!
     var pins = [CLLocationCoordinate2D]()
+    @IBOutlet var popupView: UIView!
+    @IBOutlet weak var responseLabel: UILabel!
+    @IBOutlet weak var retryButton: UIButton!
     var selectedMarker : GMSMarker?
     private let geodata = GeoData()
     @IBAction func stopMapView(_ sender: Any) {
@@ -125,6 +133,56 @@ class MapsVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate, A
             }
         }
     }
+    
+    @IBAction func pauseButton(_ sender: Any) {
+        let token = UserID.shared.token
+        if token == nil{
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            if let signinVC = storyboard.instantiateViewController(withIdentifier: "SigninVC") as? SigninVC {
+//                signinVC.returnDelegate = self
+                self.navigationController!.pushViewController(signinVC, animated: true)
+            }
+
+        }
+        let store = GamesStore()
+        if let currLen = puzzles?.count{
+            let pid = totalPuzzle! - currLen
+            var pauseResponse: Bool? = nil
+            pauseResponse = store.pauseGame(gid!, String(pid))
+            if pauseResponse == true{
+                responseLabel.text = "Pause succeed."
+                retryButton.isHidden = true
+                returnLabel.isHidden = false
+                secondsRemaining = 5
+                timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.updateCounting), userInfo: nil, repeats: true)
+            } else {
+                responseLabel.text = "Failed. Please Retry."
+                retryButton.isHidden = false
+                returnLabel.isHidden = true
+            }
+            popupView.isHidden = false
+            popupView.center = self.view.center
+            popupView.alpha = 1
+            popupView.transform = CGAffineTransform(scaleX: 0.8, y: 1.2)
+            self.view.addSubview(popupView)
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: [], animations: {
+                self.popupView.transform = .identity
+    //            self.viewDim.alpha = 0.8
+            }, completion: nil)
+        }
+        print("Pause here.")
+    }
+    
+    @objc func updateCounting(){
+            if self.secondsRemaining > 0{
+                self.returnLabel.text = "\(self.secondsRemaining)s"
+                self.secondsRemaining -= 1
+            }else{
+                self.timer?.invalidate()
+                self.navigationController?.popViewController(animated: true)
+                self.dismiss(animated: true, completion: nil)
+            }
+        }
     
     func completeGame(){
         // complete Game

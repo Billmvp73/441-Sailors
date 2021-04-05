@@ -79,6 +79,77 @@ struct GamesStore {
 
     }
     
+    func resumeGame(_ token: String, _ gid: String, refresh: @escaping (String?) -> ()){
+        let jsonObj = ["token": token, "gid": gid]
+        guard let jsonData = try? JSONSerialization.data(withJSONObject: jsonObj) else {
+                    print("resumeGame: jsonData serialization error")
+                    return
+                }
+        guard let apiUrl = URL(string: serverUrl+"resume/") else {
+                    print("resumeGame: Bad URL")
+                    return
+                }
+        var request = URLRequest(url: apiUrl)
+        request.httpMethod = "POST"
+        request.httpBody = jsonData
+
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+//            defer{completion()}
+            var puzzleID : String? = nil
+            guard let data = data, error == nil else {
+                print("getGames: NETWORKING ERROR")
+                return
+            }
+            if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {
+                print("getGames: HTTP STATUS: \(httpStatus.statusCode)")
+                return
+            }
+            
+            guard let jsonObj = try? JSONSerialization.jsonObject(with: data) as? [String:Any] else {
+                print("getGames: failed JSON deserialization")
+                return
+            }
+            let successInfo = jsonObj["success"] as? Bool
+            if successInfo == false{
+                return
+            } else{
+                puzzleID = jsonObj["pid"] as? String
+                refresh(puzzleID)
+            }
+        }
+        task.resume()
+    }
+    
+    func pauseGame(_ gid: String, _ pid: String)->Bool?{
+        let jsonObj = ["token": UserID.shared.token, "gid": gid, "pid": pid]
+        if jsonObj["token"] == nil{
+            return false
+        }
+        guard let jsonData = try? JSONSerialization.data(withJSONObject: jsonObj) else {
+                    print("pauseGame: jsonData serialization error")
+                    return false
+                }
+        guard let apiUrl = URL(string: serverUrl+"pause/") else {
+                    print("pauseGame: Bad URL")
+                    return false
+                }
+        var request = URLRequest(url: apiUrl)
+        request.httpMethod = "POST"
+        request.httpBody = jsonData
+
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let _ = data, error == nil else {
+                print("pauseGame: NETWORKING ERROR")
+                return
+            }
+            if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {
+                print("pauseGame: HTTP STATUS: \(httpStatus.statusCode)")
+                return
+            }
+        }
+        task.resume()
+        return true
+    }
     
     func postGames(_ game: GamePost)->Bool? {
         

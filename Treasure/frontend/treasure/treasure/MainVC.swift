@@ -268,6 +268,7 @@ class MainVC: UITableViewController {
             gameInfo.gamedescriptionString = game.description!
             gameInfo.gameTagString = game.tag!
             gameInfo.puzzles = game.puzzles
+            gameInfo.gid = game.gid
             gameInfo.location = CLLocation(latitude: geodata.lat, longitude: geodata.lon)
         }
 
