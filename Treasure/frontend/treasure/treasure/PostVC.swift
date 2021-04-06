@@ -7,6 +7,7 @@
 
 import UIKit
 
+@available(iOS 14.0, *)
 class PostVC: UIViewController, UITextViewDelegate, ReturnDelegate, UITableViewDelegate, UITableViewDataSource, sReturnDelegate {
     func onReturn(_ result: String?) {
         if result != "FAILED"{

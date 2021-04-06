@@ -22,9 +22,8 @@ struct Game {
 
 struct Puzzle {
     var location: GeoData?
-    var name: String?
-    var type: String?
-//    var url: String?
+    var name: String?  //"car"
+    var type: String?  //"7ab39```8ae.usdz"
     var description: String?
 }
 
