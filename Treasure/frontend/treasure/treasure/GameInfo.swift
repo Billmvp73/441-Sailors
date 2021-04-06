@@ -10,6 +10,11 @@ import CoreLocation
 class GameInfo: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, sReturnDelegate{
     func onReturn(_ result: String?) {
         if result != "FAILED"{
+            self.nextID = Int(result!)
+            if self.nextID != nil{
+                self.History = true
+            }
+//            self.History = true
             refreshTimeline()
         }
     }
@@ -25,7 +30,30 @@ class GameInfo: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     var puzzles = [Puzzle]()
     var location: CLLocation?
     var gid: String?
-    var nextID: Int?
+    var nextID: Int? = nil
+    var History: Bool? = nil
+    
+    private func loadHistory(_ token: String){
+        let store = GamesStore()
+        store.resumeGame(token, self.gid!, refresh: { pid in
+            if let puzzleID = pid{
+                self.nextID = Int(puzzleID)
+                self.History = true
+                print("History exists and load it.")
+            } else {
+                self.nextID = nil
+                self.History = false
+                print("History doesn't exist.")
+            }
+        }) {
+            DispatchQueue.main.async {
+                if self.nextID == nil && self.History == false{
+                    self.continueButton.isHidden = true
+                }
+            }
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         gameName.text = gamenameString
@@ -37,10 +65,22 @@ class GameInfo: UIViewController, UIImagePickerControllerDelegate, UINavigationC
             self.LogInButton.isHidden = false
             self.continueButton.isHidden = true
         } else{
-            self.continueButton.isHidden = false
+            if self.History == nil{
+                // Haven't load any history for this game
+                //call store.resumeGame() to load history
+                self.loadHistory(token!)
+            } else if self.History == true{
+                // has history to load
+                self.continueButton.isHidden = false
+            } else{
+                // no history to load
+                self.continueButton.isHidden = true
+            }
+//            self.continueButton.isHidden = false
             self.LogInButton.isHidden = true
         }
     }
+    
     @IBOutlet weak var LogInButton: UIButton!
     
     @IBOutlet weak var continueButton: UIButton!
@@ -55,27 +95,23 @@ class GameInfo: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         }
     }
     @IBAction func resumeGame(_ sender: Any) {
-        if let token = UserID.shared.token{
-            let store = GamesStore()
-            store.resumeGame(token, gid!, refresh: { pid in
-                if let puzzleID = pid{
-                    self.nextID = Int(puzzleID)
-//                    print(self.nex)
-                    DispatchQueue.main.async {
-                        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                        if let mapsVC = storyboard.instantiateViewController(identifier: "MapsVC") as? MapsVC{
-                //            arcameraVC.delegate = self
-                            mapsVC.puzzles = Array(self.puzzles.dropFirst(self.nextID!))
-                //            mapsVC.userLocation = self.location!
-                            mapsVC.isPlay = true
-                            mapsVC.isGames = false
-                            mapsVC.totalPuzzle = self.puzzles.count
-                            mapsVC.gid = self.gid
-                            self.navigationController?.pushViewController(mapsVC, animated: true)
-                        }
-                    }
-                }
-            })
+        if let nextPuzzle = self.nextID{
+//            self.History = true
+//            self.nextID = nil
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            if let mapsVC = storyboard.instantiateViewController(identifier: "MapsVC") as? MapsVC{
+    //            arcameraVC.delegate = self
+                mapsVC.puzzles = Array(self.puzzles.dropFirst(nextPuzzle))
+    //            mapsVC.userLocation = self.location!
+                mapsVC.isPlay = true
+                mapsVC.isGames = false
+                mapsVC.totalPuzzle = self.puzzles.count
+                mapsVC.gid = self.gid
+                mapsVC.returnDelegate = self
+                self.navigationController?.pushViewController(mapsVC, animated: true)
+            }
+        } else {
+            print("No history exists.")
         }
     }
     @IBAction func startGame(_ sender: Any) {
@@ -88,6 +124,8 @@ class GameInfo: UIViewController, UIImagePickerControllerDelegate, UINavigationC
 //        }
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         if let mapsVC = storyboard.instantiateViewController(identifier: "MapsVC") as? MapsVC{
+            self.nextID = 0
+            self.History = true
 //            arcameraVC.delegate = self
             mapsVC.puzzles = self.puzzles
 //            mapsVC.userLocation = self.location!
@@ -95,6 +133,7 @@ class GameInfo: UIViewController, UIImagePickerControllerDelegate, UINavigationC
             mapsVC.isGames = false
             mapsVC.totalPuzzle = self.puzzles.count
             mapsVC.gid = self.gid
+            mapsVC.returnDelegate = self
             self.navigationController?.pushViewController(mapsVC, animated: true)
         }
     }
@@ -106,23 +145,47 @@ class GameInfo: UIViewController, UIImagePickerControllerDelegate, UINavigationC
                 self.LogInButton.isHidden = false
                 self.continueButton.isHidden = true
             } else{
-                self.continueButton.isHidden = false
+                if self.History == nil{
+                    // Haven't load any history for this game
+                    //call store.resumeGame() to load history
+                    self.loadHistory(token!)
+                } else if self.History == true{
+                    // has history to load
+                    self.continueButton.isHidden = false
+                } else{
+                    // no history to load
+                    self.continueButton.isHidden = true
+                }
+    //            self.continueButton.isHidden = false
                 self.LogInButton.isHidden = true
+                
             }
         }
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        let token = UserID.shared.token
-        if token == nil{
-            self.LogInButton.isHidden = false
-            self.continueButton.isHidden = true
-        } else{
-            self.continueButton.isHidden = false
-            self.LogInButton.isHidden = true
-        }
-    }
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(animated)
+//        let token = UserID.shared.token
+//        if token == nil{
+//            self.LogInButton.isHidden = false
+//            self.continueButton.isHidden = true
+//        } else{
+//            print("History ", self.History, self.nextID)
+//            if self.History == nil{
+//                // Haven't load any history for this game
+//                //call store.resumeGame() to load history
+//                self.loadHistory(token!)
+//            } else if self.History == true{
+//                // has history to load
+//                self.continueButton.isHidden = false
+//            } else{
+//                // no history to load
+//                self.continueButton.isHidden = true
+//            }
+////            self.continueButton.isHidden = false
+//            self.LogInButton.isHidden = true
+//        }
+//    }
     
     private func presentPicker(_ sourceType: UIImagePickerController.SourceType) {
         let imagePickerController = UIImagePickerController()

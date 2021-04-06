@@ -32,6 +32,8 @@ class MapsVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate, A
         }
     }
     
+    weak var returnDelegate: sReturnDelegate?
+    
     @IBOutlet weak var mMap: GMSMapView!
     var game: Game? = nil
     var gid: String? = nil
@@ -76,6 +78,7 @@ class MapsVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate, A
                 returnLabel.isHidden = false
                 secondsRemaining = 5
                 timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.updateCounting), userInfo: nil, repeats: true)
+                returnDelegate?.onReturn(String(pid))
             } else {
                 responseLabel.text = "Failed. Please Retry."
                 retryButton.isHidden = false

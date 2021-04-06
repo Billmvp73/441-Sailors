@@ -79,7 +79,7 @@ struct GamesStore {
 
     }
     
-    func resumeGame(_ token: String, _ gid: String, refresh: @escaping (String?) -> ()){
+    func resumeGame(_ token: String, _ gid: String, refresh: @escaping (String?) -> (), completion: @escaping ()->()){
         let jsonObj = ["token": token, "gid": gid]
         guard let jsonData = try? JSONSerialization.data(withJSONObject: jsonObj) else {
                     print("resumeGame: jsonData serialization error")
@@ -94,7 +94,7 @@ struct GamesStore {
         request.httpBody = jsonData
 
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
-//            defer{completion()}
+            defer{completion()}
             var puzzleID : String? = nil
             guard let data = data, error == nil else {
                 print("getGames: NETWORKING ERROR")
@@ -111,7 +111,7 @@ struct GamesStore {
             }
             let successInfo = jsonObj["success"] as? Bool
             if successInfo == false{
-                return
+                refresh(nil)
             } else{
                 puzzleID = jsonObj["pid"] as? String
                 refresh(puzzleID)
