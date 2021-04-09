@@ -306,10 +306,6 @@
                                     <imageReference key="image" image="arrow.up.and.down.square" catalog="system" symbolScale="large" renderingMode="original"/>
                                 </state>
                             </button>
-                            <sceneKitView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hxa-mE-9VB">
-                                <rect key="frame" x="40" y="462" width="311" height="107"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </sceneKitView>
                             <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ieJ-nX-yJb">
                                 <rect key="frame" x="128" y="330" width="172" height="50"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
@@ -319,7 +315,7 @@
                                 </connections>
                             </pickerView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="1" contentMode="scaleToFill" fixedFrame="YES" text="What's the content of this puzzle?" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="KRc-ww-ag6">
-                                <rect key="frame" x="40" y="475" width="311" height="94"/>
+                                <rect key="frame" x="40" y="348" width="317" height="166"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <color key="textColor" systemColor="labelColor"/>
@@ -335,13 +331,17 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b6J-Rx-kmN">
-                                <rect key="frame" x="120" y="405" width="150" height="30"/>
+                                <rect key="frame" x="18" y="20" width="46" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Import New AR Model"/>
+                                <state key="normal" title="Import"/>
                                 <connections>
                                     <action selector="showPopup:" destination="x6p-L0-Uxu" eventType="touchUpInside" id="fFW-qR-Lbz"/>
                                 </connections>
                             </button>
+                            <sceneKitView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hxa-mE-9VB">
+                                <rect key="frame" x="46" y="348" width="311" height="166"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </sceneKitView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="F29-J8-x0J"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -370,31 +370,21 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pwd-Fj-jUe">
-                                <rect key="frame" x="55.666666666666657" y="208.66666666666663" width="303" height="319"/>
+                                <rect key="frame" x="27" y="143" width="360" height="450"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Import Model" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vah-87-tDo">
-                                        <rect key="frame" x="8" y="107" width="279" height="21"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Model Name: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rtd-r2-2AU">
-                                        <rect key="frame" x="7.9999999999998579" y="166" width="106" height="21"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="model name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="K6j-nW-9PH">
-                                        <rect key="frame" x="166" y="160" width="129" height="34"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="model name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="K6j-nW-9PH">
+                                        <rect key="frame" x="180" y="278" width="156" height="34"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0cs-Fe-bWV">
-                                        <rect key="frame" x="127.99999999999986" y="231" width="49" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Import Model" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vah-87-tDo">
+                                        <rect key="frame" x="41" y="16" width="278" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0cs-Fe-bWV">
+                                        <rect key="frame" x="156" y="340" width="49" height="30"/>
                                         <state key="normal" title="Submit">
                                             <color key="titleColor" name="AccentColor"/>
                                         </state>
@@ -402,9 +392,8 @@
                                             <action selector="submitModel:" destination="nIh-nX-brv" eventType="touchUpInside" id="ymD-JB-Yky"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rWx-pp-nS6">
-                                        <rect key="frame" x="132.99999999999986" y="269" width="39" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rWx-pp-nS6">
+                                        <rect key="frame" x="160" y="395" width="39" height="30"/>
                                         <state key="normal" title="Close">
                                             <color key="titleColor" name="AccentColor"/>
                                         </state>
@@ -412,12 +401,39 @@
                                             <action selector="closePopUp:" destination="nIh-nX-brv" eventType="touchUpInside" id="BAm-UD-bdh"/>
                                         </connections>
                                     </button>
+                                    <sceneKitView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wyv-0m-frU">
+                                        <rect key="frame" x="20" y="57" width="320" height="203"/>
+                                    </sceneKitView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Model Name: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rtd-r2-2AU">
+                                        <rect key="frame" x="40" y="283" width="106" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemGray5Color"/>
                                 <color key="tintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="303" id="IHo-XC-iZc"/>
-                                    <constraint firstAttribute="height" constant="319" id="h1G-jX-Tl3"/>
+                                    <constraint firstAttribute="trailing" secondItem="0cs-Fe-bWV" secondAttribute="trailing" constant="155" id="DhI-rf-lhA"/>
+                                    <constraint firstAttribute="width" constant="360" id="IHo-XC-iZc"/>
+                                    <constraint firstItem="0cs-Fe-bWV" firstAttribute="leading" secondItem="pwd-Fj-jUe" secondAttribute="leading" constant="156" id="NKu-Vz-2xu"/>
+                                    <constraint firstAttribute="trailing" secondItem="Vah-87-tDo" secondAttribute="trailing" constant="41" id="Pep-Oe-bke"/>
+                                    <constraint firstItem="Wyv-0m-frU" firstAttribute="top" secondItem="Vah-87-tDo" secondAttribute="bottom" constant="20" id="Rpt-m4-Wiq"/>
+                                    <constraint firstItem="K6j-nW-9PH" firstAttribute="top" secondItem="Wyv-0m-frU" secondAttribute="bottom" constant="18" id="Wvr-6s-nsp"/>
+                                    <constraint firstItem="0cs-Fe-bWV" firstAttribute="top" secondItem="Rtd-r2-2AU" secondAttribute="bottom" constant="36" id="XWX-NO-EA3"/>
+                                    <constraint firstItem="rWx-pp-nS6" firstAttribute="leading" secondItem="pwd-Fj-jUe" secondAttribute="leading" constant="160" id="anX-Zi-Iv4"/>
+                                    <constraint firstItem="Vah-87-tDo" firstAttribute="leading" secondItem="pwd-Fj-jUe" secondAttribute="leading" constant="41" id="bHP-Tn-yum"/>
+                                    <constraint firstItem="Wyv-0m-frU" firstAttribute="leading" secondItem="pwd-Fj-jUe" secondAttribute="leading" constant="20" id="cFs-XU-PbR"/>
+                                    <constraint firstItem="Vah-87-tDo" firstAttribute="top" secondItem="pwd-Fj-jUe" secondAttribute="top" constant="16" id="ftb-Lh-9md"/>
+                                    <constraint firstAttribute="height" constant="450" id="h1G-jX-Tl3"/>
+                                    <constraint firstItem="K6j-nW-9PH" firstAttribute="leading" secondItem="Rtd-r2-2AU" secondAttribute="trailing" constant="34" id="lZL-zA-KPZ"/>
+                                    <constraint firstItem="Rtd-r2-2AU" firstAttribute="leading" secondItem="pwd-Fj-jUe" secondAttribute="leading" constant="40" id="mNS-IE-Djd"/>
+                                    <constraint firstAttribute="trailing" secondItem="K6j-nW-9PH" secondAttribute="trailing" constant="24" id="pcU-MQ-I6W"/>
+                                    <constraint firstAttribute="trailing" secondItem="Wyv-0m-frU" secondAttribute="trailing" constant="20" id="w6y-Iv-3LK"/>
+                                    <constraint firstAttribute="trailing" secondItem="rWx-pp-nS6" secondAttribute="trailing" constant="161" id="ybX-pH-JME"/>
+                                    <constraint firstItem="0cs-Fe-bWV" firstAttribute="top" secondItem="K6j-nW-9PH" secondAttribute="bottom" constant="28" id="ypo-s3-BPT"/>
+                                    <constraint firstItem="rWx-pp-nS6" firstAttribute="top" secondItem="0cs-Fe-bWV" secondAttribute="bottom" constant="25" id="zIl-nA-pmK"/>
+                                    <constraint firstAttribute="bottom" secondItem="rWx-pp-nS6" secondAttribute="bottom" constant="25" id="zO8-T7-PhH"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -430,6 +446,7 @@
                     </view>
                     <connections>
                         <outlet property="modelnameText" destination="K6j-nW-9PH" id="T0Y-wL-knA"/>
+                        <outlet property="sceneView" destination="Wyv-0m-frU" id="wgU-mQ-A3o"/>
                         <segue destination="x6p-L0-Uxu" kind="presentation" identifier="ImportArInfo" id="YXy-Vm-rhS"/>
                     </connections>
                 </viewController>

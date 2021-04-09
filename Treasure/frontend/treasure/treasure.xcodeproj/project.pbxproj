@@ -448,14 +448,14 @@
 				CODE_SIGN_ENTITLEMENTS = treasure/treasure.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = K32R8DKM23;
+				DEVELOPMENT_TEAM = 94DRVA8V7D;
 				INFOPLIST_FILE = treasure/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = edu.umich.duyung.treasure;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.umich.pyhuang.treasure;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -474,14 +474,14 @@
 				CODE_SIGN_ENTITLEMENTS = treasure/treasure.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = K32R8DKM23;
+				DEVELOPMENT_TEAM = 94DRVA8V7D;
 				INFOPLIST_FILE = treasure/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = edu.umich.duyung.treasure;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.umich.pyhuang.treasure;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;

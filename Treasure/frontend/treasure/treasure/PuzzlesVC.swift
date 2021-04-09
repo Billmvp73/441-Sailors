@@ -30,6 +30,7 @@ class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate
     var ar_url = [""]
     var model_files_name = [""]
     var model_name = ["word"]
+    var model_isdownloaded = [false]
     
     var cur_row = 0
     var activeTextField : UITextField? = nil
@@ -77,6 +78,26 @@ class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate
         popOverVC.didMove(toParent: self)
         
     }
+    
+    var prevPuzzles: [Puzzle]? = nil
+    var puzzle: Puzzle? = nil
+    var markerPress: [GMSMarker]? = nil
+    var puzzleMarker: GMSMarker?
+
+    private lazy var locmanager = CLLocationManager() // Create a location manager to interface with iOS's location manager.
+
+    @IBAction func stopPuzzles(_ sender: Any) {
+        if self.puzzleMarker?.map != nil{
+            if let coordinate = self.puzzleMarker?.position{
+                let geoPuzzle = GeoData(lat: coordinate.latitude, lon: coordinate.longitude)
+                puzzle = Puzzle(location: geoPuzzle, name: nameText.text, type: self.list[self.cur_row],description: descriptionText.text)
+                returnDelegate?.onReturn(puzzle!)
+            }
+        }
+        dismiss(animated: true, completion: nil)
+    }
+    
+    
     func get_file_name(url_string: String) -> String{
         let model_name_arr = url_string.components(separatedBy: "/")
         let model_file_name = model_name_arr[model_name_arr.endIndex - 1]
@@ -84,28 +105,60 @@ class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate
     }
     
     /// Downloads An SCNFile From A Remote URL
-    func downloadSceneTask(url_string: String){
+    func downloadSceneTask(url_string: String, ar_index: Int, isShow: Bool){
 
-            let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-            let documentsDirectory = paths[0]
-            let model_file_name = self.get_file_name(url_string: url_string)
-            let filePath = documentsDirectory.appendingPathComponent(model_file_name).path
-            let fileManager = FileManager.default
-            if fileManager.fileExists(atPath: filePath) {
-                print("FILE AVAILABLE")
-            } else {
-                print("FILE NOT AVAILABLE")
-//                self.downloadSceneTask(url_string: url)
-                //1. Get The URL Of The SCN File
-                guard let url = URL(string: url_string) else { return }
-
-                //2. Create The Download Session
-                let downloadSession = URLSession(configuration: URLSession.shared.configuration, delegate: self, delegateQueue: nil)
-
-                //3. Create The Download Task & Run It
-                let downloadTask = downloadSession.downloadTask(with: url)
-                downloadTask.resume()
+        let cache = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first
+//            let documentsDirectory = cache.first
+        let model_file_name = self.get_file_name(url_string: url_string)
+        let filePath = cache?.appendingPathComponent(model_file_name)
+        let fileManager = FileManager.default
+        if fileManager.fileExists(atPath: filePath!.path) {
+            print("FILE AVAILABLE")
+            model_isdownloaded[ar_index] = true
+//            let cache = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first
+//            let file = cache?.appendingPathComponent(self.model_files_name[ar_index])
+            if isShow{
+                self.showAr(name: filePath!)
             }
+        } else {
+            print("FILE NOT AVAILABLE")
+//                self.downloadSceneTask(url_string: url)
+            //1. Get The URL Of The SCN File
+            guard let url = URL(string: url_string) else { return }
+
+            //2. Create The Download Session
+            let downloadSession = URLSession(configuration: URLSession.shared.configuration, delegate: self, delegateQueue: nil)
+
+            //3. Create The Download Task & Run It
+            let downloadTask = downloadSession.downloadTask(with: url){
+                // a completetion downloadTask will handle after completing download task
+                url, response, error in
+                    guard
+//                        let cache = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first,
+                        let url = url
+                    else {
+                        return
+                    }
+
+                    do {
+//                        let file = cache.appendingPathComponent(self.model_files_name[ar_index])
+                        try FileManager.default.moveItem(atPath: url.path,
+                                                         toPath: filePath!.path)
+                        DispatchQueue.main.async {
+//                                self?.imageView.image = UIImage(contentsOfFile: file.path)
+                            print("successfully download AR model \(self.model_files_name[ar_index])")
+                            self.model_isdownloaded[ar_index] = true
+                            if isShow{
+                                self.showAr(name: filePath!)
+                            }
+                        }
+                    }
+                    catch {
+                        print(error.localizedDescription)
+                    }
+            }
+            downloadTask.resume()
+        }
         
 //            //1. Get The URL Of The SCN File
 //            guard let url = URL(string: url_string) else { return }
@@ -181,19 +234,22 @@ class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate
         if self.model_name[row] != "word"{
             self.wordContentText.isHidden = true
             self.sceneView.isHidden = false
-            self.downloadSceneTask(url_string: self.ar_url[row])
+            self.downloadSceneTask(url_string: self.ar_url[row], ar_index: row, isShow: true)
         } else{
             self.wordContentText.isHidden = false
+            self.wordContentText.alpha = 1
             self.sceneView.isHidden = true
         }
         
-        self.showAr(name: self.model_files_name[row])
+//        self.showAr(name: self.model_files_name[row])
     }
 
     func textFieldDidBeginEditing(_ textField: UITextField) {
 
         if textField == self.puzzletypeText {
             self.puzzletypeDropdown.isHidden = false
+            self.view.bringSubviewToFront(self.puzzletypeDropdown)
+            self.wordContentText.alpha = 0
             //if you don't want the users to se the keyboard type:
             textField.endEditing(true)
         }
@@ -204,33 +260,19 @@ class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate
       self.activeTextField = nil
     }
     
-    var prevPuzzles: [Puzzle]? = nil
-    var puzzle: Puzzle? = nil
-    var markerPress: [GMSMarker]? = nil
-    var puzzleMarker: GMSMarker?
-
-    private lazy var locmanager = CLLocationManager() // Create a location manager to interface with iOS's location manager.
-
-    @IBAction func stopPuzzles(_ sender: Any) {
-        if self.puzzleMarker?.map != nil{
-            if let coordinate = self.puzzleMarker?.position{
-                let geoPuzzle = GeoData(lat: coordinate.latitude, lon: coordinate.longitude)
-                puzzle = Puzzle(location: geoPuzzle, name: nameText.text, type: self.list[self.cur_row],description: descriptionText.text)
-                returnDelegate?.onReturn(puzzle!)
-            }
-        }
-        dismiss(animated: true, completion: nil)
-    }
+    
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }
     
-    func showAr(name: String) {
+    func showAr(name: URL) {
 //    func showAr() {
-        let downloadedScenePath = getDocumentsDirectory().appendingPathComponent(name)
+//        let downloadedScenePath = getDocumentsDirectory().appendingPathComponent(name)
+//        print("local file path \(downloadedScenePath)")
         do {
-            let scene = try SCNScene(url: downloadedScenePath, options: nil)
+            let scene = try SCNScene(url: name, options: nil)
+//            let scene = try SCNScene(url: downloadedScenePath, options: nil)
             
     //        let scene = SCNScene(named: name)
             // 2: Add camera node
@@ -292,12 +334,14 @@ class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate
             ar_url.append(serverMedia + ar[1]! + "." + ar[2]!)
             model_name.append(ar[0]!)
             model_files_name.append(ar[1]! + "." + ar[2]!)
+            model_isdownloaded.append(false)
         }
         
-        
+        var ar_index = 0
         for url in self.ar_url{
             if (url != "") {
-                self.downloadSceneTask(url_string: url)
+                self.downloadSceneTask(url_string: url, ar_index: ar_index, isShow: false)
+                ar_index += 1
             }
             
         }
