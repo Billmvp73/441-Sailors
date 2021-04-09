@@ -181,6 +181,8 @@ def uploadar(request):
                '(%s, %s, %s, %s);', (uid, filename, arname, artype))
         return JsonResponse({"filename": filename + "." + artype})
     else:
+        cursor.execute('INSERT INTO ar (uid, hash, name, type) VALUES '
+               '(%s, %s, %s, %s);', (uid, filename, arname, artype))
         return JsonResponse({"filename": filename + "." + artype})
 
 
