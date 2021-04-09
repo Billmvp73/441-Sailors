@@ -22,6 +22,7 @@ class MapsVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate, A
     func onReturn(_ result: Puzzle) {
 //        self.dismiss(animated: true, completion: nil)
 //        self.navigationController?.popViewController(animated: true)
+        print("arcamera on return to MapsVC")
         let index = self.puzzles?.firstIndex(where: {$0.name == result.name})
         if let puzzleIndex  = index{
             self.puzzles?.remove(at: puzzleIndex)
@@ -190,6 +191,11 @@ class MapsVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate, A
     
     func completeGame(){
         // complete Game
+        
+        self.navigationController?.popViewController(animated: true)
+        self.dismiss(animated: true, completion: nil)
+        self.returnDelegate?.onReturn("Completed")
+        
     }
     
     func loadPuzzle()->Bool{

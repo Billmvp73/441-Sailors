@@ -24,8 +24,6 @@ class ARCameraVC: UIViewController{
     @IBOutlet weak var rightIndicator: UILabel!
     var cameraSession: AVCaptureSession?
     var cameraLayer: AVCaptureVideoPreviewLayer?
-    @IBOutlet var popupView: UIView!
-    @IBOutlet weak var successMessage: UILabel!
     var target: ARItem!
     var locationManger = CLLocationManager()
     var heading: Double = 0
@@ -33,9 +31,9 @@ class ARCameraVC: UIViewController{
 //    var puzzles: [Puzzle]?
     var puzzleTarget: Puzzle?
     weak var arCameraDelegate: ARCameraDelegate?
-    var secondsRemaining = 5
-    @IBOutlet weak var countDownTimer: UILabel!
-    var timer: Timer?
+//    var secondsRemaining = 5
+//    @IBOutlet weak var countDownTimer: UILabel!
+//    var timer: Timer?
     let scene = SCNScene()
     let cameraNode = SCNNode()
     let targetNode = SCNNode(geometry: SCNBox(width: 1, height: 1, length: 1, chamferRadius: 0))
@@ -219,15 +217,15 @@ class ARCameraVC: UIViewController{
         
     }
     
-    @objc func updateCounting(){
-        if self.secondsRemaining > 0{
-            self.countDownTimer.text = "\(self.secondsRemaining)s"
-            self.secondsRemaining-=1
-        }else{
-            self.navigationController?.popViewController(animated: true)
-            self.dismiss(animated: true, completion: nil)
-        }
-    }
+//    @objc func updateCounting(){
+//        if self.secondsRemaining > 0{
+//            self.countDownTimer.text = "\(self.secondsRemaining)s"
+//            self.secondsRemaining-=1
+//        }else{
+//            self.navigationController?.popViewController(animated: true)
+//            self.dismiss(animated: true, completion: nil)
+//        }
+//    }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
       //1
@@ -245,24 +243,21 @@ class ARCameraVC: UIViewController{
         target.itemNode?.runAction(SCNAction.sequence([SCNAction.wait(duration: 0.5), SCNAction.removeFromParentNode(), SCNAction.hide()]))
         let sequence = SCNAction.sequence(
           [SCNAction.move(to: target.itemNode!.position, duration: 0.5),
-            SCNAction.wait(duration: 3.5),
+           SCNAction.wait(duration: 3.5),
             SCNAction.run({_ in
-//              self.delegate?.viewController(controller: self, tappedTarget: self.target)
-//                self.completePuzzle()
-                
-                self.arCameraDelegate?.onReturn(self.puzzleTarget!)
                 DispatchQueue.main.async {
-                    self.popupView.isHidden = false
-                    self.popupView.center = self.view.center
-                    self.popupView.alpha = 1
-                    self.popupView.transform = CGAffineTransform(scaleX: 0.8, y: 1.2)
-                    self.successMessage.text = "Congratulation!"
-                    self.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.updateCounting), userInfo: nil, repeats: true)
-                    self.view.addSubview(self.popupView)
-                    UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: [], animations: {
-                        self.popupView.transform = .identity
-            //            self.viewDim.alpha = 0.8
-                    }, completion: nil)
+                    self.sceneView.scene?.rootNode.enumerateChildNodes { (node, _ ) in
+                    node.removeFromParentNode()
+                      }
+                    let alert = UIAlertController(title: "Congratulations!", message: nil, preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: {_ in
+                        DispatchQueue.main.async {
+                            self.navigationController?.popViewController(animated: true)
+                            self.dismiss(animated: true, completion: nil)
+                            self.arCameraDelegate?.onReturn(self.puzzleTarget!)
+                        }
+                    }))
+                    self.present(alert, animated: true, completion: nil)
                 }
             })])
         emitterNode.runAction(sequence)

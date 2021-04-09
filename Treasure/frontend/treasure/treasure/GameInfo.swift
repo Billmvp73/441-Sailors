@@ -10,12 +10,17 @@ import CoreLocation
 class GameInfo: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, sReturnDelegate{
     func onReturn(_ result: String?) {
         if result != "FAILED"{
-            self.nextID = Int(result!)
-            if self.nextID != nil{
-                self.History = true
+            if result != "Completed"{
+                self.nextID = Int(result!)
+                if self.nextID != nil{
+                    self.History = true
+                }
+    //            self.History = true
+                refreshTimeline()
+            } else {
+                isCompleted = true
+                refreshTimeline()
             }
-//            self.History = true
-            refreshTimeline()
         }
     }
     
@@ -32,6 +37,7 @@ class GameInfo: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     var gid: String?
     var nextID: Int? = nil
     var History: Bool? = nil
+    var isCompleted = false
     
     private func loadHistory(_ token: String){
         let store = GamesStore()
@@ -163,29 +169,15 @@ class GameInfo: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         }
     }
     
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(animated)
-//        let token = UserID.shared.token
-//        if token == nil{
-//            self.LogInButton.isHidden = false
-//            self.continueButton.isHidden = true
-//        } else{
-//            print("History ", self.History, self.nextID)
-//            if self.History == nil{
-//                // Haven't load any history for this game
-//                //call store.resumeGame() to load history
-//                self.loadHistory(token!)
-//            } else if self.History == true{
-//                // has history to load
-//                self.continueButton.isHidden = false
-//            } else{
-//                // no history to load
-//                self.continueButton.isHidden = true
-//            }
-////            self.continueButton.isHidden = false
-//            self.LogInButton.isHidden = true
-//        }
-//    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if self.isCompleted{
+            let alert = UIAlertController(title: "Congratulations", message: "You finished the game with a score of \(0)!", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+            self.continueButton.isHidden = true
+        }
+    }
     
     private func presentPicker(_ sourceType: UIImagePickerController.SourceType) {
         let imagePickerController = UIImagePickerController()
