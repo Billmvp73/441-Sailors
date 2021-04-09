@@ -8,6 +8,7 @@
 import UIKit
 import UserNotifications
 import CoreLocation
+import DropDown
 extension UILabel {
     func highlight(searchedText: String?..., color: UIColor = .systemBlue) {
         guard let txtLabel = self.text else { return }
@@ -41,17 +42,28 @@ class MainVC: UITableViewController {
     
     let searchController = UISearchController(searchResultsController: nil)
     
+    @IBOutlet weak var mydropview: UIView!
+    let menu: DropDown = {
+        let menu = DropDown()
+        menu.dataSource = [
+            "Sort by creator's name",
+            "Sort by game's name",
+            "Original game lists"
+        ]
+        return menu
+    } ()
+    
     private var games = [Game]()  // array of Chatt
     private let geodata = GeoData()
     private var lastRefreshTime = Date.currentTimeStamp
-    @IBAction func sortList(_ sender: Any) {
-        self.games.sort {$0.username!  < $1.username!}
-        tableView.reloadData()
-    }
-    @IBAction func sortListbygamename(_ sender: Any) {
-        self.games.sort {$0.gamename!  < $1.gamename!}
-        tableView.reloadData()
-    }
+//    @IBAction func sortList(_ sender: Any) {
+//        self.games.sort {$0.username!  < $1.username!}
+//        tableView.reloadData()
+//    }
+//    @IBAction func sortListbygamename(_ sender: Any) {
+//        self.games.sort {$0.gamename!  < $1.gamename!}
+//        tableView.reloadData()
+//    }
     
     var filteredGames: [Game] = []
     
@@ -83,6 +95,29 @@ class MainVC: UITableViewController {
         searchController.searchBar.placeholder = "Search Games"
         navigationItem.searchController = searchController
         definesPresentationContext = true
+        
+        menu.anchorView = mydropview
+        
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(didTapTopItem))
+        gesture.numberOfTapsRequired = 1
+        gesture.numberOfTouchesRequired = 1
+        mydropview.addGestureRecognizer(gesture)
+        
+        menu.selectionAction = {index, title in
+            if index == 0 {
+                self.games.sort {$0.username!  < $1.username!}
+                self.tableView.reloadData()
+            } else if index == 1{
+                self.games.sort {$0.gamename!  < $1.gamename!}
+                self.tableView.reloadData()
+            } else {
+                self.refreshTimeline()
+            }
+        }
+    }
+    
+    @objc func didTapTopItem () {
+        menu.show()
     }
     
     override func viewDidAppear(_ animated: Bool) {

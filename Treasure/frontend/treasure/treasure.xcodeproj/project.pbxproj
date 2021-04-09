@@ -62,6 +62,7 @@
 		81C51ABB25FC8CE000ACF933 /* MapsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapsVC.swift; sourceTree = "<group>"; };
 		81CD8B4C260924B1006A1632 /* PuzzleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PuzzleCell.swift; sourceTree = "<group>"; };
 		AD509800260F63AB000E6602 /* GameInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameInfo.swift; sourceTree = "<group>"; };
+		ADD189042620C41100E31DE9 /* iOSDropDown.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = iOSDropDown.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CBA52ACCE0E73D54DE78AA27 /* Pods-treasure.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-treasure.debug.xcconfig"; path = "Target Support Files/Pods-treasure/Pods-treasure.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -130,6 +131,7 @@
 		A7CB6164AB2D63DD446C84E8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				ADD189042620C41100E31DE9 /* iOSDropDown.framework */,
 				29F752C734AD77F9443A7F0C /* Pods_treasure.framework */,
 			);
 			name = Frameworks;
@@ -448,14 +450,14 @@
 				CODE_SIGN_ENTITLEMENTS = treasure/treasure.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 94DRVA8V7D;
+				DEVELOPMENT_TEAM = 58J98HEB28;
 				INFOPLIST_FILE = treasure/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = edu.umich.pyhuang.treasure;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.umich.guoxiny1.treasure;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -474,14 +476,14 @@
 				CODE_SIGN_ENTITLEMENTS = treasure/treasure.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 94DRVA8V7D;
+				DEVELOPMENT_TEAM = 58J98HEB28;
 				INFOPLIST_FILE = treasure/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = edu.umich.pyhuang.treasure;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.umich.guoxiny1.treasure;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;

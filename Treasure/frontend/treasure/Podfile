@@ -11,4 +11,5 @@ target 'treasure' do
   pod 'GoogleMaps'
   pod 'GoogleSignIn'
   pod 'Shuffle-iOS'
+  pod 'DropDown'
 end
