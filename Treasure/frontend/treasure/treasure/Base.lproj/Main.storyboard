@@ -185,14 +185,8 @@
                     </navigationItem>
                     <connections>
                         <outlet property="addPuzzlesButton" destination="ayY-xf-gIf" id="qC0-FW-fFn"/>
-                        <outlet property="closeButton" destination="2VA-gf-NXL" id="qW1-vt-tYk"/>
-                        <outlet property="continueButton" destination="ivs-4k-rp2" id="Bgw-Ni-lfD"/>
-                        <outlet property="countdownTimer" destination="SWc-eX-JNc" id="krd-nL-cO3"/>
                         <outlet property="descriptionTextView" destination="xme-nf-RvI" id="Tph-Zu-Fon"/>
                         <outlet property="nameTextField" destination="trL-8M-K6S" id="za0-PF-mSW"/>
-                        <outlet property="popupView" destination="6lO-hL-nDI" id="rn7-XK-ibm"/>
-                        <outlet property="responseLabel" destination="oBz-sf-Ops" id="8kB-pY-gEe"/>
-                        <outlet property="retryButton" destination="h6R-if-Zrw" id="kH2-4i-DRe"/>
                         <outlet property="signinIndicator" destination="bog-MP-34A" id="q8X-kg-6KT"/>
                         <outlet property="submitButton" destination="NiE-Ph-A7e" id="tPV-wR-h24"/>
                         <outlet property="tableView" destination="ui6-7l-dzX" id="8yB-Iw-dqq"/>
@@ -200,52 +194,6 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-                <view contentMode="scaleToFill" id="6lO-hL-nDI" userLabel="popupView">
-                    <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ivs-4k-rp2">
-                            <rect key="frame" x="147" y="78" width="62" height="30"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" title="Continue"/>
-                            <connections>
-                                <action selector="refreshPost:" destination="BYZ-38-t0r" eventType="touchUpInside" id="1U3-Yq-Ndh"/>
-                            </connections>
-                        </button>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Post successfully" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oBz-sf-Ops">
-                            <rect key="frame" x="42" y="44" width="158" height="21"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <nil key="textColor"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Back" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SWc-eX-JNc">
-                            <rect key="frame" x="16" y="83" width="38" height="21"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <nil key="textColor"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2VA-gf-NXL">
-                            <rect key="frame" x="167" y="78" width="39" height="30"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" title="Close"/>
-                            <connections>
-                                <action selector="closePopUp:" destination="BYZ-38-t0r" eventType="touchUpInside" id="QsB-Z9-7FA"/>
-                            </connections>
-                        </button>
-                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h6R-if-Zrw">
-                            <rect key="frame" x="16" y="77" width="37" height="30"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" title="Retry"/>
-                            <connections>
-                                <action selector="submitGames:" destination="BYZ-38-t0r" eventType="touchUpInside" id="b3J-Cy-KBQ"/>
-                            </connections>
-                        </button>
-                    </subviews>
-                    <viewLayoutGuide key="safeArea" id="nSC-G4-4zB"/>
-                    <color key="backgroundColor" systemColor="opaqueSeparatorColor"/>
-                </view>
             </objects>
             <point key="canvasLocation" x="3595.652173913044" y="61.141304347826093"/>
         </scene>
@@ -891,9 +839,6 @@
         </namedColor>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="opaqueSeparatorColor">
-            <color red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

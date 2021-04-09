@@ -17,118 +17,86 @@ class PostVC: UIViewController, UITextViewDelegate, ReturnDelegate, UITableViewD
         }
     }
     @IBOutlet weak var tableView: UITableView!
-    var timer: Timer?
-    var secondsRemaining = 5
+//    var timer: Timer?
+//    var secondsRemaining = 5
     private let geodata = GeoData()
     var puzzles = [Puzzle]()
     var names = [String]()
-    @IBOutlet var popupView: UIView!
 //    @IBOutlet weak var viewDim: UIView!
     @IBOutlet weak var addPuzzlesButton: UIButton!
-    @IBOutlet weak var responseLabel: UILabel!
     @IBOutlet weak var descriptionTextView: UITextView!
     @IBAction func refreshPost(_ sender: Any) {
         self.viewDidLoad()
     }
-    @IBOutlet weak var countdownTimer: UILabel!
+//    @IBOutlet weak var countdownTimer: UILabel!
     
     @IBOutlet weak var submitButton: UIBarButtonItem!
     @IBOutlet weak var nameTextField: UITextField!
     
     @IBOutlet weak var tagTextView: UITextField!
     @IBOutlet weak var signinIndicator: UILabel!
-    
-    @IBOutlet weak var closeButton: UIButton!
-    
-    @IBAction func closePopUp(_ sender: Any) {
-        self.popupView.isHidden = true
-        UIView.animate(withDuration: 0.25, animations: {
-            self.popupView.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
-            self.popupView.alpha = 0.0;
-            }, completion:{(finished : Bool)  in
-                if (finished)
-                {
-                    self.popupView.removeFromSuperview()
-                }
-        });
-    }
-    @IBOutlet weak var continueButton: UIButton!
-    @IBOutlet weak var retryButton: UIButton!
     @IBAction func submitGames(_ sender: Any) {
-        var game = GamePost(gamename: self.nameTextField.text, description: self.descriptionTextView.text, tag: self.tagTextView.text, location: self.geodata, puzzles: self.puzzles)
-        if puzzles.count > 0{
-            game.location = puzzles[0].location
-            let store = GamesStore()
-            var postResponse : Bool?=nil
-            postResponse = store.postGames(game)
-            if postResponse == true{
-                responseLabel.text = "Post successfully!"
-                self.retryButton.isHidden = true
-                self.closeButton.isHidden = true
-                self.continueButton.isHidden = false
-                self.countdownTimer.isHidden = false
-                self.secondsRemaining = 5
-                timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.updateCounting), userInfo: nil, repeats: true)
+        if self.nameTextField.text == ""{
+            let alert = UIAlertController(title: "Game doesn't have a name", message: nil, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Close", style: .cancel, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        } else {
+            var game = GamePost(gamename: self.nameTextField.text, description: self.descriptionTextView.text, tag: self.tagTextView.text, location: self.geodata, puzzles: self.puzzles)
+            if puzzles.count > 0{
+                game.location = puzzles[0].location
+                let store = GamesStore()
+                var postResponse : Bool?=nil
+                postResponse = store.postGames(game)
+                if postResponse == true{
+    //                responseLabel.text = "Post successfully!"
+    //                self.retryButton.isHidden = true
+    //                self.closeButton.isHidden = true
+    //                self.continueButton.isHidden = false
+    //                self.countdownTimer.isHidden = false
+    //                self.secondsRemaining = 5
+    //                timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.updateCounting), userInfo: nil, repeats: true)
+                    let alert = UIAlertController(title: "Submit successfully", message: nil, preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "Back", style: .cancel, handler: {_ in self.navigationController?.popViewController(animated: true)}))
+
+                    alert.addAction(UIAlertAction(title: "Continue", style: .default, handler: {_ in self.viewDidLoad()}))
+                    self.present(alert, animated: true, completion: nil)
+                    puzzles = [Puzzle]()
+                } else{
+                    let alert = UIAlertController(title: "Failed to submit", message: nil, preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "Close", style: .cancel, handler: nil))
+                    self.present(alert, animated: true, completion: nil)
+    //                alert.addAction(UIAlertAction(title: "Retry", style: .default, handler: {_ in }))
+                }
             } else{
-                responseLabel.text = "Failed. Please retry."
-                self.continueButton.isHidden = true
-                self.retryButton.isHidden = false
-                self.closeButton.isHidden = false
-                self.countdownTimer.isHidden = true
-                self.secondsRemaining = 3
-                timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.updateCounting), userInfo: nil, repeats: true)
+                let alert = UIAlertController(title: "Game doesn't have a puzzle", message: nil, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Close", style: .cancel, handler: nil))
+                self.present(alert, animated: true, completion: nil)
             }
-            popupView.isHidden = false
-            popupView.center = self.view.center
-            popupView.alpha = 1
-            popupView.transform = CGAffineTransform(scaleX: 0.8, y: 1.2)
-            self.view.addSubview(popupView)
-            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: [], animations: {
-                self.popupView.transform = .identity
-    //            self.viewDim.alpha = 0.8
-            }, completion: nil)
-//            DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
-//
-//            }
-        } else{
-            responseLabel.text = "Your Game has no puzzle."
-            self.retryButton.isHidden = false
-            self.continueButton.isHidden = true
-            self.countdownTimer.isHidden = true
-            popupView.isHidden = false
-            popupView.center = self.view.center
-            popupView.alpha = 1
-            popupView.transform = CGAffineTransform(scaleX: 0.8, y: 1.2)
-            self.view.addSubview(popupView)
-            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: [], animations: {
-                self.popupView.transform = .identity
-    //            self.viewDim.alpha = 0.8
-            }, completion: nil)
+            
+    //        popupView.isHidden = false
+    //        popupView.center = self.view.center
+    //        popupView.alpha = 1
+    //        popupView.transform = CGAffineTransform(scaleX: 0.8, y: 1.2)
+    //        self.view.addSubview(popupView)
+    //        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: [], animations: {
+    //            self.popupView.transform = .identity
+    ////            self.viewDim.alpha = 0.8
+    //        }, completion: nil)
+            
         }
-        
-//        popupView.isHidden = false
-//        popupView.center = self.view.center
-//        popupView.alpha = 1
-//        popupView.transform = CGAffineTransform(scaleX: 0.8, y: 1.2)
-//        self.view.addSubview(popupView)
-//        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: [], animations: {
-//            self.popupView.transform = .identity
-////            self.viewDim.alpha = 0.8
-//        }, completion: nil)
-        puzzles = [Puzzle]()
     }
     
     
-    @objc func updateCounting(){
-        if self.secondsRemaining > 0{
-            self.countdownTimer.text = "\(self.secondsRemaining)s"
-            self.secondsRemaining -= 1
-        }else{
-            self.timer?.invalidate()
-            self.navigationController?.popViewController(animated: true)
-            self.dismiss(animated: true, completion: nil)
-        }
-    }
+//    @objc func updateCounting(){
+//        if self.secondsRemaining > 0{
+//            self.countdownTimer.text = "\(self.secondsRemaining)s"
+//            self.secondsRemaining -= 1
+//        }else{
+//            self.timer?.invalidate()
+//            self.navigationController?.popViewController(animated: true)
+//            self.dismiss(animated: true, completion: nil)
+//        }
+//    }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
@@ -144,7 +112,7 @@ class PostVC: UIViewController, UITextViewDelegate, ReturnDelegate, UITableViewD
         descriptionTextView.layer.cornerRadius = 6.0
         addPuzzlesButton.clipsToBounds = true
         addPuzzlesButton.layer.cornerRadius = 6.0
-        popupView.isHidden = true
+//        popupView.isHidden = true
         descriptionTextView.text = "description"
         nameTextField.text = ""
         tagTextView.text = ""
