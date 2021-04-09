@@ -185,6 +185,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="addPuzzlesButton" destination="ayY-xf-gIf" id="qC0-FW-fFn"/>
+                        <outlet property="closeButton" destination="2VA-gf-NXL" id="qW1-vt-tYk"/>
                         <outlet property="continueButton" destination="ivs-4k-rp2" id="Bgw-Ni-lfD"/>
                         <outlet property="countdownTimer" destination="SWc-eX-JNc" id="krd-nL-cO3"/>
                         <outlet property="descriptionTextView" destination="xme-nf-RvI" id="Tph-Zu-Fon"/>
@@ -218,14 +219,6 @@
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h6R-if-Zrw">
-                            <rect key="frame" x="103" y="78" width="37" height="30"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" title="Retry"/>
-                            <connections>
-                                <action selector="submitGames:" destination="BYZ-38-t0r" eventType="touchUpInside" id="b3J-Cy-KBQ"/>
-                            </connections>
-                        </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Back" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SWc-eX-JNc">
                             <rect key="frame" x="16" y="83" width="38" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -233,6 +226,22 @@
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2VA-gf-NXL">
+                            <rect key="frame" x="167" y="78" width="39" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" title="Close"/>
+                            <connections>
+                                <action selector="closePopUp:" destination="BYZ-38-t0r" eventType="touchUpInside" id="QsB-Z9-7FA"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h6R-if-Zrw">
+                            <rect key="frame" x="16" y="77" width="37" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" title="Retry"/>
+                            <connections>
+                                <action selector="submitGames:" destination="BYZ-38-t0r" eventType="touchUpInside" id="b3J-Cy-KBQ"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <viewLayoutGuide key="safeArea" id="nSC-G4-4zB"/>
                     <color key="backgroundColor" systemColor="opaqueSeparatorColor"/>
@@ -307,7 +316,7 @@
                                 </state>
                             </button>
                             <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ieJ-nX-yJb">
-                                <rect key="frame" x="128" y="330" width="172" height="50"/>
+                                <rect key="frame" x="128" y="330" width="172" height="117"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="tertiarySystemFillColor"/>
                                 <connections>
@@ -903,7 +912,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="YXy-Vm-rhS"/>
+        <segue reference="Gzq-fa-QHd"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="arrow.up.and.down.square" catalog="system" width="128" height="114"/>

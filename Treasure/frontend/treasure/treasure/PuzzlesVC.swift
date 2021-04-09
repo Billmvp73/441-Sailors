@@ -13,7 +13,7 @@ import RealityKit
 import QuickLook
 
 protocol ReturnDelegate: UIViewController {
-    func onReturn(_ result: Puzzle)
+    func onReturn(_ result: Puzzle, _ name: String)
 }
 
 @available(iOS 14.0, *)
@@ -89,12 +89,72 @@ class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate
     @IBAction func stopPuzzles(_ sender: Any) {
         if self.puzzleMarker?.map != nil{
             if let coordinate = self.puzzleMarker?.position{
-                let geoPuzzle = GeoData(lat: coordinate.latitude, lon: coordinate.longitude)
-                puzzle = Puzzle(location: geoPuzzle, name: nameText.text, type: self.list[self.cur_row],description: descriptionText.text)
-                returnDelegate?.onReturn(puzzle!)
+                if self.nameText.text == ""{
+                    let alert = UIAlertController(title: "What's the puzzle name?", message: nil, preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+
+                    alert.addTextField(configurationHandler: { textField in
+                        textField.placeholder = "Input your name here..."
+                    })
+
+                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+
+                        if let name = alert.textFields?.first?.text {
+                            self.nameText.text = name
+                            print("Your name: \(name)")
+//                            self.dismiss(animated: true, completion: nil)
+                        }
+                    }))
+
+                    self.present(alert, animated: true, completion: nil)
+                } else {
+                    if self.puzzletypeText.text == ""{
+                        let alert = UIAlertController(title: "No Puzzle Model", message: nil, preferredStyle: .alert)
+    //                    alert.isModalInPopover = true
+    //                    let pickerFrame = UIPickerView(frame: CGRect(x: 5, y: 20, width: 250, height: 140))
+    //
+    //                    alert.view.addSubview(pickerFrame)
+    //                    pickerFrame.dataSource = self
+    //                    pickerFrame.delegate = self
+                        
+                        alert.addAction(UIAlertAction(title: "Go Back", style: .cancel, handler: nil))
+    //                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (UIAlertAction) in
+    //
+    //                        print("You selected " + self.puzzletypeText.text!)
+    //                        self.dismiss(animated: true, completion: nil)
+    //                    }))
+                    // now add some constraints to make sure that the alert resizes itself
+    //                    let cons:NSLayoutConstraint = NSLayoutConstraint(item: alert.view, attribute: NSLayoutConstraint.Attribute.height, relatedBy: NSLayoutConstraint.Relation.greaterThanOrEqual, toItem: pickerFrame, attribute: NSLayoutConstraint.Attribute.height, multiplier: 1.00, constant: 30)
+    //
+    //                    alert.view.addConstraint(cons)
+    //
+    //                    let cons2:NSLayoutConstraint = NSLayoutConstraint(item: alert.view, attribute: NSLayoutConstraint.Attribute.width, relatedBy: NSLayoutConstraint.Relation.greaterThanOrEqual, toItem: pickerFrame, attribute: NSLayoutConstraint.Attribute.width, multiplier: 1.00, constant: 20)
+    //
+    //                    alert.view.addConstraint(cons2)
+                        self.present(alert,animated: true, completion: nil )
+                    } else{
+                        let geoPuzzle = GeoData(lat: coordinate.latitude, lon: coordinate.longitude)
+                        puzzle = Puzzle(location: geoPuzzle, name: nameText.text, type: self.list[self.cur_row],description: descriptionText.text)
+                        returnDelegate?.onReturn(puzzle!, self.model_name[self.cur_row])
+                        dismiss(animated: true, completion: nil)
+                    }
+                }
+            }
+        } else{
+//            let alert = UIAlertController(title: "Don't Create Puzzle?", message: nil, preferredStyle: .alert)
+//            alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+            if self.nameText.text == "" && self.puzzletypeText.text == ""{
+                let alert = UIAlertController(title: "Stop Creating Puzzle?", message: nil, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: {_ in self.dismiss(animated: true, completion: nil)}))
+                alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+            } else {
+                let alert = UIAlertController(title: "No Location (LongPress to add location)", message: nil, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Go Back", style: .cancel, handler: nil))
+                self.present(alert, animated: true, completion: nil)
             }
         }
-        dismiss(animated: true, completion: nil)
+//        dismiss(animated: true, completion: nil)
     }
     
     
@@ -302,6 +362,7 @@ class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate
         //        sceneView.autoenablesDefaultLighting = true
             
             // Allow user to manipulate camera
+            sceneView.alpha = 1
             sceneView.allowsCameraControl = true
             
             // Show FPS logs and timming
@@ -327,6 +388,7 @@ class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         print("in the viewdidload")
+        self.sceneView.alpha = 0
         let store = GamesStore()
         let ars = store.availableAr()
         for ar in ars! {
@@ -393,7 +455,7 @@ class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate
         // enable the location bull's eye button
         mMap.settings.myLocationButton = true
 
-        var chattMarker: GMSMarker!
+        var Marker: GMSMarker!
 
         
         locmanager.delegate = self
@@ -404,9 +466,11 @@ class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate
         locmanager.startUpdatingLocation()
         prevPuzzles?.forEach {
             if let geodata = $0.location {
-                chattMarker = GMSMarker(position: CLLocationCoordinate2D(latitude: geodata.lat, longitude: geodata.lon))
-                chattMarker.map = mMap
-                chattMarker.userData = $0
+                Marker = GMSMarker(position: CLLocationCoordinate2D(latitude: geodata.lat, longitude: geodata.lon))
+                Marker.icon = GMSMarker.markerImage(with: UIColor.green)
+                Marker.map = mMap
+                Marker.userData = $0
+                
             }
         }
         

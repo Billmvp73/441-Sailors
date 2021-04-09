@@ -21,6 +21,7 @@ class PostVC: UIViewController, UITextViewDelegate, ReturnDelegate, UITableViewD
     var secondsRemaining = 5
     private let geodata = GeoData()
     var puzzles = [Puzzle]()
+    var names = [String]()
     @IBOutlet var popupView: UIView!
 //    @IBOutlet weak var viewDim: UIView!
     @IBOutlet weak var addPuzzlesButton: UIButton!
@@ -37,6 +38,20 @@ class PostVC: UIViewController, UITextViewDelegate, ReturnDelegate, UITableViewD
     @IBOutlet weak var tagTextView: UITextField!
     @IBOutlet weak var signinIndicator: UILabel!
     
+    @IBOutlet weak var closeButton: UIButton!
+    
+    @IBAction func closePopUp(_ sender: Any) {
+        self.popupView.isHidden = true
+        UIView.animate(withDuration: 0.25, animations: {
+            self.popupView.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
+            self.popupView.alpha = 0.0;
+            }, completion:{(finished : Bool)  in
+                if (finished)
+                {
+                    self.popupView.removeFromSuperview()
+                }
+        });
+    }
     @IBOutlet weak var continueButton: UIButton!
     @IBOutlet weak var retryButton: UIButton!
     @IBAction func submitGames(_ sender: Any) {
@@ -49,6 +64,7 @@ class PostVC: UIViewController, UITextViewDelegate, ReturnDelegate, UITableViewD
             if postResponse == true{
                 responseLabel.text = "Post successfully!"
                 self.retryButton.isHidden = true
+                self.closeButton.isHidden = true
                 self.continueButton.isHidden = false
                 self.countdownTimer.isHidden = false
                 self.secondsRemaining = 5
@@ -57,6 +73,7 @@ class PostVC: UIViewController, UITextViewDelegate, ReturnDelegate, UITableViewD
                 responseLabel.text = "Failed. Please retry."
                 self.continueButton.isHidden = true
                 self.retryButton.isHidden = false
+                self.closeButton.isHidden = false
                 self.countdownTimer.isHidden = true
                 self.secondsRemaining = 3
                 timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.updateCounting), userInfo: nil, repeats: true)
@@ -173,8 +190,9 @@ class PostVC: UIViewController, UITextViewDelegate, ReturnDelegate, UITableViewD
         }
     }
     
-    func onReturn(_ result: Puzzle) {
+    func onReturn(_ result: Puzzle, _ name: String) {
         puzzles += [result]
+        names += [name]
 //        tableView.reloadData()
         refreshTimeline()
     }
@@ -216,7 +234,7 @@ class PostVC: UIViewController, UITextViewDelegate, ReturnDelegate, UITableViewD
         cell.indexLabel?.text = "#"+String(indexPath.row)
         cell.nameLabel?.text = puzzle.name
         cell.descriptionLabel?.text = puzzle.description
-        cell.puzzletypeLabel?.text = puzzle.type
+        cell.puzzletypeLabel?.text = self.names[indexPath.row]
         return cell
     }
     
