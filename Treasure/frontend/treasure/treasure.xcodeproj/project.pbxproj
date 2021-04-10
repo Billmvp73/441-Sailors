@@ -450,22 +450,14 @@
 				CODE_SIGN_ENTITLEMENTS = treasure/treasure.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-<<<<<<< HEAD
 				DEVELOPMENT_TEAM = 94DRVA8V7D;
-=======
-				DEVELOPMENT_TEAM = ARD29H66P5;
->>>>>>> 47da27450769b35d3ed4819cf07f23cf52373aef
 				INFOPLIST_FILE = treasure/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-<<<<<<< HEAD
 				PRODUCT_BUNDLE_IDENTIFIER = edu.umich.pyhuang.treasure;
-=======
-				PRODUCT_BUNDLE_IDENTIFIER = edu.umich.xinyun.treasure;
->>>>>>> 47da27450769b35d3ed4819cf07f23cf52373aef
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
