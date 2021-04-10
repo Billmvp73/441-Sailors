@@ -12,6 +12,10 @@ import Alamofire
 import SceneKit
 
 
+protocol PopUpReturnDelegate: UIViewController {
+    func onReturn(_ modelname: String, _ arurl: String, _ modelfile_name: String)
+}
+
 @available(iOS 14.0, *)
 class PopUpViewController: UIViewController,UIDocumentPickerDelegate,UINavigationControllerDelegate {
     
@@ -21,6 +25,7 @@ class PopUpViewController: UIViewController,UIDocumentPickerDelegate,UINavigatio
     var modelname = ""
     var modelurl: URL!
     var newfilename = ""
+    weak var popUpReturnDelegate: PopUpReturnDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,8 +72,10 @@ class PopUpViewController: UIViewController,UIDocumentPickerDelegate,UINavigatio
                 } catch{
                     print(error.localizedDescription)
                 }
-                self.removeAnimate()
-                self.performSegue(withIdentifier: "ImportArInfo", sender: self)
+                popUpReturnDelegate?.onReturn(self.modelname, "https://174.138.33.66/media/"+self.newfilename, self.newfilename)
+                dismiss(animated: true, completion: nil)
+//                self.removeAnimate()
+//                self.performSegue(withIdentifier: "ImportArInfo", sender: self)
             case .failure:
                 print("Import failed")
             }
@@ -167,15 +174,15 @@ class PopUpViewController: UIViewController,UIDocumentPickerDelegate,UINavigatio
         return url.pathExtension
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let vc = segue.destination as! PuzzlesVC
-        if self.modelname != ""{
-            vc.model_name.append(self.modelname)
-            vc.ar_url.append("https://174.138.33.66/media/"+self.newfilename)
-            vc.list.append(self.newfilename)
-            vc.model_files_name.append(self.newfilename)
-        }
-    }
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        let vc = segue.destination as! PuzzlesVC
+//        if self.modelname != ""{
+//            vc.model_name.append(self.modelname)
+//            vc.ar_url.append("https://174.138.33.66/media/"+self.newfilename)
+//            vc.list.append(self.newfilename)
+//            vc.model_files_name.append(self.newfilename)
+//        }
+//    }
     
     @IBAction func closePopUp(_ sender: Any) {
         self.removeAnimate()
