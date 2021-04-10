@@ -238,15 +238,6 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="plane" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2HX-Yk-1Ot">
-                                <rect key="frame" x="128" y="321" width="229" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                                <connections>
-                                    <outlet property="delegate" destination="x6p-L0-Uxu" id="c6G-sV-Rab"/>
-                                </connections>
-                            </textField>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="Model Tyle:" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="umD-Cn-8xo">
                                 <rect key="frame" x="18" y="321" width="102" height="36.5"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -255,13 +246,16 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aA4-yU-Q1R">
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aA4-yU-Q1R">
                                 <rect key="frame" x="327" y="321" width="30" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <state key="normal" title="Button">
-                                    <imageReference key="image" image="arrow.up.and.down.square" catalog="system" symbolScale="large" renderingMode="original"/>
+                                    <imageReference key="image" image="arrowtriangle.down.square" catalog="system" symbolScale="large" renderingMode="original"/>
                                 </state>
+                                <connections>
+                                    <action selector="pick:" destination="x6p-L0-Uxu" eventType="touchUpInside" id="uj3-fi-Jv7"/>
+                                </connections>
                             </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="1" contentMode="scaleToFill" fixedFrame="YES" text="What's the content of this puzzle?" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="KRc-ww-ag6">
                                 <rect key="frame" x="24" y="406" width="370" height="166"/>
@@ -299,6 +293,13 @@
                                     <outlet property="delegate" destination="x6p-L0-Uxu" id="6B7-K9-BBd"/>
                                 </connections>
                             </pickerView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7He-ex-oE0">
+                                <rect key="frame" x="128" y="317" width="229" height="41"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="F29-J8-x0J"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -309,7 +310,7 @@
                         <outlet property="mMap" destination="C52-1W-080" id="eJb-Sb-FA1"/>
                         <outlet property="nameText" destination="BLn-kb-9zx" id="gfm-PX-HJB"/>
                         <outlet property="puzzletypeDropdown" destination="ieJ-nX-yJb" id="E7I-Dh-4rX"/>
-                        <outlet property="puzzletypeText" destination="2HX-Yk-1Ot" id="NWH-iY-B3p"/>
+                        <outlet property="puzzletypeText" destination="7He-ex-oE0" id="HEZ-1d-Ch1"/>
                         <outlet property="sceneView" destination="Hxa-mE-9VB" id="eoi-Gm-Gxz"/>
                         <outlet property="wordContentText" destination="KRc-ww-ag6" id="0sm-Bw-ZxP"/>
                     </connections>
@@ -828,7 +829,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="arrow.up.and.down.square" catalog="system" width="128" height="114"/>
+        <image name="arrowtriangle.down.square" catalog="system" width="128" height="114"/>
         <image name="mappin.and.ellipse" catalog="system" width="118" height="128"/>
         <namedColor name="AccentColor">
             <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
