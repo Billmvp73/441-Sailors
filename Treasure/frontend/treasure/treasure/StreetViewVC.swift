@@ -13,8 +13,6 @@ class StreetViewVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDeleg
 
     var coordinate: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
     
- 
-
     @IBOutlet weak var panoramaView: GMSPanoramaView!
     
     
