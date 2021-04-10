@@ -84,9 +84,9 @@ class MainVC: UITableViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        let swipeRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(startMap(_:)))
-        swipeRecognizer.direction = .left
-        self.view.addGestureRecognizer(swipeRecognizer)
+//        let swipeRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(startMap(_:)))
+//        swipeRecognizer.direction = .left
+//        self.view.addGestureRecognizer(swipeRecognizer)
         refreshControl?.addTarget(self, action: #selector(MainVC.handleRefresh(_:)), for: UIControl.Event.valueChanged)
         self.requestNotificationAuthorization()
         self.sendNotification()
