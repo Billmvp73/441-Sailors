@@ -26,7 +26,8 @@ class PopUpViewController: UIViewController,UIDocumentPickerDelegate,UINavigatio
     var modelurl: URL!
     var newfilename = ""
     weak var popUpReturnDelegate: PopUpReturnDelegate?
-    
+    var submitAlert: UIAlertController?
+    var loadAlert: UIAlertController?
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -45,6 +46,9 @@ class PopUpViewController: UIViewController,UIDocumentPickerDelegate,UINavigatio
             print("Imported: Bad URL")
             return
         }
+        
+        self.submitAlert = UIAlertController(title: "Submitting...", message: "Please wait.", preferredStyle: .alert)
+        self.present(submitAlert!, animated: true, completion: nil)
         
         AF.upload(multipartFormData: { mpFD in
             if let token = UserID.shared.token?.data(using: .utf8) {
@@ -69,11 +73,17 @@ class PopUpViewController: UIViewController,UIDocumentPickerDelegate,UINavigatio
                 do{
                     try FileManager.default.moveItem(atPath: self.modelurl.path,
                                                      toPath: filePath!.path)
+                    
+
                 } catch{
                     print(error.localizedDescription)
                 }
+                self.submitAlert!.dismiss(animated: true, completion: nil)
+                self.submitAlert = UIAlertController(title: "Submitted Successfully", message: nil, preferredStyle: .alert)
+                self.submitAlert?.addAction(UIAlertAction(title: "OK", style: .default, handler: {_ in self.dismiss(animated: true, completion: nil)}))
+                self.present(submitAlert!, animated: true, completion: nil)
                 popUpReturnDelegate?.onReturn(self.modelname, "https://174.138.33.66/media/"+self.newfilename, self.newfilename)
-                dismiss(animated: true, completion: nil)
+//                self.dismiss(animated: true, completion: nil)
 //                self.removeAnimate()
 //                self.performSegue(withIdentifier: "ImportArInfo", sender: self)
             case .failure:
@@ -135,6 +145,7 @@ class PopUpViewController: UIViewController,UIDocumentPickerDelegate,UINavigatio
             
             // Set scene settings
             sceneView.scene = scene
+            self.loadAlert!.dismiss(animated: true, completion: nil)
         } catch  {
             print("Error Loading Scene")
         }
@@ -154,6 +165,8 @@ class PopUpViewController: UIViewController,UIDocumentPickerDelegate,UINavigatio
             return
         }
         modelurl = myURL
+        self.loadAlert = UIAlertController(title: "Loading...", message: "Please wait.", preferredStyle: .alert)
+        self.present(loadAlert!, animated: true, completion: nil)
         self.showAr(name: modelurl)
         print("import result : \(myURL)")
     }
