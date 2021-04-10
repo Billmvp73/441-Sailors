@@ -181,7 +181,6 @@ class MainVC: UITableViewController {
         cell.numPuzzle.text = "#Puzzles " + String(game.puzzles.count)
         cell.numPuzzle.sizeToFit()
         if let geodata = game.location {
-            cell.mapButton.isHidden = false
             cell.locationLabel.text = "Posted from " + geodata.loc
             cell.locationLabel.sizeToFit()
             cell.locationLabel.highlight(searchedText: geodata.loc, geodata.facing, geodata.speed)
@@ -197,7 +196,6 @@ class MainVC: UITableViewController {
             }
         } else {
             cell.locationLabel.text = nil
-            cell.mapButton.isHidden = true
             cell.renderGames = nil
         }
         return cell

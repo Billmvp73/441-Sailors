@@ -300,7 +300,6 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="F29-J8-x0J"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -444,9 +443,9 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zzg-Ry-dRK">
-                                            <rect key="frame" x="25" y="85" width="355" height="56"/>
+                                            <rect key="frame" x="25" y="85" width="355" height="80"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="56" id="7EU-g8-cfC"/>
+                                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="80" id="7EU-g8-cfC"/>
                                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="355" id="YIg-Ku-RMz"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -468,24 +467,12 @@
                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Position" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b0o-dN-pz8" userLabel="Geodata Label">
-                                            <rect key="frame" x="25" y="197" width="71" height="21"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Position" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b0o-dN-pz8" userLabel="Geodata Label">
+                                            <rect key="frame" x="25" y="210" width="71" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yu5-jN-pVC" userLabel="Map Button">
-                                            <rect key="frame" x="299" y="196.5" width="19" height="22"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="19" id="VgU-GH-1Sa"/>
-                                                <constraint firstAttribute="height" constant="22" id="cUx-kR-rzb"/>
-                                            </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                            <state key="normal" image="mappin.and.ellipse" catalog="system"/>
-                                            <connections>
-                                                <action selector="mapTapped:" destination="EoJ-ml-ZOx" eventType="touchUpInside" id="Dgj-gM-qkx"/>
-                                            </connections>
-                                        </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="gamename" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xui-my-Sqy">
                                             <rect key="frame" x="25" y="8" width="245" height="52"/>
                                             <constraints>
@@ -502,33 +489,30 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="tag" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="adp-K0-mRm">
-                                            <rect key="frame" x="25" y="161" width="355" height="30"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="tag" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="adp-K0-mRm">
+                                            <rect key="frame" x="25" y="189" width="355" height="20.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
+                                            <color key="textColor" systemColor="systemGrayColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstAttribute="bottom" secondItem="Yu5-jN-pVC" secondAttribute="bottom" constant="19.5" id="015-Hz-eSg"/>
                                         <constraint firstItem="jtS-Se-lds" firstAttribute="top" secondItem="mmX-82-Psm" secondAttribute="top" constant="20" symbolic="YES" id="0F7-Tc-YFz"/>
                                         <constraint firstItem="b0o-dN-pz8" firstAttribute="leading" secondItem="mmX-82-Psm" secondAttribute="leading" constant="25" id="0kb-NQ-cB5"/>
                                         <constraint firstAttribute="trailing" secondItem="Jks-Ig-ckO" secondAttribute="trailing" constant="34" id="1Ti-FC-lE8"/>
                                         <constraint firstAttribute="trailing" secondItem="Xui-my-Sqy" secondAttribute="trailing" constant="109" id="7kO-vM-Ylm"/>
-                                        <constraint firstItem="b0o-dN-pz8" firstAttribute="top" secondItem="adp-K0-mRm" secondAttribute="bottom" constant="46.5" id="DY2-p7-Aau"/>
-                                        <constraint firstAttribute="trailing" secondItem="Yu5-jN-pVC" secondAttribute="trailing" constant="96" id="EQi-rn-xXt"/>
+                                        <constraint firstItem="adp-K0-mRm" firstAttribute="top" secondItem="zzg-Ry-dRK" secondAttribute="bottom" constant="11" id="9jK-7T-NYA"/>
                                         <constraint firstItem="zzg-Ry-dRK" firstAttribute="top" secondItem="zoy-dZ-7K3" secondAttribute="bottom" constant="13" id="I13-Nu-Tfk"/>
                                         <constraint firstAttribute="bottom" secondItem="b0o-dN-pz8" secondAttribute="bottom" constant="20.5" id="J4d-z8-5Ru"/>
                                         <constraint firstItem="zoy-dZ-7K3" firstAttribute="top" secondItem="Xui-my-Sqy" secondAttribute="bottom" constant="8" symbolic="YES" id="OMY-Fz-CeN"/>
-                                        <constraint firstItem="adp-K0-mRm" firstAttribute="top" secondItem="zzg-Ry-dRK" secondAttribute="bottom" constant="9" id="Q3M-ur-zZL"/>
                                         <constraint firstItem="zoy-dZ-7K3" firstAttribute="leading" secondItem="mmX-82-Psm" secondAttribute="leading" constant="25" id="Tes-5r-ZgH"/>
+                                        <constraint firstItem="b0o-dN-pz8" firstAttribute="firstBaseline" secondItem="adp-K0-mRm" secondAttribute="baseline" constant="30" id="V5y-sQ-bie"/>
                                         <constraint firstAttribute="trailing" secondItem="jtS-Se-lds" secondAttribute="trailing" constant="34" id="WaO-T6-ZKs"/>
                                         <constraint firstAttribute="trailing" secondItem="adp-K0-mRm" secondAttribute="trailing" constant="34" id="aAs-mO-H5A"/>
                                         <constraint firstItem="adp-K0-mRm" firstAttribute="leading" secondItem="mmX-82-Psm" secondAttribute="leading" constant="25" id="e4f-0Z-hq1"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="zzg-Ry-dRK" secondAttribute="trailing" constant="14" id="gb3-Wm-eP4"/>
                                         <constraint firstItem="Xui-my-Sqy" firstAttribute="leading" secondItem="mmX-82-Psm" secondAttribute="leading" constant="25" id="isg-Kh-dNZ"/>
                                         <constraint firstItem="zzg-Ry-dRK" firstAttribute="leading" secondItem="mmX-82-Psm" secondAttribute="leading" constant="25" id="iyK-dI-HOM"/>
-                                        <constraint firstItem="Yu5-jN-pVC" firstAttribute="top" secondItem="b0o-dN-pz8" secondAttribute="top" id="rjB-5b-u11"/>
                                         <constraint firstItem="Jks-Ig-ckO" firstAttribute="top" secondItem="zoy-dZ-7K3" secondAttribute="top" id="tmG-Z7-ypB"/>
                                         <constraint firstItem="Xui-my-Sqy" firstAttribute="top" secondItem="mmX-82-Psm" secondAttribute="top" constant="20" symbolic="YES" id="vzn-uJ-KSI"/>
                                     </constraints>
@@ -537,7 +521,6 @@
                                     <outlet property="descriptionLabel" destination="zzg-Ry-dRK" id="0cn-cU-MEb"/>
                                     <outlet property="gamenameLabel" destination="Xui-my-Sqy" id="luB-e2-jsf"/>
                                     <outlet property="locationLabel" destination="b0o-dN-pz8" id="8i7-mB-Srp"/>
-                                    <outlet property="mapButton" destination="Yu5-jN-pVC" id="BQD-2d-vRQ"/>
                                     <outlet property="numPuzzle" destination="Jks-Ig-ckO" id="vkZ-WT-svO"/>
                                     <outlet property="tagLabel" destination="adp-K0-mRm" id="l2s-Rf-Siv"/>
                                     <outlet property="timestampLabel" destination="jtS-Se-lds" id="LL9-x7-GMe"/>
@@ -583,7 +566,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oTg-d3-OSU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2682.608695652174" y="73.369565217391312"/>
+            <point key="canvasLocation" x="2682.608695652174" y="72.991071428571431"/>
         </scene>
         <!--Game-->
         <scene sceneID="vAt-Km-3ju">
@@ -864,7 +847,6 @@
     </scenes>
     <resources>
         <image name="arrowtriangle.down.square" catalog="system" width="128" height="114"/>
-        <image name="mappin.and.ellipse" catalog="system" width="118" height="128"/>
         <namedColor name="AccentColor">
             <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
