@@ -172,7 +172,7 @@ def uploadar(request):
 
     filename = sha256_hash.hexdigest()
 
-    cursor.execute("SELECT * FROM ar WHERE hash = %s;", (filename,))
+    cursor.execute("SELECT uid FROM ar WHERE hash = %s;", (filename,))
     row = cursor.fetchone()
     if row is None:
         fs = FileSystemStorage()
@@ -181,7 +181,8 @@ def uploadar(request):
                '(%s, %s, %s, %s);', (uid, filename, arname, artype))
         return JsonResponse({"filename": filename + "." + artype})
     else:
-        cursor.execute('INSERT INTO ar (uid, hash, name, type) VALUES '
+        if row[0] != uid:
+            cursor.execute('INSERT INTO ar (uid, hash, name, type) VALUES '
                '(%s, %s, %s, %s);', (uid, filename, arname, artype))
         return JsonResponse({"filename": filename + "." + artype})
 
