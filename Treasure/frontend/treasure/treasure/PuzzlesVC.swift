@@ -61,6 +61,13 @@ class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate
 //           puzzlesVC?.prevPuzzles = self.puzzles
           popupVC?.popUpReturnDelegate = self
        }
+    if (segue.identifier == "puzzletostreet") {
+        let index = sender as! CLLocationCoordinate2D
+        let streetview = segue.destination as! StreetViewVC
+        
+        streetview.coordinate = index
+        
+    }
    }
     
     func onReturn(_ modelname: String, _ arurl: String, _ modelfile_name: String) {
@@ -523,15 +530,17 @@ class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate
     var counterMarker: Int = 0
 
     func mapView(_ mapView: GMSMapView, didLongPressAt coordinate: CLLocationCoordinate2D) {
-        let storyBoard = UIStoryboard(name: "Main", bundle:nil)
+//        let storyBoard = UIStoryboard(name: "Main", bundle:nil)
         print("Marker tapped------")
-        if let streetViewController = storyBoard.instantiateViewController(withIdentifier: "StreetViewVC") as? StreetViewVC {
-            print("Marker jump-----")
-          streetViewController.coordinate = coordinate
-          self.navigationController!.pushViewController(streetViewController, animated: true)
-        }
+        performSegue(withIdentifier: "puzzletostreet", sender: coordinate)
+//        if let streetViewController = storyBoard.instantiateViewController(withIdentifier: "StreetViewVC") as? StreetViewVC {
+//            print("Marker jump-----")
+//          streetViewController.coordinate = coordinate
+//          self.navigationController!.pushViewController(streetViewController, animated: true)
+//        }
         
       }
+
     
     func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
         print("Marker added------")

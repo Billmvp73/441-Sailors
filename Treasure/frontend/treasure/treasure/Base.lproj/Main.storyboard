@@ -321,6 +321,7 @@
                         <outlet property="puzzletypeText" destination="7He-ex-oE0" id="HEZ-1d-Ch1"/>
                         <outlet property="sceneView" destination="Hxa-mE-9VB" id="eoi-Gm-Gxz"/>
                         <outlet property="wordContentText" destination="KRc-ww-ag6" id="0sm-Bw-ZxP"/>
+                        <segue destination="Lde-Ug-UTT" kind="show" identifier="puzzletostreet" id="PyL-YV-VWZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XLg-OZ-fcy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -827,11 +828,11 @@
             <objects>
                 <viewController storyboardIdentifier="StreetViewVC" id="Lde-Ug-UTT" customClass="StreetViewVC" customModule="treasure" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="VjF-Ro-cIc">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NEG-Au-72m" customClass="GMSPanoramaView">
-                                <rect key="frame" x="0.0" y="104" width="414" height="758"/>
+                                <rect key="frame" x="0.0" y="60" width="414" height="748"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                         </subviews>
@@ -844,13 +845,14 @@
                             <constraint firstItem="NEG-Au-72m" firstAttribute="centerX" secondItem="VjF-Ro-cIc" secondAttribute="centerX" id="n3a-3k-Dkr"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="bHR-Hd-eDZ"/>
                     <connections>
                         <outlet property="panoramaView" destination="NEG-Au-72m" id="9Ga-OD-Eyx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xp7-bg-Ox2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5211.594202898551" y="794.83695652173924"/>
+            <point key="canvasLocation" x="6121.739130434783" y="794.19642857142856"/>
         </scene>
     </scenes>
     <resources>
