@@ -17,7 +17,7 @@ protocol ReturnDelegate: UIViewController {
 }
 
 @available(iOS 14.0, *)
-class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate, GMSMapViewDelegate, UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate, URLSessionDownloadDelegate{
+class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate, c UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate, URLSessionDownloadDelegate{
     
     private let serverMedia = "https://174.138.33.66/media/"
     //create puzzle list

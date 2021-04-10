@@ -904,6 +904,36 @@
             </objects>
             <point key="canvasLocation" x="4431.884057971015" y="792.85714285714278"/>
         </scene>
+        <!--StreetViewVC-->
+        <scene sceneID="JAj-S8-gz6">
+            <objects>
+                <viewController storyboardIdentifier="StreetViewVC" title="StreetViewVC" id="gck-Vs-bpG" customClass="StreetViewVC" customModule="treasure" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="tzJ-jA-8TL">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tOD-dU-nKa" customClass="GMSStreetView">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="z8i-Ez-Ar5"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="tOD-dU-nKa" firstAttribute="bottom" secondItem="z8i-Ez-Ar5" secondAttribute="bottom" id="15n-BA-KSI"/>
+                            <constraint firstItem="tOD-dU-nKa" firstAttribute="centerX" secondItem="tzJ-jA-8TL" secondAttribute="centerX" id="JRW-xS-nDc"/>
+                            <constraint firstItem="tOD-dU-nKa" firstAttribute="leading" secondItem="z8i-Ez-Ar5" secondAttribute="leading" id="tsI-3z-MkJ"/>
+                            <constraint firstItem="tOD-dU-nKa" firstAttribute="top" secondItem="z8i-Ez-Ar5" secondAttribute="top" id="vFj-fl-Q4Y"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="panoramaView" destination="tOD-dU-nKa" id="On8-4s-BMy"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yxK-Is-ncC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5160.8695652173919" y="790.76086956521749"/>
+        </scene>
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="Gzq-fa-QHd"/>

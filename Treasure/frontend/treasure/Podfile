@@ -1,6 +1,8 @@
 # Uncomment the next line to define a global platform for your project
 platform :ios, '13.6'
 
+source 'https://github.com/CocoaPods/Specs.git'
+
 target 'treasure' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
@@ -12,4 +14,5 @@ target 'treasure' do
   pod 'GoogleSignIn'
   pod 'Shuffle-iOS'
   pod 'DropDown'
+  pod 'GooglePlaces', '4.2.0'
 end
