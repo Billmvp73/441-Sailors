@@ -199,7 +199,7 @@ class PostVC: UIViewController, UITextViewDelegate, ReturnDelegate, UITableViewD
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PuzzleCell", for: indexPath) as! PuzzleCell
         let puzzle = puzzles[indexPath.row]
-        cell.indexLabel?.text = "#"+String(indexPath.row)
+        cell.indexLabel?.text = "#"+String(indexPath.row + 1)
         cell.nameLabel?.text = puzzle.name
         cell.descriptionLabel?.text = puzzle.description
         cell.puzzletypeLabel?.text = self.names[indexPath.row]

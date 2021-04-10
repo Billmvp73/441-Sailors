@@ -18,7 +18,35 @@ protocol ARCameraDelegate: UIViewController {
 //    func onReturn(_ result: Puzzle)
 //}
 
-class ARCameraVC: UIViewController{
+class ARCameraVC: UIViewController, URLSessionDownloadDelegate{
+    func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
+
+        //1. Create The Filename
+//        let new_name = "\(self.list[self.cur_row]).usdz"
+//        let new_name = self.puzzleTarget?.type
+        let cache = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first
+        if let new_name = self.puzzleTarget?.type{
+            let fileURL = cache?.appendingPathComponent(new_name)
+
+            //2. Copy It To The Documents Directory
+            do {
+                try FileManager.default.copyItem(at: location, to: fileURL!)
+
+                print("Successfuly Saved File \(fileURL)")
+
+                //3. Load The Model
+    //            self.showAr(name: self.model_files_name[self.cur_row])
+                
+
+            } catch {
+
+                print("Error Saving: \(error)")
+            }
+        }
+    }
+    
+    private let serverMedia = "https://174.138.33.66/media/"
+    
     @IBOutlet weak var sceneView: SCNView!
     @IBOutlet weak var leftIndicator: UILabel!
     @IBOutlet weak var rightIndicator: UILabel!
@@ -52,10 +80,7 @@ class ARCameraVC: UIViewController{
       scene.rootNode.addChildNode(cameraNode)
       target = ARItem(itemDescription: "", location: CLLocation(latitude: 0, longitude: 0), itemNode: nil)
       // failed to handle word type puzzle
-      let isTarget = setupTarget()
-        if isTarget == false{
-        self.navigationController?.popViewController(animated: true)
-      }
+      setupTarget()
     }
     
     override func didReceiveMemoryWarning() {
@@ -163,58 +188,106 @@ class ARCameraVC: UIViewController{
         return degree + 360
       }
     }
-
-    func setupTarget() -> Bool?{
-//        let puzzle = puzzles?.popLast()
-        if let puzzle = self.puzzleTarget{
-            if let itemDescription = puzzle.type{
-    //            let scene = SCNScene(named: "art.scnassets/\(itemDescription).usdz")
-
-                let scene = SCNScene(named: "art.scnassets/\(itemDescription).usdz")
-                let lightNode = SCNNode()
-                lightNode.light = SCNLight()
-                lightNode.light?.type = .omni
-                lightNode.position = SCNVector3(x: 0, y: 10, z: 35)
-                scene?.rootNode.addChildNode(lightNode)
-                
-                // 6: Creating and adding ambien light to scene
-                let ambientLightNode = SCNNode()
-                ambientLightNode.light = SCNLight()
-                ambientLightNode.light?.type = .ambient
-                ambientLightNode.light?.color = UIColor.darkGray
-                scene?.rootNode.addChildNode(ambientLightNode)
+    
+    func showAr(name: URL, puzzle: Puzzle, itemDescription: String)-> Bool{
+        do {
+            let scene = try SCNScene(url: name, options: nil)
+            let lightNode = SCNNode()
+            lightNode.light = SCNLight()
+            lightNode.light?.type = .omni
+            lightNode.position = SCNVector3(x: 0, y: 10, z: 35)
+            scene.rootNode.addChildNode(lightNode)
+            
+            // 6: Creating and adding ambien light to scene
+            let ambientLightNode = SCNNode()
+            ambientLightNode.light = SCNLight()
+            ambientLightNode.light?.type = .ambient
+            ambientLightNode.light?.color = UIColor.darkGray
+            scene.rootNode.addChildNode(ambientLightNode)
     //            let enemy = scene?.rootNode.childNode(withName: "toy_car", recursively: true)
     //            if itemDescription == "car" {
     //              enemy?.position = SCNVector3(x: 0, y: -15, z: 0)
     //            } else {
     //              enemy?.position = SCNVector3(x: 0, y: 0, z: 0)
     //            }
-                let node = SCNNode()
-                let nodeArray = scene!.rootNode.childNodes
-                for childNode in nodeArray{
-                    node.addChildNode(childNode as SCNNode)
-                }
-                node.position = SCNVector3(x:0, y: 0, z:0)
+            let node = SCNNode()
+            let nodeArray = scene.rootNode.childNodes
+            for childNode in nodeArray{
+                node.addChildNode(childNode as SCNNode)
+            }
+            node.position = SCNVector3(x:0, y: 0, z:0)
     //            enemy.position = SCNVector3(x: 0, y: 0, z: 0)
     //            let node = SCNNode()
     //            node.addChildNode(enemy!)
-                node.name = "puzzle"
-                self.target.itemDescription = itemDescription
-                self.target.itemNode = node
-                if let geodata = puzzle.location{
-                    self.target.location = CLLocation(latitude: geodata.lat, longitude: geodata.lon)
+            node.name = "puzzle"
+            self.target.itemDescription = itemDescription
+            self.target.itemNode = node
+            if let geodata = puzzle.location{
+                self.target.location = CLLocation(latitude: geodata.lat, longitude: geodata.lon)
     //                self.target.location = CLLocation(latitude: 42.30099599327609, longitude: -83.71567403950316)
-                }
-                return true
-            } else {
-                return false
             }
+            return true
+        } catch{
+            print(error.localizedDescription)
+            return false
         }
-        return false
     }
     
-    func completePuzzle(){
-        
+    func setupTarget(){
+//        let puzzle = puzzles?.popLast()
+        if let puzzle = self.puzzleTarget{
+            if let itemDescription = puzzle.type{
+    //            let scene = SCNScene(named: "art.scnassets/\(itemDescription).usdz")
+                let cache = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first
+                
+                let filePath = cache?.appendingPathComponent(itemDescription)
+                let fileManager = FileManager.default
+                if fileManager.fileExists(atPath: filePath!.path) {
+                    print("FILE AVAILABLE")
+                    if self.showAr(name: filePath!, puzzle: puzzle, itemDescription: itemDescription) == false{
+                        self.navigationController?.popViewController(animated: true)
+                    }
+                } else {
+                    guard let url = URL(string: serverMedia + itemDescription) else {return}
+                    let downloadSession = URLSession(configuration: URLSession.shared.configuration, delegate: self, delegateQueue: nil)
+
+                    //3. Create The Download Task & Run It
+                    let downloadTask = downloadSession.downloadTask(with: url){
+                        // a completetion downloadTask will handle after completing download task
+                        url, response, error in
+                            guard
+        //                        let cache = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first,
+                                let url = url
+                            else {
+                                return
+                            }
+
+                            do {
+        //                        let file = cache.appendingPathComponent(self.model_files_name[ar_index])
+                                try FileManager.default.moveItem(atPath: url.path,
+                                                                 toPath: filePath!.path)
+                                DispatchQueue.main.async {
+        //                                self?.imageView.image = UIImage(contentsOfFile: file.path)
+                                    print("successfully download AR model \(itemDescription)")
+//                                    self.model_isdownloaded[ar_index] = true
+                                    if self.showAr(name: filePath!, puzzle: puzzle, itemDescription: itemDescription) == false{
+                                        self.navigationController?.popViewController(animated: true)
+                                    }
+                                    
+                                }
+                            }
+                            catch {
+                                print(error.localizedDescription)
+                            }
+                    }
+                    downloadTask.resume()
+                    return
+                }
+            } else {
+                self.navigationController?.popViewController(animated: true)
+            }
+        }
+        self.navigationController?.popViewController(animated: true)
     }
     
 //    @objc func updateCounting(){
