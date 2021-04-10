@@ -8,7 +8,7 @@
 import UIKit
 import GoogleMaps
 import GoogleSignIn
-import GooglePlaces
+
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -17,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        GMSPlacesClient.provideAPIKey("AIzaSyCZM0WcdiBDrfAm-6PTLwCCAy8-5R7z75M")
+        //  GMSPlacesClient.provideAPIKey("AIzaSyCZM0WcdiBDrfAm-6PTLwCCAy8-5R7z75M")
         
         GMSServices.provideAPIKey("AIzaSyAlo7v3ou3AMciyQPxhwMlrGhKtSOwtAzU")
         GIDSignIn.sharedInstance().clientID = "447127907008-jaolt3qpes97ubd24d3te0plvcufo01r.apps.googleusercontent.com"

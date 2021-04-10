@@ -17,7 +17,7 @@ protocol ReturnDelegate: UIViewController {
 }
 
 @available(iOS 14.0, *)
-class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate, c UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate, URLSessionDownloadDelegate{
+class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate,  UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate, URLSessionDownloadDelegate {
     
     private let serverMedia = "https://174.138.33.66/media/"
     //create puzzle list
@@ -548,7 +548,11 @@ class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate
     }
 
     func mapView(_ mapView: GMSMapView, didTapMarker marker: GMSMarker ) {
-
+        let storyBoard = UIStoryboard(name: "Main", bundle:nil)
+        if let streetViewController = storyBoard.instantiateViewController(withIdentifier: "StreetViewVC") as? StreetViewVC {
+            streetViewController.games = marker.position
+            self.navigationController!.pushViewController(streetViewController, animated: true)
+        }
     }
     
     

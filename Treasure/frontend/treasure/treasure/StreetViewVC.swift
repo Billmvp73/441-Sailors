@@ -12,6 +12,7 @@ import GoogleMaps
 class StreetViewVC: UIViewController, GMSMapViewDelegate {
 
     //@IBOutlet weak var panoramaView: GMSPanoramaView!
+    var coordinate: CLLocationCoordinate2D = nil
     
     @IBOutlet weak var panoramaView: GMSStreetView!
     
@@ -19,7 +20,7 @@ class StreetViewVC: UIViewController, GMSMapViewDelegate {
         super.viewDidLoad()
         
         panoramaView.delegate = self
-        panoramaView.moveNearCoordinate(CLLocationCoordinate2D(latitude: 12.3, longitude: 98.2))
+        panoramaView.moveNearCoordinate(coordinate)
     }
     
     override func viewDidAppear(_ animated: Bool) {
