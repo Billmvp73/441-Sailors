@@ -547,6 +547,11 @@ class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate
         }
     }
 
+    func mapView(_ mapView: GMSMapView, didTapMarker marker: GMSMarker ) {
+
+    }
+    
+    
     func mapView(_ mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
        guard let puzzle = marker.userData as? Puzzle else {
            return nil

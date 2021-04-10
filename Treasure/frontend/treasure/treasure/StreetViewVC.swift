@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import GoogleMaps
 
-class StreetViewVC: UIViewController {
+class StreetViewVC: UIViewController, GMSMapViewDelegate {
 
     //@IBOutlet weak var panoramaView: GMSPanoramaView!
     
