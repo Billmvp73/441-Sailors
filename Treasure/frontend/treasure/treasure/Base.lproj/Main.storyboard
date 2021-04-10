@@ -912,7 +912,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tOD-dU-nKa" customClass="GMSStreetView">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tOD-dU-nKa" customClass="GMSPanoramaView">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
@@ -927,7 +927,7 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="panoramaView" destination="tOD-dU-nKa" id="On8-4s-BMy"/>
+                        <outlet property="panoramaView" destination="tOD-dU-nKa" id="dtj-rR-CFq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yxK-Is-ncC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

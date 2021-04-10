@@ -9,7 +9,7 @@ import UIKit
 import GoogleMaps
 import SceneKit
 import RealityKit
-//import Alamofire
+import Alamofire
 import QuickLook
 
 protocol ReturnDelegate: UIViewController {
@@ -550,7 +550,7 @@ class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate
     func mapView(_ mapView: GMSMapView, didTapMarker marker: GMSMarker ) {
         let storyBoard = UIStoryboard(name: "Main", bundle:nil)
         if let streetViewController = storyBoard.instantiateViewController(withIdentifier: "StreetViewVC") as? StreetViewVC {
-            streetViewController.games = marker.position
+            streetViewController.coordinate = marker.position
             self.navigationController!.pushViewController(streetViewController, animated: true)
         }
     }

@@ -9,12 +9,14 @@ import Foundation
 import UIKit
 import GoogleMaps
 
-class StreetViewVC: UIViewController, GMSMapViewDelegate {
+class StreetViewVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate {
 
-    //@IBOutlet weak var panoramaView: GMSPanoramaView!
-    var coordinate: CLLocationCoordinate2D = nil
+    var coordinate: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
     
-    @IBOutlet weak var panoramaView: GMSStreetView!
+    @IBOutlet weak var panoramaView: GMSPanoramaView!
+    
+
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,7 +43,7 @@ class StreetViewVC: UIViewController, GMSMapViewDelegate {
 }
 
 
-extension ViewController: GMSPanoramaViewDelegate {
+extension StreetViewVC: GMSPanoramaViewDelegate {
     func panoramaView(_ view: GMSPanoramaView, error: Error, onMoveNearCoordinate coordinate: CLLocationCoordinate2D) {
         print(error.localizedDescription)
     }
