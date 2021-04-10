@@ -307,7 +307,6 @@
                         <outlet property="nameText" destination="BLn-kb-9zx" id="gfm-PX-HJB"/>
                         <outlet property="puzzletypeDropdown" destination="ieJ-nX-yJb" id="E7I-Dh-4rX"/>
                         <outlet property="puzzletypeText" destination="7He-ex-oE0" id="HEZ-1d-Ch1"/>
-                        <outlet property="sceneView" destination="Hxa-mE-9VB" id="eoi-Gm-Gxz"/>
                         <outlet property="wordContentText" destination="KRc-ww-ag6" id="0sm-Bw-ZxP"/>
                     </connections>
                 </viewController>
