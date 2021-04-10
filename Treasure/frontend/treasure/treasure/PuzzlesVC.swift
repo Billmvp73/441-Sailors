@@ -522,7 +522,14 @@ class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate
     
     var counterMarker: Int = 0
 
-
+    func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) {
+        let storyBoard = UIStoryboard(name: "Main", bundle:nil)
+        if let streetViewController = storyBoard.instantiateViewController(withIdentifier: "StreetViewVC") as? StreetViewVC {
+          streetViewController.coordinate = marker.position
+          self.navigationController!.pushViewController(streetViewController, animated: true)
+        }
+      }
+    
     func mapView(_ mapView: GMSMapView, didLongPressAt coordinate: CLLocationCoordinate2D) {
 
         if self.counterMarker < 1
