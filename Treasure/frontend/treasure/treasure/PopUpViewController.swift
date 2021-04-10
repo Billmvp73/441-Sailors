@@ -82,6 +82,10 @@ class PopUpViewController: UIViewController,UIDocumentPickerDelegate,UINavigatio
         }
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
     func showAr(name: URL) {
 //    func showAr() {
 //        let downloadedScenePath = getDocumentsDirectory().appendingPathComponent(name)

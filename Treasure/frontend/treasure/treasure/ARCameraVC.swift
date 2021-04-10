@@ -247,6 +247,7 @@ class ARCameraVC: UIViewController, URLSessionDownloadDelegate{
                     if self.showAr(name: filePath!, puzzle: puzzle, itemDescription: itemDescription) == false{
                         self.navigationController?.popViewController(animated: true)
                     }
+                    return
                 } else {
                     guard let url = URL(string: serverMedia + itemDescription) else {return}
                     let downloadSession = URLSession(configuration: URLSession.shared.configuration, delegate: self, delegateQueue: nil)

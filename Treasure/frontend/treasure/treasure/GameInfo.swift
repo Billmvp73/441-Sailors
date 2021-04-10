@@ -172,7 +172,7 @@ class GameInfo: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if self.isCompleted{
-            let alert = UIAlertController(title: "Congratulations", message: "You finished the game with a score of \(0)!", preferredStyle: .alert)
+            let alert = UIAlertController(title: "Congratulations", message: "You finished the game!", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
             self.present(alert, animated: true, completion: nil)
             self.continueButton.isHidden = true

@@ -11,6 +11,7 @@ import SceneKit
 import RealityKit
 //import Alamofire
 import QuickLook
+import Foundation
 
 protocol ReturnDelegate: UIViewController {
     func onReturn(_ result: Puzzle, _ name: String)
@@ -22,11 +23,7 @@ class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate
     
     
     private let serverMedia = "https://174.138.33.66/media/"
-    //create puzzle list
-//    var list = ["word", "toy_plane","toy_drummer","toy_robot_vintage"]
-//    var ar_url = ["","https://developer.apple.com/augmented-reality/quick-look/models/biplane/toy_biplane.usdz","https://developer.apple.com/augmented-reality/quick-look/models/drummertoy/toy_drummer.usdz","https://developer.apple.com/augmented-reality/quick-look/models/vintagerobot2k/toy_robot_vintage.usdz"]
-//    var model_files_name = ["","toy_biplane.usdz","toy_drummer.usdz","toy_robot_vintage.usdz"]
-//    var model_name = ["word", "plane", "drummer", "vintage robot"]
+
     
     var list = ["word"]
     var ar_url = [""]
@@ -64,57 +61,15 @@ class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate
     func onReturn(_ modelname: String, _ arurl: String, _ modelfile_name: String) {
         model_name.append(modelname)
         ar_url.append(arurl)
-        list.append(modelfile_name)
+        let fileNameArr = modelfile_name.components(separatedBy: ".")
+
+        let prefix = fileNameArr[0]
+        list.append(prefix)
         model_files_name.append(modelfile_name)
         model_isdownloaded.append(true)
 //        tableView.reloadData()
 //        refreshTimeline()
     }
-    
-    private func refreshTimeline() {
-//        DispatchQueue.main.async {
-//            
-//
-//        }
-//        DispatchQueue.main.async {
-//            self.refreshControl.endRefreshing()
-//        }
-//        self.tableView.estimatedRowHeight = 140
-//        self.tableView.rowHeight = UITableView.automaticDimension
-//        self.tableView.reloadData()
-        // stop the refreshing animation upon completion:
-//        self.refreshControl.endRefreshing()
-    }
-    
-//    @IBAction func submit_model_url(_ sender: Any) {
-//        let model_url: String = self.modelurlText.text!
-//        self.ar_url.append(model_url)
-//        let model_file_name = self.get_file_name(url_string: model_url)
-//        let model_name = model_file_name.components(separatedBy: ".")[0]
-//        self.list.append(model_name)
-//        self.model_files_name.append(model_file_name)
-//        self.modelurlText.text = ""
-//        if (modelnameText.text != nil) {
-//            self.model_name.append(modelnameText.text!)
-//        }
-//        else {
-//            self.model_name.append(model_name)
-//        }
-//        self.modelnameText.text = ""
-//        self.downloadSceneTask(url_string: model_url)
-//
-//
-//    }
-    
-//    @IBAction func showPopup(_ sender: Any) {
-//        let popOverVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "ArPopUpID") as! PopUpViewController
-////        self.addChildViewController(popOverVC)
-//        self.addChild(popOverVC)
-//        popOverVC.self.view.frame = self.view.frame
-//        self.view.addSubview(popOverVC.view)
-//        popOverVC.didMove(toParent: self)
-//
-//    }
     
     var prevPuzzles: [Puzzle]? = nil
     var puzzle: Puzzle? = nil
@@ -171,7 +126,7 @@ class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate
                         self.present(alert,animated: true, completion: nil )
                     } else{
                         let geoPuzzle = GeoData(lat: coordinate.latitude, lon: coordinate.longitude)
-                        puzzle = Puzzle(location: geoPuzzle, name: nameText.text, type: self.list[self.cur_row],description: descriptionText.text)
+                        puzzle = Puzzle(location: geoPuzzle, name: nameText.text, type: self.model_files_name[self.cur_row],description: descriptionText.text)
                         returnDelegate?.onReturn(puzzle!, self.model_name[self.cur_row])
                         dismiss(animated: true, completion: nil)
                     }
@@ -271,7 +226,6 @@ class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate
     func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
 
         //1. Create The Filename
-//        let new_name = "\(self.list[self.cur_row]).usdz"
         let new_name = "\(self.model_files_name[self.cur_row])"
         let fileURL = getDocumentsDirectory().appendingPathComponent(new_name)
 
@@ -462,12 +416,7 @@ class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate
 //            }
 //
 //        }
-        
-        
-//        let name = puzzletypeText.text! + ".usdz"
-        // 1: Load .obj file
-//        let scene = SCNScene(named: "toy plane.usdz")
-//        self.showAr(name: "plane.usdz")
+    
         self.puzzletypeDropdown.isHidden = true
         
         
