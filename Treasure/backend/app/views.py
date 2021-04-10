@@ -282,13 +282,13 @@ def adduser(request):
 
     # insert new token
     
-    cursor.execute('SELECT COUNT(*) FROM users WHERE uid = %s;', (uid,))
-    (number_of_rows,) = cursor.fetchone()
-    if number_of_rows == 0:
+    cursor.execute('SELECT username FROM users WHERE uid = %s;', (uid,))
+    row = cursor.fetchone()
+    if row is None:
         cursor.execute('INSERT INTO users (uid, token, username, expiration) VALUES '
                    '(%s, %s, %s, %s);', (uid, token, username, now+lifetime))
     else:
         cursor.execute('UPDATE users SET token = %s, expiration = %s WHERE uid = %s;', (token, now+lifetime, uid))
 
     # Return token and its lifetime
-    return JsonResponse({'token': token, 'lifetime': lifetime, 'username': username})
+    return JsonResponse({'token': token, 'lifetime': lifetime, 'username': row[0]})
