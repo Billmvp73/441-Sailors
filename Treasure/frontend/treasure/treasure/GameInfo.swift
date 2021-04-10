@@ -63,8 +63,16 @@ class GameInfo: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     override func viewDidLoad() {
         super.viewDidLoad()
         gameName.text = gamenameString
+        gameName.numberOfLines = 0
+        gameName.lineBreakMode = .byWordWrapping
         gameDescription.text = gamedescriptionString
+        gameDescription.numberOfLines = 0
+        gameDescription.lineBreakMode = .byWordWrapping
+        gameDescription.sizeToFit()
         gameTag.text = gameTagString
+        gameTag.numberOfLines = 0
+        gameTag.lineBreakMode = .byWordWrapping
+        gameTag.sizeToFit()
         titleBar.title = gamenameString
         let token = UserID.shared.token
         if token == nil{
