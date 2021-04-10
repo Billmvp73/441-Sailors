@@ -17,7 +17,9 @@ protocol ReturnDelegate: UIViewController {
 }
 
 @available(iOS 14.0, *)
-class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate, GMSMapViewDelegate, UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate, URLSessionDownloadDelegate{
+class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate, GMSMapViewDelegate, UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate, URLSessionDownloadDelegate, PopUpReturnDelegate{
+    
+    
     
     private let serverMedia = "https://174.138.33.66/media/"
     //create puzzle list
@@ -49,6 +51,41 @@ class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate
     @IBOutlet weak var wordContentText: UITextView!
     @IBOutlet weak var sceneView: SCNView!
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//       audioButton.setImage(audioIcon, for: .normal)
+       if segue.identifier == "ArPopUpID" {
+          let popupVC = segue.destination as? PopUpViewController
+   //        puzzlesVC?.geodata = self.geodata
+//           puzzlesVC?.prevPuzzles = self.puzzles
+          popupVC?.popUpReturnDelegate = self
+       }
+   }
+    
+    func onReturn(_ modelname: String, _ arurl: String, _ modelfile_name: String) {
+        model_name.append(modelname)
+        ar_url.append(arurl)
+        list.append(modelfile_name)
+        model_files_name.append(modelfile_name)
+        model_isdownloaded.append(true)
+//        tableView.reloadData()
+//        refreshTimeline()
+    }
+    
+    private func refreshTimeline() {
+//        DispatchQueue.main.async {
+//            
+//
+//        }
+//        DispatchQueue.main.async {
+//            self.refreshControl.endRefreshing()
+//        }
+//        self.tableView.estimatedRowHeight = 140
+//        self.tableView.rowHeight = UITableView.automaticDimension
+//        self.tableView.reloadData()
+        // stop the refreshing animation upon completion:
+//        self.refreshControl.endRefreshing()
+    }
+    
 //    @IBAction func submit_model_url(_ sender: Any) {
 //        let model_url: String = self.modelurlText.text!
 //        self.ar_url.append(model_url)
@@ -69,15 +106,15 @@ class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate
 //
 //    }
     
-    @IBAction func showPopup(_ sender: Any) {
-        let popOverVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "ArPopUpID") as! PopUpViewController
-//        self.addChildViewController(popOverVC)
-        self.addChild(popOverVC)
-        popOverVC.self.view.frame = self.view.frame
-        self.view.addSubview(popOverVC.view)
-        popOverVC.didMove(toParent: self)
-        
-    }
+//    @IBAction func showPopup(_ sender: Any) {
+//        let popOverVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "ArPopUpID") as! PopUpViewController
+////        self.addChildViewController(popOverVC)
+//        self.addChild(popOverVC)
+//        popOverVC.self.view.frame = self.view.frame
+//        self.view.addSubview(popOverVC.view)
+//        popOverVC.didMove(toParent: self)
+//
+//    }
     
     var prevPuzzles: [Puzzle]? = nil
     var puzzle: Puzzle? = nil
