@@ -43,10 +43,15 @@ class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var descriptionText: UITextView!
     @IBOutlet weak var nameText: UITextField!
-    @IBOutlet weak var puzzletypeText: UITextField!
+    @IBOutlet weak var puzzletypeText: UILabel!
     @IBOutlet weak var puzzletypeDropdown: UIPickerView!
     @IBOutlet weak var wordContentText: UITextView!
     @IBOutlet weak var sceneView: SCNView!
+    @IBAction func pick(_ sender: Any) {
+        self.puzzletypeDropdown.isHidden = false
+        self.view.bringSubviewToFront(self.puzzletypeDropdown)
+        self.wordContentText.alpha = 0
+    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 //       audioButton.setImage(audioIcon, for: .normal)
@@ -279,7 +284,7 @@ class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate
         pickerView.selectRow(0, inComponent: 0, animated: true)
         pickerView.reloadAllComponents();
 //        self.puzzletypeText.text = self.list[row]
-        self.puzzletypeText.text = self.model_name[row]
+        self.puzzletypeText.text = "  " + self.model_name[row]
         self.puzzletypeDropdown.isHidden = true
         self.cur_row = row
         if self.model_name[row] != "word"{
@@ -294,7 +299,9 @@ class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate
         
 //        self.showAr(name: self.model_files_name[row])
     }
+    
 
+    
     func textFieldDidBeginEditing(_ textField: UITextField) {
 
         if textField == self.puzzletypeText {
@@ -426,6 +433,10 @@ class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate
         descriptionText.textColor = UIColor.lightGray
         descriptionText.layer.borderWidth = 0.5
         descriptionText.layer.borderColor = UIColor.lightGray.cgColor
+        puzzletypeText.layer.borderWidth = 0.5
+        puzzletypeText.layer.borderColor = UIColor.lightGray.cgColor
+        puzzletypeText.clipsToBounds = true
+        puzzletypeText.layer.cornerRadius = 6.0
         descriptionText.clipsToBounds = true
         descriptionText.layer.cornerRadius = 6.0
         descriptionText.text = "description"
