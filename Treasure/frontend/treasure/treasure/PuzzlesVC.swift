@@ -75,7 +75,7 @@ class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate
 //        tableView.reloadData()
 //        refreshTimeline()
     }
-    
+
     var prevPuzzles: [Puzzle]? = nil
     var puzzle: Puzzle? = nil
     var markerPress: [GMSMarker]? = nil
@@ -522,9 +522,19 @@ class PuzzlesVC: UIViewController, UITextViewDelegate, CLLocationManagerDelegate
     
     var counterMarker: Int = 0
 
-
     func mapView(_ mapView: GMSMapView, didLongPressAt coordinate: CLLocationCoordinate2D) {
-
+        let storyBoard = UIStoryboard(name: "Main", bundle:nil)
+        print("Marker tapped------")
+        if let streetViewController = storyBoard.instantiateViewController(withIdentifier: "StreetViewVC") as? StreetViewVC {
+            print("Marker jump-----")
+          streetViewController.coordinate = coordinate
+          self.navigationController!.pushViewController(streetViewController, animated: true)
+        }
+        
+      }
+    
+    func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
+        print("Marker added------")
         if self.counterMarker < 1
             {
                 self.counterMarker += 1

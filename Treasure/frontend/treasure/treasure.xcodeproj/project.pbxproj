@@ -30,6 +30,7 @@
 		81C51AB625FC72CF00ACF933 /* GameTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C51AB525FC72CF00ACF933 /* GameTableCell.swift */; };
 		81C51ABC25FC8CE000ACF933 /* MapsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C51ABB25FC8CE000ACF933 /* MapsVC.swift */; };
 		81CD8B4D260924B1006A1632 /* PuzzleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81CD8B4C260924B1006A1632 /* PuzzleCell.swift */; };
+		A59901322621717C00739533 /* StreetViewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A59901312621717C00739533 /* StreetViewVC.swift */; };
 		AD509801260F63AB000E6602 /* GameInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD509800260F63AB000E6602 /* GameInfo.swift */; };
 /* End PBXBuildFile section */
 
@@ -61,6 +62,7 @@
 		81C51AB525FC72CF00ACF933 /* GameTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameTableCell.swift; sourceTree = "<group>"; };
 		81C51ABB25FC8CE000ACF933 /* MapsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapsVC.swift; sourceTree = "<group>"; };
 		81CD8B4C260924B1006A1632 /* PuzzleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PuzzleCell.swift; sourceTree = "<group>"; };
+		A59901312621717C00739533 /* StreetViewVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreetViewVC.swift; sourceTree = "<group>"; };
 		AD509800260F63AB000E6602 /* GameInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameInfo.swift; sourceTree = "<group>"; };
 		ADD189042620C41100E31DE9 /* iOSDropDown.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = iOSDropDown.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CBA52ACCE0E73D54DE78AA27 /* Pods-treasure.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-treasure.debug.xcconfig"; path = "Target Support Files/Pods-treasure/Pods-treasure.debug.xcconfig"; sourceTree = "<group>"; };
@@ -124,6 +126,7 @@
 				2F92ADD12607D4F100A0514B /* UserID.swift */,
 				AD509800260F63AB000E6602 /* GameInfo.swift */,
 				81911B9E260FC379008CBEDD /* ARCameraVC.swift */,
+				A59901312621717C00739533 /* StreetViewVC.swift */,
 			);
 			path = treasure;
 			sourceTree = "<group>";
@@ -298,6 +301,7 @@
 				2F92ADD22607D4F100A0514B /* UserID.swift in Sources */,
 				81C51AA325FC650B00ACF933 /* Game.swift in Sources */,
 				2F92ADD62607D56C00A0514B /* SigninVC.swift in Sources */,
+				A59901322621717C00739533 /* StreetViewVC.swift in Sources */,
 				81C51AB325FC6F8F00ACF933 /* MainVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
