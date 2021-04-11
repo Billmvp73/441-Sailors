@@ -16,11 +16,16 @@ ALTER TABLE chatts ADD COLUMN audio TEXT;
 ALTER TABLE chatts DROP COLUMN voice;
 
 games:
-username|gamename|description|tag|location|gid|time|puzzles
+username|gamename|description|tag|location|time|puzzles｜city|gid
 
 users:
 uid|token|username|expiration
 
+ar:
+uid|name|time|hash|type
+
+progress:
+uid|gid|time|pid|status
 
 
 ~/441-Sailors/Treasure/backend/app
