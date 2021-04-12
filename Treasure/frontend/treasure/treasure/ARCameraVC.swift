@@ -319,10 +319,11 @@ class ARCameraVC: UIViewController, URLSessionDownloadDelegate{
           [SCNAction.move(to: target.itemNode!.position, duration: 0.5),
            SCNAction.wait(duration: 3.5),
             SCNAction.run({_ in
-                DispatchQueue.main.async {
+                //DispatchQueue.main.async {
                     self.sceneView.scene?.rootNode.enumerateChildNodes { (node, _ ) in
                     node.removeFromParentNode()
                       }
+                DispatchQueue.main.async {
                     let alert = UIAlertController(title: "Congratulations!", message: nil, preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "OK", style: .default, handler: {_ in
                         DispatchQueue.main.async {
@@ -333,6 +334,8 @@ class ARCameraVC: UIViewController, URLSessionDownloadDelegate{
                     }))
                     self.present(alert, animated: true, completion: nil)
                 }
+                    
+                //}
             })])
         emitterNode.runAction(sequence)
       } else {
