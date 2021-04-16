@@ -246,8 +246,8 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="Model Tyle:" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="umD-Cn-8xo">
-                                <rect key="frame" x="18" y="321" width="102" height="36.5"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="Model Type:" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="umD-Cn-8xo">
+                                <rect key="frame" x="18" y="321" width="110" height="37"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <color key="textColor" systemColor="labelColor"/>
@@ -326,7 +326,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XLg-OZ-fcy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4350.7246376811599" y="73.369565217391312"/>
+            <point key="canvasLocation" x="4350.7246376811599" y="72.991071428571431"/>
         </scene>
         <!--PopUpViewController-->
         <scene sceneID="9QC-8X-Op7">
