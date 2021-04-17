@@ -351,13 +351,14 @@ class MapsVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate, A
     // click marker to popu up camera background
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) ->Bool {
         if let coordinate = marker.userData as? CLLocation{
-            let userLocation = CLLocation(latitude: self.geodata.lat, longitude: self.geodata.lon)
-            if userLocation.distance(from: coordinate) < 50 {
+//            let userLocation = CLLocation(latitude: self.geodata.lat, longitude: self.geodata.lon)
+            let userLocation = mMap.myLocation
+            if userLocation!.distance(from: coordinate) < 50 {
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
                 if let arcameraVC = storyboard.instantiateViewController(identifier: "ARCameraVC") as? ARCameraVC{
         //            arcameraVC.delegate = self
                     arcameraVC.puzzleTarget = self.puzzles![0]
-                    arcameraVC.userLocation = userLocation
+                    arcameraVC.userLocation = userLocation!
                     arcameraVC.arCameraDelegate = self
                     selectedMarker = marker
                     self.navigationController?.pushViewController(arcameraVC, animated: true)
