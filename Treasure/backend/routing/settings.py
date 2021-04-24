@@ -20,12 +20,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '#g$4whvhz-nquu9%9bpmym!rwxc0la51y)v&dsp!2le)-l3+*_'
+SECRET_KEY = 'Your secret key'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['174.138.33.66', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['Your IP address', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -124,6 +124,6 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'static'
 
-MEDIA_URL = 'https://174.138.33.66/media/'
+MEDIA_URL = 'https://Your server IP/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 DATA_UPLOAD_MAX_MEMORY_SIZE = 104857600
